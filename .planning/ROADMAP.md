@@ -47,9 +47,10 @@ Plans:
   3. A visitor can filter portfolio photos by category (modeling, travel, beauty)
   4. A visitor can view an About page with Funnghy's bio, photo, and contact info
   5. Funnghy can upload, edit, and delete portfolio photos with title, description, and category; boyfriend can upload photos and content for her portfolio
-**Plans:** 3 plans
+**Plans:** 4 plans
 
 Plans:
+- [ ] 02-00-PLAN.md — Wave 0 test stubs for all portfolio requirements (vitest)
 - [ ] 02-01-PLAN.md — DB schema (categories, portfolioItems, aboutContent), Server Actions for CRUD, seed script
 - [ ] 02-02-PLAN.md — Public gallery (masonry grid, category filter, infinite scroll, lightbox) and about page
 - [ ] 02-03-PLAN.md — Admin content management (portfolio CRUD UI, category management, about editor)
@@ -106,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/3 | In Progress|  |
-| 2. Public Portfolio | 0/3 | Not started | - |
+| 2. Public Portfolio | 0/4 | Not started | - |
 | 3. Beauty Tracker | 0/2 | Not started | - |
 | 4. Photo Journal | 0/2 | Not started | - |
 | 5. Polish | 0/1 | Not started | - |
