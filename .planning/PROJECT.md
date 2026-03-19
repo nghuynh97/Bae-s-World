@@ -1,12 +1,12 @@
-# GlowTrack
+# Funnghy's World
 
 ## What This Is
 
-A personal beauty product inventory web app built as a gift for a girlfriend. It helps her track everything she owns across skincare, makeup, and haircare — so she stops buying duplicates, knows when things expire, and can build daily routines from her collection. Works great on mobile browsers for checking inventory while shopping.
+A beautiful, personal webapp built as a gift for Funnghy — a freelance model who loves beauty, travel, and photography. It combines a public portfolio showcasing her modeling, travel, and beauty work with private daily tools: a beauty/skincare product tracker and a photo journal. Designed with a soft, feminine aesthetic (pastels, rose gold, elegant typography) that feels like it was made just for her.
 
 ## Core Value
 
-She can instantly check whether she already owns a product before buying it — no more duplicates.
+Funnghy has a single, beautiful space that showcases her work to the world and helps her track her daily beauty and memories — all in one place that feels personally hers.
 
 ## Requirements
 
@@ -16,45 +16,53 @@ She can instantly check whether she already owns a product before buying it — 
 
 ### Active
 
-- [ ] Scan product barcodes to add items quickly
-- [ ] Browse and search her full product inventory
-- [ ] Categorize products (skincare, makeup, haircare)
-- [ ] Track expiration dates with reminders
-- [ ] Maintain a wishlist of products to buy
-- [ ] Build morning/evening routines from owned products
-- [ ] Mobile-friendly web interface for use while shopping
+- [ ] Public portfolio with mixed feed (modeling, travel, beauty looks)
+- [ ] Photo gallery with album/category organization
+- [ ] Individual photo pages with full-size view
+- [ ] Private beauty/skincare product tracker (add products, rate, organize by category)
+- [ ] Beauty routine builder (morning/evening routines with product steps)
+- [ ] Private photo journal with daily entries (photo + notes)
+- [ ] User authentication (Funnghy as primary, boyfriend as secondary)
+- [ ] Boyfriend can upload photos and content for her
+- [ ] Public portfolio visible to anyone, private sections require login
+- [ ] Soft feminine design system — pastel tones, rose gold accents, cream backgrounds, elegant typography
+- [ ] Responsive design — looks great on both mobile and desktop
+- [ ] Image upload and management
 
 ### Out of Scope
 
-- Multi-user / accounts — this is a personal single-user tool
-- Native mobile app — web app with good mobile UX is sufficient
-- Social features / sharing — personal use only
-- Product reviews or ratings — this is inventory management, not a review site
-- Purchase history / price tracking — focus is on what she has, not what she spent
+- Real-time chat or messaging — not a communication tool
+- E-commerce or product purchase links — this is personal, not a storefront
+- Social features (likes, comments from public visitors) — portfolio is view-only for public
+- Video hosting — photos only for v1, keeps it focused and lightweight
+- Blog/writing features — photo journal covers the personal expression need
+- Integration with social media platforms — standalone personal space
 
 ## Context
 
-- Built as a personal gift, so polish and delight matter
-- Primary use case is checking inventory while standing in a store aisle
-- Barcode scanning requires camera access via the browser (Web API)
-- Product data from barcodes may come from a free product database API
-- Single user means no auth, no database accounts — can use local storage or a simple backend
-- Beauty products have expiration dates (PAO — Period After Opening) that matter for safety
+- Funnghy is a freelance model who photographs at beaches and travel destinations
+- She uses and collects beauty/skincare products as part of her profession
+- The app is a personal gift — quality and aesthetic matter more than scale
+- Two users total: Funnghy (full access) and her boyfriend (upload/contribute access)
+- The beauty tracker should feel like a personal collection, not a database
+- The photo journal is a private visual diary — intimate and personal
+- The portfolio should feel editorial and curated, not like a social media feed
 
 ## Constraints
 
-- **Platform**: Web app, must work well on mobile browsers (responsive/mobile-first)
-- **Users**: Single user, no authentication required
-- **Barcode scanning**: Must work via mobile browser camera (no native app)
-- **Cost**: Free or minimal hosting costs (personal project)
+- **Users**: Two users only (Funnghy + boyfriend) — no public registration
+- **Aesthetic**: Must feel soft, feminine, and premium — pastels, rose gold, cream, elegant fonts
+- **Privacy**: Clear separation between public portfolio and private tools
+- **Performance**: Fast image loading — photos are the core content
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Web app over native mobile | Simpler to build, still accessible on phone via browser | — Pending |
-| Single user, no auth | Built specifically for one person, removes complexity | — Pending |
-| Barcode scanning for product entry | Fastest way to add products while shopping | — Pending |
+| Mixed portfolio feed (not separated by category) | She does modeling, travel, and beauty — all part of her identity | — Pending |
+| Soft feminine design system | Matches her aesthetic and makes it feel like a personal gift | — Pending |
+| Two-user system (no public registration) | This is a gift, not a platform | — Pending |
+| Public portfolio + private tools | Best of both worlds — showcase and personal utility | — Pending |
 
 ---
 *Last updated: 2026-03-19 after initialization*
