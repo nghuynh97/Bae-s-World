@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-19T10:53:07Z"
-last_activity: 2026-03-19 -- Completed 02-01 Portfolio Data Layer
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-19T11:00:45.210Z"
+last_activity: 2026-03-19 -- Completed 02-02 Gallery & About Pages
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 7
-  completed_plans: 5
-  percent: 57
+  completed_plans: 6
+  percent: 71
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 2 of 5 (Public Portfolio)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: Executing
-Last activity: 2026-03-19 -- Completed 02-01 Portfolio Data Layer
+Last activity: 2026-03-19 -- Completed 02-02 Gallery & About Pages
 
-Progress: [██████░░░░] 57%
+Progress: [███████░░░] 71%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [██████░░░░] 57%
 - Trend: accelerating
 
 *Updated after each plan completion*
+| Phase 02 P02 | 3min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,8 @@ Recent decisions affecting current work:
 - [02-01]: Filter-then-fetch pattern for image variants instead of complex joins (readability)
 - [02-01]: Upsert pattern for aboutContent (always single-row table)
 - [02-01]: Both users can CRUD portfolio items (no role restriction) satisfying AUTH-06
+- [Phase 02]: Used base-ui DialogPrimitive directly for lightbox (not shadcn wrapper) for full-screen custom layout
+- [Phase 02]: Round-robin masonry column distribution preserves L-to-R reading order
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:53:07Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-19T11:00:21.990Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None

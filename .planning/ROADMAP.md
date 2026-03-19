@@ -13,7 +13,7 @@ Funnghy's World delivers a personal gift webapp in five phases: first establishi
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding
-- [ ] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management
+- [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (completed 2026-03-19)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
 - [ ] **Phase 4: Photo Journal** - Daily entries, chronological and calendar browse, tagging
 - [ ] **Phase 5: Polish** - Micro-animations, transitions, and cross-cutting refinements
@@ -47,7 +47,7 @@ Plans:
   3. A visitor can filter portfolio photos by category (modeling, travel, beauty)
   4. A visitor can view an About page with Funnghy's bio, photo, and contact info
   5. Funnghy can upload, edit, and delete portfolio photos with title, description, and category; boyfriend can upload photos and content for her portfolio
-**Plans:** 1/4 plans executed
+**Plans:** 4/4 plans complete
 
 Plans:
 - [ ] 02-00-PLAN.md — Wave 0 test stubs for all portfolio requirements (vitest)
@@ -107,7 +107,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/3 | In Progress|  |
-| 2. Public Portfolio | 1/4 | In Progress|  |
+| 2. Public Portfolio | 4/4 | Complete   | 2026-03-19 |
 | 3. Beauty Tracker | 0/2 | Not started | - |
 | 4. Photo Journal | 0/2 | Not started | - |
 | 5. Polish | 0/1 | Not started | - |
