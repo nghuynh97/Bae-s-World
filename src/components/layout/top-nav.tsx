@@ -27,6 +27,7 @@ export function TopNav({
     { href: "/beauty", label: "Beauty" },
     { href: "/journal", label: "Journal" },
     { href: "/about", label: "About" },
+    { href: "/admin/portfolio", label: "Admin" },
   ];
 
   const links = isAuthenticated ? authLinks : publicLinks;

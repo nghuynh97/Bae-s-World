@@ -9,6 +9,7 @@ import {
   Sparkles,
   BookOpen,
   User,
+  Settings,
 } from "lucide-react";
 
 interface BottomTabBarProps {
@@ -34,6 +35,7 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
     { href: "/", label: "Portfolio", icon: Image },
     { href: "/beauty", label: "Beauty", icon: Sparkles },
     { href: "/journal", label: "Journal", icon: BookOpen },
+    { href: "/admin/portfolio", label: "Admin", icon: Settings },
     { href: "/dashboard", label: "Profile", icon: User },
   ];
 
