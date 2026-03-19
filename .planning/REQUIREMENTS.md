@@ -37,11 +37,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication & Users
 
-- [ ] **AUTH-01**: Funnghy can log in with email and password
-- [ ] **AUTH-02**: Boyfriend can log in with email and password (separate account)
-- [ ] **AUTH-03**: User sessions persist across browser refresh
-- [ ] **AUTH-04**: Public portfolio pages are accessible without login
-- [ ] **AUTH-05**: Private sections (beauty tracker, photo journal) require login
+- [x] **AUTH-01**: Funnghy can log in with email and password
+- [x] **AUTH-02**: Boyfriend can log in with email and password (separate account)
+- [x] **AUTH-03**: User sessions persist across browser refresh
+- [x] **AUTH-04**: Public portfolio pages are accessible without login
+- [x] **AUTH-05**: Private sections (beauty tracker, photo journal) require login
 - [ ] **AUTH-06**: Boyfriend can upload photos and content for Funnghy's portfolio
 
 ### Design & UX
@@ -104,11 +104,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
 | DESG-01 | Phase 1 | Complete |
 | DESG-02 | Phase 1 | Complete |
 | DESG-03 | Phase 1 | Complete |
