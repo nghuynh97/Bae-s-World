@@ -1,0 +1,111 @@
+# Roadmap: Funnghy's World
+
+## Overview
+
+Funnghy's World delivers a personal gift webapp in five phases: first establishing the design system, authentication, and image infrastructure that every feature depends on; then building the public portfolio (the gift's face); then the two private tools (beauty tracker and photo journal); and finally applying cross-cutting polish. Each phase delivers a complete, verifiable capability.
+
+## Phases
+
+**Phase Numbering:**
+- Integer phases (1, 2, 3): Planned milestone work
+- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+
+Decimal phases appear between their surrounding integers in numeric order.
+
+- [ ] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding
+- [ ] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management
+- [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
+- [ ] **Phase 4: Photo Journal** - Daily entries, chronological and calendar browse, tagging
+- [ ] **Phase 5: Polish** - Micro-animations, transitions, and cross-cutting refinements
+
+## Phase Details
+
+### Phase 1: Foundation
+**Goal**: Funnghy and her boyfriend can log in to a beautifully styled app with working image uploads, where public pages are open and private sections are locked down
+**Depends on**: Nothing (first phase)
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, DESG-01, DESG-02, DESG-03, IMG-01, IMG-02, IMG-03, IMG-04
+**Success Criteria** (what must be TRUE):
+  1. Funnghy can log in with email/password and her session persists across browser refresh
+  2. Boyfriend can log in with a separate account and his session persists across browser refresh
+  3. Public routes (portfolio placeholder) are accessible without login; private routes redirect to login
+  4. The app displays with the soft feminine design system (pastel tones, rose gold accents, cream backgrounds, elegant typography) on both mobile and desktop
+  5. A user can upload an image via drag-and-drop or file picker, and it is automatically optimized with multiple size variants generated; private images are inaccessible without authentication
+**Plans**: TBD
+
+Plans:
+- [ ] 01-01: TBD
+- [ ] 01-02: TBD
+- [ ] 01-03: TBD
+
+### Phase 2: Public Portfolio
+**Goal**: Anyone on the internet can browse Funnghy's portfolio in a beautiful masonry gallery, view photos full-size, filter by category, and read her about page -- and Funnghy or her boyfriend can manage the content
+**Depends on**: Phase 1
+**Requirements**: PORT-01, PORT-02, PORT-03, PORT-04, PORT-05, PORT-06, AUTH-06
+**Success Criteria** (what must be TRUE):
+  1. A public visitor can view a masonry grid gallery of portfolio photos without logging in
+  2. A visitor can click any photo to open a full-size lightbox with navigation between photos
+  3. A visitor can filter portfolio photos by category (modeling, travel, beauty)
+  4. A visitor can view an About page with Funnghy's bio, photo, and contact info
+  5. Funnghy can upload, edit, and delete portfolio photos with title, description, and category; boyfriend can upload photos and content for her portfolio
+**Plans**: TBD
+
+Plans:
+- [ ] 02-01: TBD
+- [ ] 02-02: TBD
+
+### Phase 3: Beauty Tracker
+**Goal**: Funnghy can manage her beauty product collection and build daily routines in a private, visually rich section that feels like a personal shelf
+**Depends on**: Phase 1
+**Requirements**: BEAU-01, BEAU-02, BEAU-03, BEAU-04, BEAU-05, BEAU-06, BEAU-07
+**Success Criteria** (what must be TRUE):
+  1. Funnghy can add a beauty product with name, brand, category, rating, photo, and notes -- and later edit or delete it
+  2. Funnghy can browse her products organized by category (skincare, makeup, haircare, etc.) in a visual shelf/collection view, with favorites highlighted
+  3. Funnghy can create morning and evening routines with ordered product steps, and reorder steps via drag-and-drop
+  4. The beauty tracker is only accessible when logged in; unauthenticated visitors cannot access it or its images
+**Plans**: TBD
+
+Plans:
+- [ ] 03-01: TBD
+- [ ] 03-02: TBD
+
+### Phase 4: Photo Journal
+**Goal**: Funnghy can keep a private visual diary with daily photo entries she can browse by date and tag with moods
+**Depends on**: Phase 1
+**Requirements**: JOUR-01, JOUR-02, JOUR-03, JOUR-04, JOUR-05, JOUR-06
+**Success Criteria** (what must be TRUE):
+  1. Funnghy can create a journal entry with a photo and text notes, and later edit or delete it
+  2. Funnghy can browse journal entries chronologically (newest first) in a timeline view
+  3. Funnghy can navigate journal entries via a calendar view by date
+  4. Funnghy can tag journal entries with mood or custom tags
+  5. The photo journal is only accessible when logged in; unauthenticated visitors cannot access it or its images
+**Plans**: TBD
+
+Plans:
+- [ ] 04-01: TBD
+- [ ] 04-02: TBD
+
+### Phase 5: Polish
+**Goal**: The entire app feels premium and cohesive with subtle animations and transitions that enhance the experience without slowing it down
+**Depends on**: Phase 2, Phase 3, Phase 4
+**Requirements**: DESG-04
+**Success Criteria** (what must be TRUE):
+  1. Pages have smooth transitions when navigating between sections
+  2. Interactive elements (buttons, cards, images) have subtle hover and tap animations
+  3. Loading states use graceful skeleton or shimmer animations instead of raw spinners
+**Plans**: TBD
+
+Plans:
+- [ ] 05-01: TBD
+
+## Progress
+
+**Execution Order:**
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
+
+| Phase | Plans Complete | Status | Completed |
+|-------|----------------|--------|-----------|
+| 1. Foundation | 0/3 | Not started | - |
+| 2. Public Portfolio | 0/2 | Not started | - |
+| 3. Beauty Tracker | 0/2 | Not started | - |
+| 4. Photo Journal | 0/2 | Not started | - |
+| 5. Polish | 0/1 | Not started | - |

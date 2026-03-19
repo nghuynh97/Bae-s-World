@@ -104,45 +104,45 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PORT-01 | — | Pending |
-| PORT-02 | — | Pending |
-| PORT-03 | — | Pending |
-| PORT-04 | — | Pending |
-| PORT-05 | — | Pending |
-| PORT-06 | — | Pending |
-| BEAU-01 | — | Pending |
-| BEAU-02 | — | Pending |
-| BEAU-03 | — | Pending |
-| BEAU-04 | — | Pending |
-| BEAU-05 | — | Pending |
-| BEAU-06 | — | Pending |
-| BEAU-07 | — | Pending |
-| JOUR-01 | — | Pending |
-| JOUR-02 | — | Pending |
-| JOUR-03 | — | Pending |
-| JOUR-04 | — | Pending |
-| JOUR-05 | — | Pending |
-| JOUR-06 | — | Pending |
-| AUTH-01 | — | Pending |
-| AUTH-02 | — | Pending |
-| AUTH-03 | — | Pending |
-| AUTH-04 | — | Pending |
-| AUTH-05 | — | Pending |
-| AUTH-06 | — | Pending |
-| DESG-01 | — | Pending |
-| DESG-02 | — | Pending |
-| DESG-03 | — | Pending |
-| DESG-04 | — | Pending |
-| IMG-01 | — | Pending |
-| IMG-02 | — | Pending |
-| IMG-03 | — | Pending |
-| IMG-04 | — | Pending |
+| AUTH-01 | Phase 1 | Pending |
+| AUTH-02 | Phase 1 | Pending |
+| AUTH-03 | Phase 1 | Pending |
+| AUTH-04 | Phase 1 | Pending |
+| AUTH-05 | Phase 1 | Pending |
+| DESG-01 | Phase 1 | Pending |
+| DESG-02 | Phase 1 | Pending |
+| DESG-03 | Phase 1 | Pending |
+| IMG-01 | Phase 1 | Pending |
+| IMG-02 | Phase 1 | Pending |
+| IMG-03 | Phase 1 | Pending |
+| IMG-04 | Phase 1 | Pending |
+| PORT-01 | Phase 2 | Pending |
+| PORT-02 | Phase 2 | Pending |
+| PORT-03 | Phase 2 | Pending |
+| PORT-04 | Phase 2 | Pending |
+| PORT-05 | Phase 2 | Pending |
+| PORT-06 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Pending |
+| BEAU-01 | Phase 3 | Pending |
+| BEAU-02 | Phase 3 | Pending |
+| BEAU-03 | Phase 3 | Pending |
+| BEAU-04 | Phase 3 | Pending |
+| BEAU-05 | Phase 3 | Pending |
+| BEAU-06 | Phase 3 | Pending |
+| BEAU-07 | Phase 3 | Pending |
+| JOUR-01 | Phase 4 | Pending |
+| JOUR-02 | Phase 4 | Pending |
+| JOUR-03 | Phase 4 | Pending |
+| JOUR-04 | Phase 4 | Pending |
+| JOUR-05 | Phase 4 | Pending |
+| JOUR-06 | Phase 4 | Pending |
+| DESG-04 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 33 total
-- Mapped to phases: 0
-- Unmapped: 33 ⚠️
+- Mapped to phases: 33
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-19*
-*Last updated: 2026-03-19 after initial definition*
+*Last updated: 2026-03-19 after roadmap creation*
