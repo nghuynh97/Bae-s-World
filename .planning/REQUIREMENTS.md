@@ -9,11 +9,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Portfolio
 
-- [ ] **PORT-01**: User can view a masonry grid gallery of all portfolio photos
-- [ ] **PORT-02**: User can click a photo to view it full-size in a lightbox with navigation
-- [ ] **PORT-03**: User can filter portfolio photos by category (modeling, travel, beauty)
-- [ ] **PORT-04**: Public visitors can view an About page with Funnghy's bio, photo, and contact info
-- [ ] **PORT-05**: Funnghy can upload, edit, and delete portfolio photos with title, description, and category
+- [x] **PORT-01**: User can view a masonry grid gallery of all portfolio photos
+- [x] **PORT-02**: User can click a photo to view it full-size in a lightbox with navigation
+- [x] **PORT-03**: User can filter portfolio photos by category (modeling, travel, beauty)
+- [x] **PORT-04**: Public visitors can view an About page with Funnghy's bio, photo, and contact info
+- [x] **PORT-05**: Funnghy can upload, edit, and delete portfolio photos with title, description, and category
 - [ ] **PORT-06**: Portfolio pages are publicly accessible without login
 
 ### Beauty Tracker
@@ -42,7 +42,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **AUTH-03**: User sessions persist across browser refresh
 - [x] **AUTH-04**: Public portfolio pages are accessible without login
 - [x] **AUTH-05**: Private sections (beauty tracker, photo journal) require login
-- [ ] **AUTH-06**: Boyfriend can upload photos and content for Funnghy's portfolio
+- [x] **AUTH-06**: Boyfriend can upload photos and content for Funnghy's portfolio
 
 ### Design & UX
 
@@ -116,13 +116,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | IMG-02 | Phase 1 | Pending |
 | IMG-03 | Phase 1 | Pending |
 | IMG-04 | Phase 1 | Pending |
-| PORT-01 | Phase 2 | Pending |
-| PORT-02 | Phase 2 | Pending |
-| PORT-03 | Phase 2 | Pending |
-| PORT-04 | Phase 2 | Pending |
-| PORT-05 | Phase 2 | Pending |
+| PORT-01 | Phase 2 | Complete |
+| PORT-02 | Phase 2 | Complete |
+| PORT-03 | Phase 2 | Complete |
+| PORT-04 | Phase 2 | Complete |
+| PORT-05 | Phase 2 | Complete |
 | PORT-06 | Phase 2 | Pending |
-| AUTH-06 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Complete |
 | BEAU-01 | Phase 3 | Pending |
 | BEAU-02 | Phase 3 | Pending |
 | BEAU-03 | Phase 3 | Pending |
