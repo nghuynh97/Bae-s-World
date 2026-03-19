@@ -54,7 +54,7 @@ Exceptions: Gallery card hover overlay padding uses 16px (md) on all sides. Ligh
 
 Weight constraint: Only 400 (normal) and 700 (bold) are used. No medium (500) or semibold (600) in this phase.
 
-Additional: Category filter pills use 14px (text-sm) at weight 400. Gallery hover overlay title uses 14px at weight 600 (semibold) -- this is the one exception to the 2-weight rule, matching the existing `font-bold` pattern on interactive labels.
+Additional: Category filter pills use 14px (text-sm) at weight 400. Gallery hover overlay title uses 14px at weight 700 (bold) to distinguish it from the category label beneath it.
 
 ---
 
@@ -85,6 +85,12 @@ Additional colors used:
 - Hover background: #F0ECF5 (--color-bg-hover) -- admin list row hover, inactive pill hover
 - Lightbox backdrop: bg-black/40 with backdrop-blur-md (NOT hard black)
 - Gallery hover overlay: bg-black/30 (subtle dark overlay on photo hover)
+
+---
+
+## Visual Hierarchy
+
+Primary visual anchor: masonry photo grid. The gallery grid dominates the viewport and is the first element the visitor's eye lands on. Category filter row is secondary, positioned above the grid as a navigation aid. Page title is tertiary, providing context without competing with the photos.
 
 ---
 
@@ -128,7 +134,7 @@ Components needed for this phase, mapped to source:
 - Scale transform: 1.02x over 300ms ease
 - Overlay: bg-black/0 to bg-black/30 over 300ms
 - Text fade-in: opacity 0 to 1 over 300ms
-- Overlay shows: title (14px semibold, white) and category (12px normal, white at 80% opacity)
+- Overlay shows: title (14px bold, white) and category (12px normal, white at 80% opacity)
 - Text positioned at bottom-left with 16px padding
 
 **Infinite Scroll:**
@@ -200,7 +206,7 @@ Components needed for this phase, mapped to source:
 - Reuses existing ImageUploader component from Phase 1
 - Fields: title (Input), description (textarea), category (select dropdown from DB categories)
 - Primary CTA: "Upload Photo" (new) or "Save Changes" (edit)
-- Cancel button: outlined style, text-secondary
+- Cancel action: "Discard Changes" (edit form) or "Cancel Upload" (upload form), outlined style, text-secondary
 
 **Category Management:**
 - Simple list with inline edit capability
@@ -221,6 +227,8 @@ Components needed for this phase, mapped to source:
 | Primary CTA (save) | "Save Changes" |
 | Primary CTA (about) | "Save About Page" |
 | Primary CTA (category) | "Add Category" |
+| Cancel action (edit form) | "Discard Changes" |
+| Cancel action (upload form) | "Cancel Upload" |
 | Empty state heading (gallery) | "No photos yet" |
 | Empty state body (gallery) | "Your portfolio is waiting for its first photo. Head to the admin panel to upload one." |
 | Empty state heading (admin list) | "No portfolio photos" |
@@ -272,6 +280,9 @@ No page transition animations in this phase (deferred to Phase 5).
 | Gallery card click target | Full card is a button element with descriptive alt text on img |
 | Lightbox focus trap | base-ui Dialog handles focus trapping automatically |
 | Lightbox keyboard nav | ArrowLeft, ArrowRight, Escape -- all documented in interaction contract |
+| Lightbox close button | Icon-only button with `aria-label="Close lightbox"` |
+| Lightbox previous button | Icon-only button with `aria-label="Previous photo"` |
+| Lightbox next button | Icon-only button with `aria-label="Next photo"` |
 | Category filter | role="tablist" on container, role="tab" on each pill, aria-selected on active |
 | Touch targets | All interactive elements minimum 44px touch target |
 | Image alt text | Portfolio title used as alt text; empty alt for decorative thumbnails |
