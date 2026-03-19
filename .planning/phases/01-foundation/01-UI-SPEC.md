@@ -58,7 +58,7 @@ Exceptions:
 | Role | Size | Weight | Line Height | Font |
 |------|------|--------|-------------|------|
 | Body | 16px | 400 (regular) | 1.5 | Inter |
-| Label | 14px | 500 (medium) | 1.4 | Inter |
+| Label / Caption | 14px | 400 (regular) | 1.4 | Inter |
 | Heading | 24px | 700 (bold) | 1.2 | Playfair Display |
 | Display | 36px | 700 (bold) | 1.1 | Playfair Display |
 
@@ -66,8 +66,8 @@ Exceptions:
 
 - "Funnghy's World" logo text: Display size (36px) in Playfair Display 700, colored with accent (#E8B4B8)
 - Form input text: Body size (16px) Inter 400 (prevents iOS zoom on focus)
-- Button text: Label size (14px) Inter 500, uppercase tracking at 0.025em
-- Caption/helper text: 12px Inter 400, line-height 1.4, used for form hints and metadata timestamps
+- Button text: Label size (14px) Inter 700, uppercase tracking at 0.025em
+- Form hints and metadata timestamps: Label size (14px) Inter 400, used for helper text, captions, and small metadata
 - Maximum content width: 1280px (80rem)
 - Paragraph max-width: 640px (40rem) for comfortable reading
 
@@ -167,7 +167,7 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 - Background: #FFFFFF with shadow-sm bottom
 - Left: LogoText component
 - Right: nav links (Portfolio, Beauty, Journal, About) + user dropdown
-- Nav link style: Inter 14px 500, text-secondary color, accent underline on active
+- Nav link style: Inter 14px 400, text-secondary color, accent underline on active
 - Max content width: 1280px, centered
 - Public visitors see: Portfolio, About, Login button
 - Authenticated users see: Portfolio, Beauty, Journal, About, user dropdown
@@ -179,7 +179,7 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 - Background: #FFFFFF with shadow-lg top (inverted, shadow goes upward)
 - 4 tabs for authenticated: Portfolio, Beauty, Journal, Profile
 - 3 tabs for public: Portfolio, About, Login
-- Each tab: Lucide icon (24px) above label (10px Inter 500)
+- Each tab: Lucide icon (24px) above label (14px Inter 400)
 - Active tab: accent color icon + label, inactive: text-secondary
 - Active indicator: 4px diameter dot in accent below the icon
 
@@ -209,17 +209,17 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 - Layout: 2-column grid on desktop (gap: xl/32px), stacked on mobile (gap: lg/24px)
 - 3 quick-access cards: Portfolio, Beauty Tracker, Photo Journal
 - Each card: radius-lg, shadow-md, white background
-- Card content: preview thumbnail (if recent content exists), section title in Label 500, recent activity subtitle in caption (12px), accent-colored arrow icon on right
+- Card content: preview thumbnail (if recent content exists), section title in Label 14px 400, recent activity subtitle in Label 14px 400 text-secondary, accent-colored arrow icon on right
 - Empty card state: section title + descriptive subtitle + accent outline dashed border where thumbnail would be
 
 ### Image Upload Zone
 
 - Container: dashed 2px border in border-default, radius-lg, padding 2xl (48px)
 - Center: Lucide Upload icon (48px) in text-secondary
-- Below icon: "Drag photos here or click to browse" in Body 400 text-secondary
-- Below text: "JPEG, PNG, WebP accepted" in caption 12px text-secondary
+- Below icon: "Drag photos here or click to browse" in Body 16px 400 text-secondary
+- Below text: "JPEG, PNG, WebP accepted" in Label 14px 400 text-secondary
 - Active drag state: border becomes accent solid, background becomes rgba(232, 180, 184, 0.05)
-- Per-file progress: file name (Label 14px 500) + progress bar (accent fill, 4px height, radius-full) + percentage (caption 12px)
+- Per-file progress: file name (Label 14px 700) + progress bar (accent fill, 4px height, radius-full) + percentage (Label 14px 400)
 - Upload complete: green success checkmark replaces progress bar, file name stays
 
 ---
@@ -250,7 +250,7 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 | Upload error toast | "Upload failed for {filename}. Please try again." |
 | Logout confirmation | "Sign Out": "Are you sure you want to sign out?" |
 | Logout confirm button | "Sign Out" |
-| Logout cancel button | "Cancel" |
+| Logout cancel button | "Stay Signed In" |
 
 ---
 
@@ -259,13 +259,13 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 ### Loading States
 
 - **Page load:** Full skeleton matching page layout. Cards show skeleton rectangles with radius-lg and subtle pulse animation (opacity 0.5 to 1, 1.5s duration, ease-in-out).
-- **Nav loading:** Logo text renders immediately (static), nav links show skeleton bars (80px wide, 12px tall).
+- **Nav loading:** Logo text renders immediately (static), nav links show skeleton bars (80px wide, 14px tall).
 - **Dashboard cards:** Each card shows skeleton thumbnail (aspect-ratio 16/9), skeleton title bar (60% width), skeleton subtitle bar (40% width).
 - **Upload in progress:** Progress bar animates width. File name and percentage visible. No spinner -- the progress bar is the indicator.
 
 ### Error States
 
-- **Form validation errors:** Red border (#DC2626) on the invalid input, error message in 12px Inter 400 #DC2626 below the input, appears immediately on blur or submit.
+- **Form validation errors:** Red border (#DC2626) on the invalid input, error message in 14px Inter 400 #DC2626 below the input, appears immediately on blur or submit.
 - **Toast errors:** Sonner toast, destructive variant, appears top-right on desktop, top-center on mobile. Auto-dismiss after 5 seconds. Contains error icon + message.
 - **Network/server errors:** Full-width inline alert at top of the form or content area. Light red background (rgba(220, 38, 38, 0.05)), red left border (4px), destructive text.
 
