@@ -1,4 +1,5 @@
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 export const inviteCodes = pgTable("invite_codes", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -41,3 +42,65 @@ export const imageVariants = pgTable("image_variants", {
   sizeBytes: integer("size_bytes").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const categories = pgTable("categories", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  displayOrder: integer("display_order").notNull().default(0),
+  isDefault: integer("is_default").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const portfolioItems = pgTable("portfolio_items", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: text("title").notNull(),
+  description: text("description"),
+  categoryId: uuid("category_id")
+    .notNull()
+    .references(() => categories.id),
+  imageId: uuid("image_id")
+    .notNull()
+    .references(() => images.id, { onDelete: "cascade" }),
+  displayOrder: integer("display_order").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const aboutContent = pgTable("about_content", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  bio: text("bio").notNull().default(""),
+  email: text("email"),
+  instagramUrl: text("instagram_url"),
+  tiktokUrl: text("tiktok_url"),
+  profileImageId: uuid("profile_image_id").references(() => images.id),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// Relations
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  portfolioItems: many(portfolioItems),
+}));
+
+export const portfolioItemsRelations = relations(portfolioItems, ({ one }) => ({
+  category: one(categories, {
+    fields: [portfolioItems.categoryId],
+    references: [categories.id],
+  }),
+  image: one(images, {
+    fields: [portfolioItems.imageId],
+    references: [images.id],
+  }),
+}));
+
+export const imagesRelations = relations(images, ({ many }) => ({
+  variants: many(imageVariants),
+}));
+
+export const imageVariantsRelations = relations(imageVariants, ({ one }) => ({
+  image: one(images, {
+    fields: [imageVariants.imageId],
+    references: [images.id],
+  }),
+}));
