@@ -4,6 +4,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { ChevronRight } from "lucide-react";
+import { createClient } from "@/lib/supabase/server";
 
 const dashboardCards = [
   {
@@ -23,11 +24,19 @@ const dashboardCards = [
   },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const displayName =
+    (user?.user_metadata?.display_name as string) || "User";
+
   return (
     <div className="py-8 md:py-12">
       <h1 className="font-display text-2xl font-bold text-text-primary mb-6 md:mb-8">
-        Welcome back, User
+        Welcome back, {displayName}
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">

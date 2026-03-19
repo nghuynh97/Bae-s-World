@@ -7,11 +7,13 @@ import { LogoText } from "./logo-text";
 interface TopNavProps {
   isAuthenticated?: boolean;
   userName?: string;
+  userMenu?: React.ReactNode;
 }
 
 export function TopNav({
   isAuthenticated = false,
   userName,
+  userMenu,
 }: TopNavProps) {
   const pathname = usePathname();
 
@@ -61,6 +63,8 @@ export function TopNav({
             >
               Sign In
             </Link>
+          ) : userMenu ? (
+            userMenu
           ) : (
             <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-bold text-text-primary">
               {userName?.charAt(0)?.toUpperCase() || "U"}
