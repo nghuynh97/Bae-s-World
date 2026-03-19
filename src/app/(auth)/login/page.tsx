@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoText } from "@/components/layout/logo-text";
+import { LoginForm } from "@/components/auth/login-form";
 
 export default function LoginPage() {
   return (
@@ -14,11 +15,8 @@ export default function LoginPage() {
           Sign in with your email and password to continue.
         </p>
 
-        {/* Login form placeholder -- Plan 02 adds the actual form */}
-        <div className="mt-8 w-full rounded-[10px] border border-border p-6 bg-surface">
-          <p className="text-text-secondary text-sm text-center">
-            Login form coming soon
-          </p>
+        <div className="mt-8 w-full">
+          <LoginForm />
         </div>
 
         <Link

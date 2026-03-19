@@ -1,0 +1,89 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useTransition } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { login } from "@/actions/auth";
+
+const loginSchema = z.object({
+  email: z.string().email("Please enter a valid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
+
+export function LoginForm() {
+  const [isPending, startTransition] = useTransition();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+    mode: "onBlur",
+  });
+
+  function onSubmit(data: LoginFormData) {
+    startTransition(async () => {
+      const result = await login(data.email, data.password);
+      if (result?.error) {
+        setError("root", { message: result.error });
+      }
+    });
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          type="email"
+          placeholder="you@example.com"
+          className={`rounded-[10px] ${errors.email ? "border-destructive" : ""}`}
+          {...register("email")}
+        />
+        {errors.email && (
+          <p className="text-sm text-destructive" aria-live="polite">
+            {errors.email.message}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          type="password"
+          placeholder="Enter your password"
+          className={`rounded-[10px] ${errors.password ? "border-destructive" : ""}`}
+          {...register("password")}
+        />
+        {errors.password && (
+          <p className="text-sm text-destructive" aria-live="polite">
+            {errors.password.message}
+          </p>
+        )}
+      </div>
+
+      {errors.root && (
+        <p className="text-sm text-destructive" aria-live="polite">
+          {errors.root.message}
+        </p>
+      )}
+
+      <button
+        type="submit"
+        disabled={isPending}
+        className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-colors disabled:opacity-50"
+      >
+        {isPending ? "Signing in..." : "Sign In"}
+      </button>
+    </form>
+  );
+}

@@ -1,21 +1,37 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { LogoText } from "@/components/layout/logo-text";
+import { InviteCodeInput } from "@/components/auth/invite-code-input";
+import { SetupForm } from "@/components/auth/setup-form";
 
 export default function SetupPage() {
+  const [step, setStep] = useState<"code" | "account">("code");
+  const [validCode, setValidCode] = useState("");
+  const [assignedName, setAssignedName] = useState("");
+
+  function handleCodeValid(code: string, name: string) {
+    setValidCode(code);
+    setAssignedName(name);
+    setStep("account");
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="flex flex-col items-center w-full max-w-[360px]">
         <LogoText size="lg" />
 
         <p className="mt-4 text-text-secondary text-base text-center">
-          Set Up Your Account
+          {step === "code" ? "Set Up Your Account" : "Create Your Account"}
         </p>
 
-        {/* Invite code form placeholder -- Plan 02 adds the actual form */}
-        <div className="mt-8 w-full rounded-[10px] border border-border p-6 bg-surface">
-          <p className="text-text-secondary text-sm text-center">
-            Invite code form coming soon
-          </p>
+        <div className="mt-8 w-full">
+          {step === "code" ? (
+            <InviteCodeInput onValid={handleCodeValid} />
+          ) : (
+            <SetupForm code={validCode} assignedName={assignedName} />
+          )}
         </div>
 
         <Link
