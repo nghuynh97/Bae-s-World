@@ -1,0 +1,83 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Image,
+  Info,
+  LogIn,
+  Sparkles,
+  BookOpen,
+  User,
+} from "lucide-react";
+
+interface BottomTabBarProps {
+  isAuthenticated?: boolean;
+}
+
+interface Tab {
+  href: string;
+  label: string;
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+}
+
+export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
+  const pathname = usePathname();
+
+  const publicTabs: Tab[] = [
+    { href: "/", label: "Portfolio", icon: Image },
+    { href: "/about", label: "About", icon: Info },
+    { href: "/login", label: "Sign In", icon: LogIn },
+  ];
+
+  const authTabs: Tab[] = [
+    { href: "/", label: "Portfolio", icon: Image },
+    { href: "/beauty", label: "Beauty", icon: Sparkles },
+    { href: "/journal", label: "Journal", icon: BookOpen },
+    { href: "/dashboard", label: "Profile", icon: User },
+  ];
+
+  const tabs = isAuthenticated ? authTabs : publicTabs;
+
+  return (
+    <nav
+      className="fixed bottom-0 left-0 right-0 h-14 bg-surface shadow-[0_-8px_24px_rgba(232,180,184,0.16)] z-50 md:hidden"
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      <div className="flex items-center justify-around h-full">
+        {tabs.map((tab) => {
+          const isActive = pathname === tab.href;
+          const Icon = tab.icon;
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              className="flex flex-col items-center justify-center gap-0.5"
+              aria-label={tab.label}
+            >
+              <div className="relative flex flex-col items-center">
+                <Icon
+                  size={24}
+                  className={
+                    isActive ? "text-accent" : "text-text-secondary"
+                  }
+                />
+                {isActive && (
+                  <span className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent" />
+                )}
+              </div>
+              <span
+                className={`text-sm font-normal ${
+                  isActive ? "text-accent" : "text-text-secondary"
+                }`}
+              >
+                {tab.label}
+              </span>
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
