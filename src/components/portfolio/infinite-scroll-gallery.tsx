@@ -7,6 +7,7 @@ import { MasonryGrid } from "./masonry-grid";
 import { GalleryCard } from "./gallery-card";
 import { CategoryFilter } from "./category-filter";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Lightbox } from "./lightbox";
 
 interface PortfolioItem {
   id: string;
@@ -200,8 +201,14 @@ export function InfiniteScrollGallery({
         )}
       </div>
 
-      {/* Lightbox will be integrated in Task 2 */}
-      {lightboxIndex !== null && null}
+      {/* Lightbox */}
+      <Lightbox
+        items={items}
+        currentIndex={lightboxIndex ?? 0}
+        open={lightboxIndex !== null}
+        onOpenChange={(open) => !open && setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
     </div>
   );
 }
