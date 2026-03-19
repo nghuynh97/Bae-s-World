@@ -14,7 +14,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PORT-03**: User can filter portfolio photos by category (modeling, travel, beauty)
 - [x] **PORT-04**: Public visitors can view an About page with Funnghy's bio, photo, and contact info
 - [x] **PORT-05**: Funnghy can upload, edit, and delete portfolio photos with title, description, and category
-- [ ] **PORT-06**: Portfolio pages are publicly accessible without login
+- [x] **PORT-06**: Portfolio pages are publicly accessible without login
 
 ### Beauty Tracker
 
@@ -121,7 +121,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PORT-03 | Phase 2 | Complete |
 | PORT-04 | Phase 2 | Complete |
 | PORT-05 | Phase 2 | Complete |
-| PORT-06 | Phase 2 | Pending |
+| PORT-06 | Phase 2 | Complete |
 | AUTH-06 | Phase 2 | Complete |
 | BEAU-01 | Phase 3 | Pending |
 | BEAU-02 | Phase 3 | Pending |
