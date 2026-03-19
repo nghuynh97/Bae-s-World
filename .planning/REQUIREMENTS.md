@@ -46,9 +46,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Design & UX
 
-- [ ] **DESG-01**: App uses a soft feminine design system — pastel tones, rose gold accents, cream backgrounds, elegant typography
-- [ ] **DESG-02**: All pages are fully responsive on mobile and desktop
-- [ ] **DESG-03**: Images are automatically optimized for fast loading (WebP/AVIF, lazy loading, responsive sizes)
+- [x] **DESG-01**: App uses a soft feminine design system — pastel tones, rose gold accents, cream backgrounds, elegant typography
+- [x] **DESG-02**: All pages are fully responsive on mobile and desktop
+- [x] **DESG-03**: Images are automatically optimized for fast loading (WebP/AVIF, lazy loading, responsive sizes)
 - [ ] **DESG-04**: UI includes subtle micro-animations and transitions (hover effects, page transitions, loading states)
 
 ### Image Management
@@ -109,9 +109,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 1 | Pending |
 | AUTH-04 | Phase 1 | Pending |
 | AUTH-05 | Phase 1 | Pending |
-| DESG-01 | Phase 1 | Pending |
-| DESG-02 | Phase 1 | Pending |
-| DESG-03 | Phase 1 | Pending |
+| DESG-01 | Phase 1 | Complete |
+| DESG-02 | Phase 1 | Complete |
+| DESG-03 | Phase 1 | Complete |
 | IMG-01 | Phase 1 | Pending |
 | IMG-02 | Phase 1 | Pending |
 | IMG-03 | Phase 1 | Pending |
