@@ -3,7 +3,7 @@
 import { useState, useEffect, useTransition, useCallback } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getPortfolioItems } from '@/actions/portfolio';
-import { MasonryGrid } from './masonry-grid';
+import { QuiltedGrid } from './quilted-grid';
 import { GalleryCard } from './gallery-card';
 import { CategoryFilter } from './category-filter';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -52,26 +52,6 @@ function getImageUrl(
   return variant?.url ?? '';
 }
 
-function useResponsiveColumns() {
-  const [columns, setColumns] = useState(3);
-
-  useEffect(() => {
-    const mql = window.matchMedia('(max-width: 768px)');
-    const handler = (e: MediaQueryListEvent | MediaQueryList) => {
-      setColumns(e.matches ? 2 : 3);
-    };
-    handler(mql);
-    mql.addEventListener('change', handler as (e: MediaQueryListEvent) => void);
-    return () =>
-      mql.removeEventListener(
-        'change',
-        handler as (e: MediaQueryListEvent) => void,
-      );
-  }, []);
-
-  return columns;
-}
-
 export function InfiniteScrollGallery({
   initialItems,
   initialCursor,
@@ -85,8 +65,6 @@ export function InfiniteScrollGallery({
   const [isPending, startTransition] = useTransition();
   const [isSwitchingCategory, setIsSwitchingCategory] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-
-  const columns = useResponsiveColumns();
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -169,7 +147,7 @@ export function InfiniteScrollGallery({
               isSwitchingCategory ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <MasonryGrid items={galleryItems} columns={columns} />
+            <QuiltedGrid>{galleryItems}</QuiltedGrid>
           </div>
         )}
 

@@ -145,3 +145,17 @@
     opacity: 1;
   }
 }
+
+/* Quilted grid tile pattern */
+.quilted-grid > *:nth-child(6n+1) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.quilted-grid > *:nth-child(6n+4) {
+  grid-column: span 2;
+}
+@media (max-width: 768px) {
+  .quilted-grid {
+    grid-auto-rows: 160px;
+  }
+}

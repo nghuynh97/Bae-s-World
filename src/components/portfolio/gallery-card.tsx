@@ -20,8 +20,7 @@ export function GalleryCard({
   return (
     <button
       onClick={onClick}
-      className="group relative w-full cursor-pointer overflow-hidden rounded-lg"
-      style={{ aspectRatio: `${width}/${height}` }}
+      className="group relative h-full w-full cursor-pointer overflow-hidden rounded-lg"
     >
       <img
         src={imageUrl}
