@@ -26,15 +26,6 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **BEAU-06**: Funnghy can reorder steps in a routine via drag-and-drop
 - [x] **BEAU-07**: Beauty tracker is private — only accessible when logged in
 
-### Photo Journal
-
-- [ ] **JOUR-01**: Funnghy can create daily journal entries with a photo and text notes
-- [ ] **JOUR-02**: Funnghy can browse journal entries chronologically (newest first)
-- [ ] **JOUR-03**: Funnghy can browse journal entries via a calendar view by date
-- [ ] **JOUR-04**: Funnghy can tag journal entries with mood or custom tags
-- [ ] **JOUR-05**: Funnghy can edit and delete her journal entries
-- [ ] **JOUR-06**: Photo journal is private — only accessible when logged in
-
 ### Authentication & Users
 
 - [x] **AUTH-01**: Funnghy can log in with email and password
@@ -130,18 +121,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BEAU-05     | Phase 3 | Complete |
 | BEAU-06     | Phase 3 | Complete |
 | BEAU-07     | Phase 3 | Complete |
-| JOUR-01     | Phase 4 | Pending  |
-| JOUR-02     | Phase 4 | Pending  |
-| JOUR-03     | Phase 4 | Pending  |
-| JOUR-04     | Phase 4 | Pending  |
-| JOUR-05     | Phase 4 | Pending  |
-| JOUR-06     | Phase 4 | Pending  |
 | DESG-04     | Phase 5 | Pending  |
 
 **Coverage:**
 
-- v1 requirements: 33 total
-- Mapped to phases: 33
+- v1 requirements: 27 total
+- Mapped to phases: 27
 - Unmapped: 0
 
 ---

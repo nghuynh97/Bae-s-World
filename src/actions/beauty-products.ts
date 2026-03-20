@@ -303,11 +303,11 @@ export async function deleteBeautyProduct(productId: string) {
     await supabase.storage.from('private-images').remove(paths);
   }
 
-  // Delete the image record (cascades to imageVariants via onDelete: cascade)
-  await db.delete(images).where(eq(images.id, product.imageId));
-
-  // Delete the product record
+  // Delete the product record first (references image via foreign key)
   await db.delete(beautyProducts).where(eq(beautyProducts.id, productId));
+
+  // Then delete the image record (cascades to imageVariants via onDelete: cascade)
+  await db.delete(images).where(eq(images.id, product.imageId));
 
   revalidatePath('/beauty');
   return { success: true };
