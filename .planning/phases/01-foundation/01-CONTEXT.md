@@ -1,7 +1,7 @@
 # Phase 1: Foundation - Context
 
-**Gathered:** 2026-03-19
-**Status:** Ready for planning
+**Gathered:** 2026-03-19 (updated 2026-03-20)
+**Status:** Updated post-implementation
 
 <domain>
 ## Phase Boundary
@@ -59,6 +59,17 @@ Design system (color tokens, typography, component styling), two-user authentica
 - Authenticated users see full nav including Beauty Tracker and Journal
 - Private sections hidden from public nav entirely (not shown with lock icon)
 
+### Database connection (post-implementation fix)
+- DATABASE_URL with special characters (%, #, @) in password causes `URI malformed` errors with the `postgres` driver
+- On Windows, `npx tsx` and `npx drizzle-kit` do not auto-load `.env.local` — all npm scripts must use `node --env-file=.env.local` with direct module paths (e.g., `node_modules/tsx/dist/cli.mjs`, `node_modules/drizzle-kit/bin.cjs`)
+- `drizzle-kit push` hangs indefinitely with Supabase connection pooler (port 6543) — use the Supabase SQL Editor for DDL operations, or use the direct connection (port 5432) if available
+- npm scripts `db:push`, `db:seed`, `db:seed:portfolio` all updated to use `node --env-file=.env.local`
+
+### Session management
+- Sign out from current device already implemented via user menu dropdown
+- Sign out all devices: use Supabase `auth.admin.signOut(userId, 'global')` to invalidate all sessions across all devices
+- Add "Sign out all devices" option in the user menu dropdown alongside regular sign out
+
 ### Claude's Discretion
 - Exact body font choice (should complement the serif heading font)
 - Loading skeleton design and placement
@@ -92,16 +103,23 @@ No external specs — requirements are fully captured in decisions above and in:
 ## Existing Code Insights
 
 ### Reusable Assets
-- None — greenfield project, no existing code
+- `src/components/upload/image-uploader.tsx` — Drag-and-drop upload with batch support and per-file progress
+- `src/components/layout/user-menu.tsx` — Avatar dropdown with sign-out confirmation dialog
+- `src/lib/supabase/admin.ts` — Service role client for admin operations (signOut global scope)
+- `src/actions/auth.ts` — Server Actions for login, signup, invite code validation, logout
 
 ### Established Patterns
-- None yet — this phase establishes all foundational patterns
+- Server Actions with zod validation for all form submissions
+- Supabase SSR cookie auth with `getUser()` (server-verified, not `getSession()`)
+- Three Supabase client factories: browser, server, admin
+- Middleware route protection via `getUser()` check then redirect
+- npm scripts use `node --env-file=.env.local` for env loading on Windows
 
 ### Integration Points
-- This phase creates the foundation all subsequent phases build on
-- Design tokens established here will be used by every UI component
-- Auth middleware created here protects all private routes in future phases
-- Image upload pipeline created here is reused by portfolio, beauty tracker, and journal
+- Design tokens in `globals.css` @theme block — single source of truth
+- Auth middleware in `src/lib/supabase/middleware.ts` protects all private + admin routes
+- Image upload pipeline (`src/actions/upload.ts`) reused by portfolio, beauty tracker, and journal
+- `src/lib/supabase/admin.ts` needed for "sign out all devices" via `auth.admin.signOut(userId, 'global')`
 
 </code_context>
 
