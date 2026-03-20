@@ -87,13 +87,13 @@ export function CalendarGrid({ jobs, year, month }: CalendarGridProps) {
   const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   return (
-    <div>
+    <div className="bg-white shadow-sm rounded-xl p-3">
       {/* Weekday headers */}
       <div className="grid grid-cols-7 mb-1">
         {weekdays.map((day) => (
           <div
             key={day}
-            className="text-center text-xs font-body text-secondary py-2"
+            className="text-center text-xs font-medium font-body text-muted-foreground uppercase tracking-wider py-2"
           >
             {day}
           </div>
@@ -101,7 +101,7 @@ export function CalendarGrid({ jobs, year, month }: CalendarGridProps) {
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 gap-[1px] bg-border">
+      <div className="grid grid-cols-7 gap-[1px]">
         {days.map((date) => {
           const dateKey = formatDateKey(date);
           const dayJobs = jobsByDate[dateKey] || [];

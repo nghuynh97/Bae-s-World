@@ -44,16 +44,16 @@ export function DayCell({
         if (isCurrentMonth) onSelect(date);
       }}
       className={cn(
-        "min-h-[44px] flex flex-col items-start p-1 bg-surface transition-colors",
-        isCurrentMonth ? "cursor-pointer hover:bg-hover" : "cursor-default",
-        isSelected && "bg-accent/10 border border-accent",
-        isToday && "ring-2 ring-accent"
+        "min-h-[80px] flex flex-col items-start p-1.5 bg-surface border border-border/30 transition-colors",
+        isCurrentMonth ? "cursor-pointer hover:bg-hover" : "cursor-default bg-muted/30",
+        isSelected && "bg-accent/10 border-accent",
+        isToday && "bg-accent/20 ring-2 ring-accent"
       )}
     >
       <span
         className={cn(
-          "text-xs font-body",
-          isCurrentMonth ? "text-primary" : "text-secondary/40",
+          "text-sm font-medium font-body",
+          isCurrentMonth ? "text-foreground" : "text-muted-foreground/40",
           isToday && "font-bold"
         )}
       >
@@ -67,7 +67,7 @@ export function DayCell({
               <span
                 key={job.id}
                 className={cn(
-                  "w-1.5 h-1.5 rounded-full",
+                  "w-2 h-2 rounded-full",
                   job.status === "paid"
                     ? "bg-[var(--color-paid)]"
                     : "bg-[var(--color-pending)]"
@@ -75,7 +75,7 @@ export function DayCell({
               />
             ))}
           </div>
-          <span className="text-[10px] font-body text-secondary">
+          <span className="text-xs font-medium font-body text-accent">
             {formatVNDCompact(totalIncome)}
           </span>
         </>

@@ -148,7 +148,7 @@ export function ProductForm({
           <DialogTitle>{isEditing ? "Edit Product" : "Add Product"}</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 px-1">
           {/* Photo upload */}
           <div>
             <Label className="mb-2">Photo</Label>
@@ -188,7 +188,7 @@ export function ProductForm({
 
           {/* Name */}
           <div>
-            <Label htmlFor="product-name" className="mb-1">Name</Label>
+            <Label htmlFor="product-name" className="mb-2">Name</Label>
             <Input
               id="product-name"
               placeholder="Product name"
@@ -201,7 +201,7 @@ export function ProductForm({
 
           {/* Brand */}
           <div>
-            <Label htmlFor="product-brand" className="mb-1">Brand</Label>
+            <Label htmlFor="product-brand" className="mb-2">Brand</Label>
             <Input
               id="product-brand"
               placeholder="Brand name"
@@ -211,7 +211,7 @@ export function ProductForm({
 
           {/* Category */}
           <div>
-            <Label htmlFor="product-category" className="mb-1">Category</Label>
+            <Label htmlFor="product-category" className="mb-2">Category</Label>
             <Controller
               control={control}
               name="categoryId"
@@ -237,7 +237,7 @@ export function ProductForm({
 
           {/* Rating */}
           <div>
-            <Label className="mb-1">Rating</Label>
+            <Label className="mb-2">Rating</Label>
             <StarRating
               value={currentRating}
               onChange={(val) => setValue("rating", val)}
@@ -247,7 +247,7 @@ export function ProductForm({
 
           {/* Notes */}
           <div>
-            <Label htmlFor="product-notes" className="mb-1">Notes</Label>
+            <Label htmlFor="product-notes" className="mb-2">Notes</Label>
             <Textarea
               id="product-notes"
               {...register("notes")}
@@ -257,6 +257,7 @@ export function ProductForm({
             />
           </div>
 
+          <div className="pt-2" />
           <DialogFooter>
             <Button
               type="button"
