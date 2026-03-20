@@ -23,11 +23,12 @@ export function TopNav({
   ];
 
   const authLinks = [
+    { href: '/dashboard', label: 'Dashboard' },
     { href: '/', label: 'Portfolio' },
     { href: '/beauty', label: 'Beauty' },
     { href: '/schedule', label: 'Schedule' },
     { href: '/about', label: 'About' },
-    { href: '/admin/portfolio', label: 'Admin' },
+    { href: '/admin/portfolio', label: 'Manage' },
   ];
 
   const links = isAuthenticated ? authLinks : publicLinks;

@@ -32,11 +32,11 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
   ];
 
   const authTabs: Tab[] = [
+    { href: '/dashboard', label: 'Dashboard', icon: User },
     { href: '/', label: 'Portfolio', icon: Image },
     { href: '/beauty', label: 'Beauty', icon: Sparkles },
     { href: '/schedule', label: 'Schedule', icon: CalendarDays },
-    { href: '/admin/portfolio', label: 'Admin', icon: Settings },
-    { href: '/dashboard', label: 'Profile', icon: User },
+    { href: '/admin/portfolio', label: 'Manage', icon: Settings },
   ];
 
   const tabs = isAuthenticated ? authTabs : publicTabs;
