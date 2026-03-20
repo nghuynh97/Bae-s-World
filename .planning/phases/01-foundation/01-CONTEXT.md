@@ -66,9 +66,9 @@ Design system (color tokens, typography, component styling), two-user authentica
 - npm scripts `db:push`, `db:seed`, `db:seed:portfolio` all updated to use `node --env-file=.env.local`
 
 ### Session management
-- Sign out from current device already implemented via user menu dropdown
-- Sign out all devices: use Supabase `auth.admin.signOut(userId, 'global')` to invalidate all sessions across all devices
-- Add "Sign out all devices" option in the user menu dropdown alongside regular sign out
+- Single "Sign Out" option only — no "Sign Out All Devices" (removed per user request)
+- User menu with logout must appear on ALL pages (public and private) when authenticated
+- Public layout passes `UserMenu` component to TopNav when user is logged in
 
 ### Claude's Discretion
 - Exact body font choice (should complement the serif heading font)
