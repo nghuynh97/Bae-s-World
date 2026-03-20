@@ -2,13 +2,14 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Sparkles } from "lucide-react";
+import { Plus, Sparkles, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { BeautyCategoryFilter } from "./beauty-category-filter";
 import { ProductCard, type ProductCardData } from "./product-card";
 import { ProductBottomSheet, type ProductDetailData } from "./product-bottom-sheet";
 import { ProductForm } from "./product-form";
+import { BeautyCategoryManager } from "./beauty-category-manager";
 import {
   toggleFavorite,
   deleteBeautyProduct,
@@ -58,6 +59,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<ProductData | null>(null);
+  const [showCategoryManager, setShowCategoryManager] = useState(false);
 
   // Filter products client-side
   const filteredProducts = products.filter((p) => {
@@ -168,11 +170,20 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
   return (
     <div>
       {/* Category filter */}
-      <BeautyCategoryFilter
-        categories={categories}
-        activeSlug={activeSlug}
-        onSelect={setActiveSlug}
-      />
+      <div className="flex items-center gap-2">
+        <BeautyCategoryFilter
+          categories={categories}
+          activeSlug={activeSlug}
+          onSelect={setActiveSlug}
+        />
+        <button
+          onClick={() => setShowCategoryManager(true)}
+          className="p-2 text-text-secondary hover:text-accent shrink-0"
+          aria-label="Edit categories"
+        >
+          <Settings2 className="h-5 w-5" />
+        </button>
+      </div>
 
       {/* Product grid */}
       {filteredProducts.length > 0 ? (
@@ -208,6 +219,13 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
         onOpenChange={setShowBottomSheet}
         onEdit={handleEdit}
         onDelete={handleDelete}
+      />
+
+      {/* Category manager dialog */}
+      <BeautyCategoryManager
+        open={showCategoryManager}
+        onOpenChange={setShowCategoryManager}
+        onCategoriesChanged={() => router.refresh()}
       />
 
       {/* Product form dialog */}
