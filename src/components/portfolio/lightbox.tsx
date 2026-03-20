@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect, useCallback, useRef } from "react";
-import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useCallback, useRef } from 'react';
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
+import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PortfolioItem {
   id: string;
@@ -25,12 +25,12 @@ interface LightboxProps {
   onNavigate: (index: number) => void;
 }
 
-function getLightboxUrl(variants: PortfolioItem["variants"]): string {
+function getLightboxUrl(variants: PortfolioItem['variants']): string {
   const variant =
-    variants.find((v) => v.variantName === "large") ||
-    variants.find((v) => v.variantName === "full") ||
+    variants.find((v) => v.variantName === 'large') ||
+    variants.find((v) => v.variantName === 'full') ||
     variants[0];
-  return variant?.url ?? "";
+  return variant?.url ?? '';
 }
 
 export function Lightbox({
@@ -63,31 +63,31 @@ export function Lightbox({
     if (!open) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft") {
+      if (e.key === 'ArrowLeft') {
         e.preventDefault();
         goToPrev();
-      } else if (e.key === "ArrowRight") {
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
         goToNext();
-      } else if (e.key === "Escape") {
+      } else if (e.key === 'Escape') {
         e.preventDefault();
         handleClose();
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [open, goToPrev, goToNext, handleClose]);
 
   // Body scroll lock
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [open]);
 
@@ -113,7 +113,7 @@ export function Lightbox({
         }
       }
     },
-    [goToNext, goToPrev]
+    [goToNext, goToPrev],
   );
 
   if (!open || items.length === 0) return null;
@@ -140,7 +140,7 @@ export function Lightbox({
           {/* Close button */}
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 z-10 w-11 h-11 rounded-full bg-black/20 flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+            className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40"
             aria-label="Close lightbox"
           >
             <X size={24} />
@@ -150,7 +150,7 @@ export function Lightbox({
           {currentIndex > 0 && (
             <button
               onClick={goToPrev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+              className="absolute top-1/2 left-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40"
               aria-label="Previous photo"
             >
               <ChevronLeft size={24} />
@@ -161,7 +161,7 @@ export function Lightbox({
           {currentIndex < items.length - 1 && (
             <button
               onClick={goToNext}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-black/20 flex items-center justify-center text-white hover:bg-black/40 transition-colors"
+              className="absolute top-1/2 right-4 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-black/20 text-white transition-colors hover:bg-black/40"
               aria-label="Next photo"
             >
               <ChevronRight size={24} />
@@ -169,15 +169,15 @@ export function Lightbox({
           )}
 
           {/* Photo and info */}
-          <div className="flex flex-col items-center max-w-[90vw] max-h-[90vh]">
+          <div className="flex max-h-[90vh] max-w-[90vw] flex-col items-center">
             <div
               key={currentIndex}
-              className="animate-in fade-in-0 duration-200"
+              className="animate-in duration-200 fade-in-0"
             >
               <img
                 src={imageUrl}
                 alt={currentItem.title}
-                className="max-w-[90vw] max-h-[80vh] object-contain rounded-lg"
+                className="max-h-[80vh] max-w-[90vw] rounded-lg object-contain"
               />
             </div>
 
@@ -190,7 +190,7 @@ export function Lightbox({
                 {currentItem.categoryName}
               </p>
               {currentItem.description && (
-                <p className="text-sm text-white/70 mt-1">
+                <p className="mt-1 text-sm text-white/70">
                   {currentItem.description}
                 </p>
               )}

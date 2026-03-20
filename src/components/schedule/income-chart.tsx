@@ -1,9 +1,11 @@
-import dynamic from "next/dynamic";
+'use client';
 
-const IncomeChart = dynamic(() => import("./income-chart-inner"), {
+import dynamic from 'next/dynamic';
+
+const IncomeChart = dynamic(() => import('./income-chart-inner'), {
   ssr: false,
   loading: () => (
-    <div className="bg-surface rounded-lg shadow-sm p-6 h-[280px] animate-pulse" />
+    <div className="h-[280px] animate-pulse rounded-lg bg-surface p-6 shadow-sm" />
   ),
 });
 

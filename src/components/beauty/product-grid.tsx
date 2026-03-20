@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Plus, Sparkles, Settings2 } from "lucide-react";
-import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
-import { BeautyCategoryFilter } from "./beauty-category-filter";
-import { ProductCard, type ProductCardData } from "./product-card";
-import { ProductBottomSheet, type ProductDetailData } from "./product-bottom-sheet";
-import { ProductForm } from "./product-form";
-import { BeautyCategoryManager } from "./beauty-category-manager";
+import { useState, useEffect } from 'react';
+import { Plus, Sparkles, Settings2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { BeautyCategoryFilter } from './beauty-category-filter';
+import { ProductCard, type ProductCardData } from './product-card';
 import {
-  toggleFavorite,
-  deleteBeautyProduct,
-} from "@/actions/beauty-products";
+  ProductBottomSheet,
+  type ProductDetailData,
+} from './product-bottom-sheet';
+import { ProductForm } from './product-form';
+import { BeautyCategoryManager } from './beauty-category-manager';
+import { toggleFavorite, deleteBeautyProduct } from '@/actions/beauty-products';
 
 interface Category {
   id: string;
@@ -56,17 +56,20 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
   useEffect(() => {
     setProducts(initialProducts);
   }, [initialProducts]);
-  const [activeSlug, setActiveSlug] = useState("all");
-  const [selectedProduct, setSelectedProduct] = useState<ProductDetailData | null>(null);
+  const [activeSlug, setActiveSlug] = useState('all');
+  const [selectedProduct, setSelectedProduct] =
+    useState<ProductDetailData | null>(null);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [showForm, setShowForm] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<ProductData | null>(null);
+  const [editingProduct, setEditingProduct] = useState<ProductData | null>(
+    null,
+  );
   const [showCategoryManager, setShowCategoryManager] = useState(false);
 
   // Filter products client-side
   const filteredProducts = products.filter((p) => {
-    if (activeSlug === "all") return true;
-    if (activeSlug === "favorites") return p.isFavorite === 1;
+    if (activeSlug === 'all') return true;
+    if (activeSlug === 'favorites') return p.isFavorite === 1;
     return p.categorySlug === activeSlug;
   });
 
@@ -76,14 +79,14 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
       prev.map((p) =>
         p.id === productId
           ? { ...p, isFavorite: p.isFavorite === 1 ? 0 : 1 }
-          : p
-      )
+          : p,
+      ),
     );
 
     // Also update bottom sheet if open
     if (selectedProduct?.id === productId) {
       setSelectedProduct((prev) =>
-        prev ? { ...prev, isFavorite: prev.isFavorite === 1 ? 0 : 1 } : prev
+        prev ? { ...prev, isFavorite: prev.isFavorite === 1 ? 0 : 1 } : prev,
       );
     }
 
@@ -95,10 +98,10 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
         prev.map((p) =>
           p.id === productId
             ? { ...p, isFavorite: p.isFavorite === 1 ? 0 : 1 }
-            : p
-        )
+            : p,
+        ),
       );
-      toast.error("Failed to update favorite");
+      toast.error('Failed to update favorite');
     }
   };
 
@@ -122,9 +125,9 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
     try {
       await deleteBeautyProduct(productId);
       setProducts((prev) => prev.filter((p) => p.id !== productId));
-      toast.success("Product deleted");
+      toast.success('Product deleted');
     } catch {
-      toast.error("Failed to delete product");
+      toast.error('Failed to delete product');
     }
   };
 
@@ -142,15 +145,18 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
   if (products.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
-        <Sparkles className="h-12 w-12 text-accent mb-4" />
-        <h2 className="font-display text-xl font-bold text-primary mb-2">
+        <Sparkles className="mb-4 h-12 w-12 text-accent" />
+        <h2 className="mb-2 font-display text-xl font-bold text-primary">
           Start your beauty collection
         </h2>
-        <p className="text-sm font-body text-text-secondary mb-6 max-w-xs">
+        <p className="mb-6 max-w-xs font-body text-sm text-text-secondary">
           Add your favorite products and build your daily routines.
         </p>
-        <Button onClick={handleOpenAddForm} className="bg-accent text-white hover:bg-accent/90">
-          <Plus className="h-4 w-4 mr-1" />
+        <Button
+          onClick={handleOpenAddForm}
+          className="bg-accent text-white hover:bg-accent/90"
+        >
+          <Plus className="mr-1 h-4 w-4" />
           Add Product
         </Button>
 
@@ -176,7 +182,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
         />
         <button
           onClick={() => setShowCategoryManager(true)}
-          className="p-2 text-text-secondary hover:text-accent shrink-0"
+          className="shrink-0 p-2 text-text-secondary hover:text-accent"
           aria-label="Edit categories"
         >
           <Settings2 className="h-5 w-5" />
@@ -185,11 +191,11 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
 
       {/* Product grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-4">
+        <div className="mt-4 grid grid-cols-3 gap-2 md:grid-cols-4 lg:grid-cols-5">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              className="motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.97] rounded-md"
+              className="rounded-md active:scale-[0.97] motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md"
             >
               <ProductCard
                 product={product}
@@ -200,7 +206,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-text-secondary text-sm py-12">
+        <p className="py-12 text-center text-sm text-text-secondary">
           No products in this category
         </p>
       )}
@@ -208,7 +214,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
       {/* Floating add button */}
       <button
         onClick={handleOpenAddForm}
-        className="fixed bottom-20 right-4 md:bottom-6 z-40 w-14 h-14 rounded-full bg-accent text-white shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
+        className="fixed right-4 bottom-20 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-colors hover:bg-accent/90 md:bottom-6"
         aria-label="Add product"
       >
         <Plus className="h-6 w-6" />
@@ -227,7 +233,9 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
       <BeautyCategoryManager
         open={showCategoryManager}
         onOpenChange={setShowCategoryManager}
-        onCategoriesChanged={() => { /* revalidatePath in server action handles refresh */ }}
+        onCategoriesChanged={() => {
+          /* revalidatePath in server action handles refresh */
+        }}
       />
 
       {/* Product form dialog */}

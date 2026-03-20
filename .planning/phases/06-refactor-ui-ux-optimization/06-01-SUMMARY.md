@@ -77,6 +77,7 @@ completed: 2026-03-20
 - **Files modified:** 18
 
 ## Accomplishments
+
 - All native `<select>` elements replaced with shadcn Select + Controller pattern in 3 form files
 - All native `<textarea>` elements replaced with shadcn Textarea in 5 form files
 - Native search `<input>` in routine-step-search replaced with shadcn Input
@@ -92,6 +93,7 @@ Each task was committed atomically:
 2. **Task 2: Migrate router.refresh() to revalidatePath() in all server actions** - `7a62f31` (refactor)
 
 ## Files Created/Modified
+
 - `src/components/ui/select.tsx` - shadcn Select component (base-ui primitive)
 - `src/components/ui/textarea.tsx` - shadcn Textarea component
 - `src/components/beauty/product-form.tsx` - Controller + Select for categoryId, Textarea for notes
@@ -111,6 +113,7 @@ Each task was committed atomically:
 - `src/app/(private)/admin/portfolio/portfolio-list-client.tsx` - Removed router.refresh()
 
 ## Decisions Made
+
 - Controller + Select pattern required because shadcn base-ui Select does not work with register() from react-hook-form (needs controlled value/onChange)
 - Added useEffect prop-sync to product-grid and routine-list so client-side state reflects fresh server data after revalidatePath triggers re-render
 - Portfolio server actions revalidate both /admin/portfolio and / because portfolio items display on the public home page
@@ -121,6 +124,7 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 2 - Missing Critical] Added useEffect prop-sync for client components with local state**
+
 - **Found during:** Task 2 (removing router.refresh())
 - **Issue:** product-grid and routine-list use useState(initialData) which only reads props on mount; removing router.refresh() without prop-sync would break UI updates
 - **Fix:** Added useEffect to sync initialRoutines/initialProducts props to state when server re-renders
@@ -134,16 +138,20 @@ Each task was committed atomically:
 **Impact on plan:** Essential for correctness -- without prop-sync, client components would show stale data after mutations.
 
 ## Issues Encountered
+
 None
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - All forms now use consistent shadcn design system components
 - Server-side revalidation pattern established for all future CRUD operations
 - Ready for remaining refactoring plans in Phase 06
 
 ---
-*Phase: 06-refactor-ui-ux-optimization*
-*Completed: 2026-03-20*
+
+_Phase: 06-refactor-ui-ux-optimization_
+_Completed: 2026-03-20_

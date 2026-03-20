@@ -15,6 +15,7 @@ Photos are uploaded at full camera resolution (4000x3000px, 3-8MB each) and serv
 During development, images load fast on localhost. The developer uploads test images that are already small, or tests on fast WiFi. The problem only becomes visible with real photography at real resolutions on real connections. A jump from 1 to 3-second load time increases bounce rates by 32%.
 
 **How to avoid:**
+
 - Use next/image (or equivalent) with automatic WebP/AVIF generation from day one -- never use raw `<img>` tags for portfolio content
 - Set up an image processing pipeline at upload time: generate thumbnails (400px), medium (800px), and full-size (1920px max) variants
 - Serve AVIF as primary format (41% smaller than JPEG), WebP as fallback
@@ -22,6 +23,7 @@ During development, images load fast on localhost. The developer uploads test im
 - Implement lazy loading for below-fold images; only eager-load the first 1-3 visible images
 
 **Warning signs:**
+
 - Lighthouse performance score below 50
 - Portfolio page takes more than 3 seconds on throttled 3G in DevTools
 - Total page weight exceeds 3MB on any gallery page
@@ -41,6 +43,7 @@ Gallery images load without reserved space, causing the page to jump and reflow 
 The `fill` property in Next.js Image component is convenient but frequently misapplied -- it is one of the top sources of production CLS regressions. Developers set `fill` without constraining the parent container's aspect ratio, or they omit `width`/`height` props entirely on standard image elements.
 
 **How to avoid:**
+
 - Always provide explicit `width` and `height` props, or use `fill` with a parent that has a fixed aspect ratio (e.g., `aspect-ratio: 3/4` in CSS)
 - Store image dimensions in the database at upload time so they are available before the image loads
 - Use CSS `aspect-ratio` on image containers to reserve space before load
@@ -48,6 +51,7 @@ The `fill` property in Next.js Image component is convenient but frequently misa
 - Test CLS specifically: Chrome DevTools > Performance > check "Layout Shift Regions"
 
 **Warning signs:**
+
 - CLS score above 0.1 in Lighthouse
 - Images "pop in" visibly when scrolling
 - Grid items rearrange after initial paint
@@ -67,6 +71,7 @@ Developer implements a full auth system with registration flows, password reset 
 Auth tutorials and libraries assume SaaS-scale user management. Developers follow patterns designed for thousands of users. Building safe authentication is genuinely hard -- even large companies have been caught not hashing passwords properly or dumping credentials in log files.
 
 **How to avoid:**
+
 - Use a managed auth service (NextAuth.js / Auth.js, or Supabase Auth) even for two users -- the security is worth it
 - Pre-seed the two user accounts; disable all registration endpoints entirely
 - Use a simple role model: "owner" (Funnghy -- full access) and "contributor" (boyfriend -- upload/edit access). No RBAC framework needed, a simple string field suffices
@@ -74,6 +79,7 @@ Auth tutorials and libraries assume SaaS-scale user management. Developers follo
 - If using NextAuth, use the Credentials provider with bcrypt-hashed passwords in the database
 
 **Warning signs:**
+
 - More than 2 days spent on authentication
 - Building registration pages or invite flows
 - Implementing more than 2 roles
@@ -93,6 +99,7 @@ The skincare/beauty tracker is modeled with rigid, flat fields: `name`, `brand`,
 Beauty/cosmetics data mixes emotional language with technical claims. Products vary by shade, skin type, region, and formulation. New products launch constantly. Developers who are not domain-familiar model it like a simple inventory system.
 
 **How to avoid:**
+
 - Use a flexible schema: core fields (name, brand, category, rating, photo, purchase date, status) plus a JSON/JSONB `attributes` field for category-specific data
 - Define category templates (skincare has "skin type", "key ingredients", "texture"; makeup has "shade", "finish", "coverage") that guide the UI but do not constrain the database
 - Model routines as ordered lists of steps, where each step references a product and has its own fields: `amount`, `wait_time`, `notes`
@@ -100,6 +107,7 @@ Beauty/cosmetics data mixes emotional language with technical claims. Products v
 - Store product photos separately from portfolio photos -- they are different entities with different display needs
 
 **Warning signs:**
+
 - Product form has more than 15 fields visible at once
 - Cannot add a product without filling in fields that do not apply to it
 - Routine builder cannot express ordering or timing between steps
@@ -119,6 +127,7 @@ The portfolio is public and the beauty tracker/photo journal are private, but th
 During development, the developer is always logged in. The public/private split feels obvious in the UI, so API-level enforcement is forgotten or inconsistent. Image storage URLs are often direct S3/Cloudinary links that do not require authentication.
 
 **How to avoid:**
+
 - Enforce authentication middleware on every private API route -- not at the page level, at the route handler level
 - Use signed URLs or proxy private images through an authenticated API endpoint instead of exposing direct storage URLs
 - Create a clear route convention: `/api/public/*` vs `/api/private/*` with middleware that rejects unauthenticated requests to any `/api/private/*` route
@@ -126,6 +135,7 @@ During development, the developer is always logged in. The public/private split 
 - Portfolio images can be public CDN URLs; beauty tracker and journal photos must be access-controlled
 
 **Warning signs:**
+
 - Private pages work when you paste the URL in an incognito window
 - Image URLs in the beauty tracker are direct Cloudinary/S3 links without expiration
 - No middleware file or auth wrapper exists for the private API routes
@@ -145,6 +155,7 @@ The portfolio looks editorial and polished, but the beauty tracker feels like a 
 Each feature is built in sequence. Without a shared design token system, each feature's developer (even if it is the same person) makes slightly different color/spacing/typography choices. CSS is duplicated and values are hardcoded. This is especially insidious with a specific aesthetic like "soft feminine pastel" where small variations are very noticeable.
 
 **How to avoid:**
+
 - Define design tokens as CSS custom properties before building any feature:
   - Colors: `--color-cream`, `--color-rose-gold`, `--color-blush`, `--color-sage` (exact hex values, decided once)
   - Typography: `--font-heading`, `--font-body`, `--font-accent` with size scale
@@ -156,6 +167,7 @@ Each feature is built in sequence. Without a shared design token system, each fe
 - Review each feature against the portfolio page: does it feel like the same app?
 
 **Warning signs:**
+
 - grep for hex color codes finds more than 5-6 unique values outside the token definition file
 - Different pages use different font sizes for similar elements
 - Components are styled with inline styles or one-off CSS classes
@@ -168,53 +180,53 @@ Design system must be the first thing built, before any feature UI. Tokens and b
 
 ## Technical Debt Patterns
 
-| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
-|----------|-------------------|----------------|-----------------|
-| Storing images only as originals, generating variants on-the-fly | Simpler upload flow | Every page load triggers expensive image processing; CDN bills grow; slow loads | Never for a photo-heavy site -- generate variants at upload time |
-| Using localStorage for auth tokens | Quick to implement | XSS vulnerability exposes tokens; no server-side session invalidation | Never -- use httpOnly cookies via auth library |
-| Hardcoding the two user accounts in code | No database needed for auth | Cannot change passwords without redeployment; credentials in source control | Only for initial prototype, replace within same phase |
-| Single database table for all photos (portfolio + journal + products) | Simpler schema | Querying becomes complex; access control logic pollutes every query; cannot optimize differently | Never -- separate concerns from the start |
-| Skipping image alt text | Faster development | Inaccessible portfolio; poor SEO; unprofessional for a model's portfolio | Never -- alt text is part of the content model |
+| Shortcut                                                              | Immediate Benefit           | Long-term Cost                                                                                   | When Acceptable                                                  |
+| --------------------------------------------------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| Storing images only as originals, generating variants on-the-fly      | Simpler upload flow         | Every page load triggers expensive image processing; CDN bills grow; slow loads                  | Never for a photo-heavy site -- generate variants at upload time |
+| Using localStorage for auth tokens                                    | Quick to implement          | XSS vulnerability exposes tokens; no server-side session invalidation                            | Never -- use httpOnly cookies via auth library                   |
+| Hardcoding the two user accounts in code                              | No database needed for auth | Cannot change passwords without redeployment; credentials in source control                      | Only for initial prototype, replace within same phase            |
+| Single database table for all photos (portfolio + journal + products) | Simpler schema              | Querying becomes complex; access control logic pollutes every query; cannot optimize differently | Never -- separate concerns from the start                        |
+| Skipping image alt text                                               | Faster development          | Inaccessible portfolio; poor SEO; unprofessional for a model's portfolio                         | Never -- alt text is part of the content model                   |
 
 ## Integration Gotchas
 
-| Integration | Common Mistake | Correct Approach |
-|-------------|----------------|------------------|
-| Image CDN (Cloudinary/S3) | Exceeding free tier bandwidth without monitoring; surprise bills | Set up billing alerts at 50% and 80% of free tier; implement bandwidth monitoring; cache aggressively with proper Cache-Control headers |
-| Image CDN | Storing images with predictable sequential filenames | Use UUIDs or content hashes as filenames; never expose original filenames |
-| Next.js Image | Mixing deprecated `images.domains` with `remotePatterns` in next.config | Use only `remotePatterns`; restart dev server after config changes |
-| Auth library (NextAuth) | Configuring multiple providers when only one is needed | Use Credentials provider only; skip OAuth complexity for two known users |
-| Database (if using Supabase/Planetscale) | Not setting up Row Level Security for private data | Enable RLS from day one; default-deny policy on private tables |
+| Integration                              | Common Mistake                                                          | Correct Approach                                                                                                                        |
+| ---------------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Image CDN (Cloudinary/S3)                | Exceeding free tier bandwidth without monitoring; surprise bills        | Set up billing alerts at 50% and 80% of free tier; implement bandwidth monitoring; cache aggressively with proper Cache-Control headers |
+| Image CDN                                | Storing images with predictable sequential filenames                    | Use UUIDs or content hashes as filenames; never expose original filenames                                                               |
+| Next.js Image                            | Mixing deprecated `images.domains` with `remotePatterns` in next.config | Use only `remotePatterns`; restart dev server after config changes                                                                      |
+| Auth library (NextAuth)                  | Configuring multiple providers when only one is needed                  | Use Credentials provider only; skip OAuth complexity for two known users                                                                |
+| Database (if using Supabase/Planetscale) | Not setting up Row Level Security for private data                      | Enable RLS from day one; default-deny policy on private tables                                                                          |
 
 ## Performance Traps
 
-| Trap | Symptoms | Prevention | When It Breaks |
-|------|----------|------------|----------------|
-| Loading entire photo gallery at once | 5+ second load time; high memory usage on mobile | Virtual scrolling or pagination; load 12-20 images per page; infinite scroll with intersection observer | At 50+ images in a single view |
-| No CDN for static assets | Slow loads for geographically distant visitors | Serve all images through a CDN; use next/image built-in optimization which handles this | Immediately for any user not near the origin server |
-| Unoptimized database queries for routine builder | Slow routine page load; N+1 queries fetching products for each step | Eager-load products with routine steps in a single query; denormalize product name/photo into routine step if needed | At 20+ products with 10+ routine steps |
-| Client-side image resizing before upload | Browser tab crashes or freezes on mobile with large photos | Resize on the server or use the CDN's upload API with transformation; if client-side, use web workers and process one image at a time | With photos over 5MB on mobile devices with limited RAM |
+| Trap                                             | Symptoms                                                            | Prevention                                                                                                                            | When It Breaks                                          |
+| ------------------------------------------------ | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Loading entire photo gallery at once             | 5+ second load time; high memory usage on mobile                    | Virtual scrolling or pagination; load 12-20 images per page; infinite scroll with intersection observer                               | At 50+ images in a single view                          |
+| No CDN for static assets                         | Slow loads for geographically distant visitors                      | Serve all images through a CDN; use next/image built-in optimization which handles this                                               | Immediately for any user not near the origin server     |
+| Unoptimized database queries for routine builder | Slow routine page load; N+1 queries fetching products for each step | Eager-load products with routine steps in a single query; denormalize product name/photo into routine step if needed                  | At 20+ products with 10+ routine steps                  |
+| Client-side image resizing before upload         | Browser tab crashes or freezes on mobile with large photos          | Resize on the server or use the CDN's upload API with transformation; if client-side, use web workers and process one image at a time | With photos over 5MB on mobile devices with limited RAM |
 
 ## Security Mistakes
 
-| Mistake | Risk | Prevention |
-|---------|------|------------|
-| Validating image uploads by MIME type only | Attackers can set any MIME type in the HTTP request; malicious files pass validation | Whitelist extensions (.jpg, .png, .webp, .heic) AND validate file magic bytes server-side; reject everything else |
-| Storing uploaded files in the web-accessible public directory | Uploaded files can be executed as code if the server misconfigures handling | Store uploads in external storage (S3/Cloudinary) or outside the web root; serve through an API route |
-| Exposing private photo journal images via direct URLs | Anyone with the URL can view private memories permanently | Use signed URLs with expiration (15-60 minutes) for private images; proxy through authenticated API |
-| No rate limiting on image upload endpoints | Storage/bandwidth exhaustion; cost spike | Limit uploads to 20 images per hour per user; enforce max file size (10MB) server-side |
-| Predictable image filenames exposing content | Enumeration attack reveals all photos | Generate UUID filenames at upload; never use sequential IDs or original filenames in storage paths |
+| Mistake                                                       | Risk                                                                                 | Prevention                                                                                                        |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Validating image uploads by MIME type only                    | Attackers can set any MIME type in the HTTP request; malicious files pass validation | Whitelist extensions (.jpg, .png, .webp, .heic) AND validate file magic bytes server-side; reject everything else |
+| Storing uploaded files in the web-accessible public directory | Uploaded files can be executed as code if the server misconfigures handling          | Store uploads in external storage (S3/Cloudinary) or outside the web root; serve through an API route             |
+| Exposing private photo journal images via direct URLs         | Anyone with the URL can view private memories permanently                            | Use signed URLs with expiration (15-60 minutes) for private images; proxy through authenticated API               |
+| No rate limiting on image upload endpoints                    | Storage/bandwidth exhaustion; cost spike                                             | Limit uploads to 20 images per hour per user; enforce max file size (10MB) server-side                            |
+| Predictable image filenames exposing content                  | Enumeration attack reveals all photos                                                | Generate UUID filenames at upload; never use sequential IDs or original filenames in storage paths                |
 
 ## UX Pitfalls
 
-| Pitfall | User Impact | Better Approach |
-|---------|-------------|-----------------|
-| Photo journal entry form requiring too many fields | Funnghy skips journaling because it feels like work; the feature goes unused | Default to minimal: one photo + optional text. Date auto-populated. Tags/mood optional. Make it faster to create an entry than to open Instagram |
-| Beauty product form showing all possible fields at once | Overwhelming; feels like a database, not a personal collection | Progressive disclosure: show name, brand, photo, rating first. Expand for ingredients, notes, routine links. Let it feel like adding to a collection, not filling a spreadsheet |
-| Portfolio gallery without clear visual hierarchy | Every photo feels the same; nothing stands out; the editorial feel is lost | Support "featured" sizing -- some images larger than others in the grid. Allow manual ordering, not just chronological. A curated portfolio needs editorial control |
-| No upload progress or feedback on slow connections | User thinks upload failed; re-uploads; duplicate content; frustration | Show upload progress bar; confirm success with thumbnail preview; handle failures gracefully with retry option |
-| Touch targets too small on mobile gallery | Users tap the wrong photo; frustration on the primary viewing device | Minimum 44x44px touch targets; adequate spacing between gallery items; test on actual phone, not just responsive browser mode |
-| Making the private sections feel utilitarian compared to the public portfolio | The "gift" feeling is lost; private tools feel like an afterthought | Apply the same aesthetic care to the beauty tracker and journal as the portfolio. Same design tokens, same attention to spacing, typography, and animation |
+| Pitfall                                                                       | User Impact                                                                  | Better Approach                                                                                                                                                                 |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Photo journal entry form requiring too many fields                            | Funnghy skips journaling because it feels like work; the feature goes unused | Default to minimal: one photo + optional text. Date auto-populated. Tags/mood optional. Make it faster to create an entry than to open Instagram                                |
+| Beauty product form showing all possible fields at once                       | Overwhelming; feels like a database, not a personal collection               | Progressive disclosure: show name, brand, photo, rating first. Expand for ingredients, notes, routine links. Let it feel like adding to a collection, not filling a spreadsheet |
+| Portfolio gallery without clear visual hierarchy                              | Every photo feels the same; nothing stands out; the editorial feel is lost   | Support "featured" sizing -- some images larger than others in the grid. Allow manual ordering, not just chronological. A curated portfolio needs editorial control             |
+| No upload progress or feedback on slow connections                            | User thinks upload failed; re-uploads; duplicate content; frustration        | Show upload progress bar; confirm success with thumbnail preview; handle failures gracefully with retry option                                                                  |
+| Touch targets too small on mobile gallery                                     | Users tap the wrong photo; frustration on the primary viewing device         | Minimum 44x44px touch targets; adequate spacing between gallery items; test on actual phone, not just responsive browser mode                                                   |
+| Making the private sections feel utilitarian compared to the public portfolio | The "gift" feeling is lost; private tools feel like an afterthought          | Apply the same aesthetic care to the beauty tracker and journal as the portfolio. Same design tokens, same attention to spacing, typography, and animation                      |
 
 ## "Looks Done But Isn't" Checklist
 
@@ -230,29 +242,29 @@ Design system must be the first thing built, before any feature UI. Tokens and b
 
 ## Recovery Strategies
 
-| Pitfall | Recovery Cost | Recovery Steps |
-|---------|---------------|----------------|
-| Unoptimized images already in production | MEDIUM | Write a migration script to regenerate all variants from originals; update database records with new URLs; redirect old URLs |
-| Design system drift (inconsistent colors/typography) | MEDIUM | Audit all color/font values in codebase; extract to tokens; find-and-replace; visual regression test each page |
-| Flat product data model needs restructuring | HIGH | Database migration to add JSON attributes column; backfill existing products; update all queries and forms |
-| Missing API-level auth on private routes | LOW | Add auth middleware to route group; test all endpoints; one afternoon of work if routes are well-organized |
-| CLS issues in gallery | LOW-MEDIUM | Add aspect-ratio CSS to containers; store dimensions in DB (may need backfill script to read from stored images); update gallery component |
-| Private images exposed via direct URLs | MEDIUM | Move to signed URLs; update all image-serving code; regenerate any URLs stored in database; invalidate CDN cache |
+| Pitfall                                              | Recovery Cost | Recovery Steps                                                                                                                             |
+| ---------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Unoptimized images already in production             | MEDIUM        | Write a migration script to regenerate all variants from originals; update database records with new URLs; redirect old URLs               |
+| Design system drift (inconsistent colors/typography) | MEDIUM        | Audit all color/font values in codebase; extract to tokens; find-and-replace; visual regression test each page                             |
+| Flat product data model needs restructuring          | HIGH          | Database migration to add JSON attributes column; backfill existing products; update all queries and forms                                 |
+| Missing API-level auth on private routes             | LOW           | Add auth middleware to route group; test all endpoints; one afternoon of work if routes are well-organized                                 |
+| CLS issues in gallery                                | LOW-MEDIUM    | Add aspect-ratio CSS to containers; store dimensions in DB (may need backfill script to read from stored images); update gallery component |
+| Private images exposed via direct URLs               | MEDIUM        | Move to signed URLs; update all image-serving code; regenerate any URLs stored in database; invalidate CDN cache                           |
 
 ## Pitfall-to-Phase Mapping
 
-| Pitfall | Prevention Phase | Verification |
-|---------|------------------|--------------|
-| Unoptimized images | Infrastructure / Foundation | Lighthouse performance score above 80 on gallery page with 20+ images |
-| CLS in galleries | Infrastructure / Foundation | CLS score below 0.1 in Lighthouse on all pages with images |
-| Over-engineered auth | Auth phase (timebox to 1 day) | Auth works, two users seeded, no registration endpoints exist |
-| Rigid product data model | Data modeling phase | Model can represent 10 real products from Funnghy's collection accurately |
-| Missing API auth boundary | Auth phase + every subsequent phase | Incognito browser cannot access any private route or API endpoint |
-| Design system drift | Design system phase (before features) | All colors/fonts/spacing come from tokens; grep finds zero raw hex values outside token definitions |
-| Image storage cost surprise | Infrastructure phase | Billing alerts configured; bandwidth monitoring in place; free tier limits documented |
-| File upload security gaps | Infrastructure phase | Upload endpoint rejects non-image files; files stored with UUID names outside web root |
-| Poor mobile gallery UX | Portfolio phase | Gallery tested on real phone; touch targets measured; no layout shifts on scroll |
-| Journal/tracker feels utilitarian | Each feature phase | Side-by-side visual comparison with portfolio confirms consistent aesthetic |
+| Pitfall                           | Prevention Phase                      | Verification                                                                                        |
+| --------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Unoptimized images                | Infrastructure / Foundation           | Lighthouse performance score above 80 on gallery page with 20+ images                               |
+| CLS in galleries                  | Infrastructure / Foundation           | CLS score below 0.1 in Lighthouse on all pages with images                                          |
+| Over-engineered auth              | Auth phase (timebox to 1 day)         | Auth works, two users seeded, no registration endpoints exist                                       |
+| Rigid product data model          | Data modeling phase                   | Model can represent 10 real products from Funnghy's collection accurately                           |
+| Missing API auth boundary         | Auth phase + every subsequent phase   | Incognito browser cannot access any private route or API endpoint                                   |
+| Design system drift               | Design system phase (before features) | All colors/fonts/spacing come from tokens; grep finds zero raw hex values outside token definitions |
+| Image storage cost surprise       | Infrastructure phase                  | Billing alerts configured; bandwidth monitoring in place; free tier limits documented               |
+| File upload security gaps         | Infrastructure phase                  | Upload endpoint rejects non-image files; files stored with UUID names outside web root              |
+| Poor mobile gallery UX            | Portfolio phase                       | Gallery tested on real phone; touch targets measured; no layout shifts on scroll                    |
+| Journal/tracker feels utilitarian | Each feature phase                    | Side-by-side visual comparison with portfolio confirms consistent aesthetic                         |
 
 ## Sources
 
@@ -270,5 +282,6 @@ Design system must be the first thing built, before any feature UI. Tokens and b
 - [Mobisoft - Mobile App UX Mistakes](https://mobisoftinfotech.com/resources/blog/ui-ux-design/mobile-app-ux-mistakes)
 
 ---
-*Pitfalls research for: Personal portfolio + beauty tracker webapp (Funnghy's World)*
-*Researched: 2026-03-19*
+
+_Pitfalls research for: Personal portfolio + beauty tracker webapp (Funnghy's World)_
+_Researched: 2026-03-19_

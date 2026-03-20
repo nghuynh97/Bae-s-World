@@ -85,64 +85,66 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ## Out of Scope
 
-| Feature | Reason |
-|---------|--------|
-| Public registration | Two users only — this is a personal gift, not a platform |
-| Real-time chat/messaging | Not a communication tool |
-| E-commerce / product links | Personal tracker, not a storefront |
-| Video hosting | Photos only — keeps it focused and lightweight |
-| Social features (likes, comments) | Portfolio is view-only for public visitors |
-| Social media integration | Standalone personal space |
-| AI skin analysis | Over-complex for a gift app |
-| Ingredient scanning/database | Would require external data sources and add massive scope |
-| Push notifications | Overkill for two users |
-| Blog/writing features | Photo journal covers personal expression |
+| Feature                           | Reason                                                    |
+| --------------------------------- | --------------------------------------------------------- |
+| Public registration               | Two users only — this is a personal gift, not a platform  |
+| Real-time chat/messaging          | Not a communication tool                                  |
+| E-commerce / product links        | Personal tracker, not a storefront                        |
+| Video hosting                     | Photos only — keeps it focused and lightweight            |
+| Social features (likes, comments) | Portfolio is view-only for public visitors                |
+| Social media integration          | Standalone personal space                                 |
+| AI skin analysis                  | Over-complex for a gift app                               |
+| Ingredient scanning/database      | Would require external data sources and add massive scope |
+| Push notifications                | Overkill for two users                                    |
+| Blog/writing features             | Photo journal covers personal expression                  |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| AUTH-01 | Phase 1 | Complete |
-| AUTH-02 | Phase 1 | Complete |
-| AUTH-03 | Phase 1 | Complete |
-| AUTH-04 | Phase 1 | Complete |
-| AUTH-05 | Phase 1 | Complete |
-| DESG-01 | Phase 1 | Complete |
-| DESG-02 | Phase 1 | Complete |
-| DESG-03 | Phase 1 | Complete |
-| IMG-01 | Phase 1 | Complete |
-| IMG-02 | Phase 1 | Complete |
-| IMG-03 | Phase 1 | Complete |
-| IMG-04 | Phase 1 | Complete |
-| PORT-01 | Phase 2 | Complete |
-| PORT-02 | Phase 2 | Complete |
-| PORT-03 | Phase 2 | Complete |
-| PORT-04 | Phase 2 | Complete |
-| PORT-05 | Phase 2 | Complete |
-| PORT-06 | Phase 2 | Complete |
-| AUTH-06 | Phase 2 | Complete |
-| BEAU-01 | Phase 3 | Complete |
-| BEAU-02 | Phase 3 | Complete |
-| BEAU-03 | Phase 3 | Complete |
-| BEAU-04 | Phase 3 | Complete |
-| BEAU-05 | Phase 3 | Complete |
-| BEAU-06 | Phase 3 | Complete |
-| BEAU-07 | Phase 3 | Complete |
-| JOUR-01 | Phase 4 | Pending |
-| JOUR-02 | Phase 4 | Pending |
-| JOUR-03 | Phase 4 | Pending |
-| JOUR-04 | Phase 4 | Pending |
-| JOUR-05 | Phase 4 | Pending |
-| JOUR-06 | Phase 4 | Pending |
-| DESG-04 | Phase 5 | Pending |
+| Requirement | Phase   | Status   |
+| ----------- | ------- | -------- |
+| AUTH-01     | Phase 1 | Complete |
+| AUTH-02     | Phase 1 | Complete |
+| AUTH-03     | Phase 1 | Complete |
+| AUTH-04     | Phase 1 | Complete |
+| AUTH-05     | Phase 1 | Complete |
+| DESG-01     | Phase 1 | Complete |
+| DESG-02     | Phase 1 | Complete |
+| DESG-03     | Phase 1 | Complete |
+| IMG-01      | Phase 1 | Complete |
+| IMG-02      | Phase 1 | Complete |
+| IMG-03      | Phase 1 | Complete |
+| IMG-04      | Phase 1 | Complete |
+| PORT-01     | Phase 2 | Complete |
+| PORT-02     | Phase 2 | Complete |
+| PORT-03     | Phase 2 | Complete |
+| PORT-04     | Phase 2 | Complete |
+| PORT-05     | Phase 2 | Complete |
+| PORT-06     | Phase 2 | Complete |
+| AUTH-06     | Phase 2 | Complete |
+| BEAU-01     | Phase 3 | Complete |
+| BEAU-02     | Phase 3 | Complete |
+| BEAU-03     | Phase 3 | Complete |
+| BEAU-04     | Phase 3 | Complete |
+| BEAU-05     | Phase 3 | Complete |
+| BEAU-06     | Phase 3 | Complete |
+| BEAU-07     | Phase 3 | Complete |
+| JOUR-01     | Phase 4 | Pending  |
+| JOUR-02     | Phase 4 | Pending  |
+| JOUR-03     | Phase 4 | Pending  |
+| JOUR-04     | Phase 4 | Pending  |
+| JOUR-05     | Phase 4 | Pending  |
+| JOUR-06     | Phase 4 | Pending  |
+| DESG-04     | Phase 5 | Pending  |
 
 **Coverage:**
+
 - v1 requirements: 33 total
 - Mapped to phases: 33
 - Unmapped: 0
 
 ---
-*Requirements defined: 2026-03-19*
-*Last updated: 2026-03-19 after roadmap creation*
+
+_Requirements defined: 2026-03-19_
+_Last updated: 2026-03-19 after roadmap creation_

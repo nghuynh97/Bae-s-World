@@ -1,17 +1,17 @@
-import Link from "next/link";
-import { LogoText } from "@/components/layout/logo-text";
-import { LoginForm } from "@/components/auth/login-form";
+import Link from 'next/link';
+import { LogoText } from '@/components/layout/logo-text';
+import { LoginForm } from '@/components/auth/login-form';
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center px-6">
-      <div className="flex flex-col items-center w-full max-w-[360px]">
+    <div className="flex min-h-screen items-center justify-center px-6">
+      <div className="flex w-full max-w-[360px] flex-col items-center">
         <LogoText size="lg" />
 
-        <p className="mt-4 text-text-secondary text-base text-center">
+        <p className="mt-4 text-center text-base text-text-secondary">
           Welcome to Funnghy&apos;s World
         </p>
-        <p className="mt-2 text-text-secondary text-base text-center">
+        <p className="mt-2 text-center text-base text-text-secondary">
           Sign in with your email and password to continue.
         </p>
 
@@ -21,7 +21,7 @@ export default function LoginPage() {
 
         <Link
           href="/setup"
-          className="mt-6 text-text-secondary text-sm hover:text-text-primary transition-colors"
+          className="mt-6 text-sm text-text-secondary transition-colors hover:text-text-primary"
         >
           First time? Enter your invite code
         </Link>

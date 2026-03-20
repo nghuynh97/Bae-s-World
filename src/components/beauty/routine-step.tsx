@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, X } from "lucide-react";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { GripVertical, X } from 'lucide-react';
 
 interface RoutineStepProps {
   step: {
@@ -40,22 +40,22 @@ export function RoutineStep({ step, index, onRemove }: RoutineStepProps) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`flex items-center gap-3 py-3 px-2 rounded-md ${
-        isDragging ? "shadow-md bg-surface opacity-90 z-10" : "hover:bg-hover"
+      className={`flex items-center gap-3 rounded-md px-2 py-3 ${
+        isDragging ? 'z-10 bg-surface opacity-90 shadow-md' : 'hover:bg-hover'
       }`}
     >
       <button
         {...attributes}
         {...listeners}
-        className="cursor-grab active:cursor-grabbing touch-none p-1"
+        className="cursor-grab touch-none p-1 active:cursor-grabbing"
         aria-label="Drag to reorder"
       >
         <GripVertical className="h-5 w-5 text-muted-foreground" />
       </button>
-      <span className="text-sm font-bold text-text-secondary w-6 text-center shrink-0">
+      <span className="w-6 shrink-0 text-center text-sm font-bold text-text-secondary">
         {index + 1}
       </span>
-      <div className="h-10 w-10 rounded-md overflow-hidden shrink-0 bg-muted">
+      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted">
         {step.product.thumbnailUrl && (
           <img
             src={step.product.thumbnailUrl}
@@ -64,12 +64,12 @@ export function RoutineStep({ step, index, onRemove }: RoutineStepProps) {
           />
         )}
       </div>
-      <span className="text-sm font-body text-primary flex-grow truncate">
+      <span className="flex-grow truncate font-body text-sm text-primary">
         {step.product.name}
       </span>
       <button
         onClick={() => onRemove(step.id)}
-        className="p-1 text-muted-foreground hover:text-destructive shrink-0"
+        className="shrink-0 p-1 text-muted-foreground hover:text-destructive"
         aria-label={`Remove ${step.product.name}`}
       >
         <X className="h-4 w-4" />

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 interface MasonryGridProps {
   items: React.ReactNode[];
@@ -20,7 +20,7 @@ export function MasonryGrid({ items, columns = 3 }: MasonryGridProps) {
   return (
     <div className="flex gap-4">
       {columnItems.map((col, colIndex) => (
-        <div key={colIndex} className="flex-1 flex flex-col gap-4">
+        <div key={colIndex} className="flex flex-1 flex-col gap-4">
           {col}
         </div>
       ))}

@@ -24,6 +24,7 @@ The stack converges cleanly on Next.js 16.1 (App Router, Turbopack, built-in ima
 The key architectural insight is that Next.js's `next/image` component is not optional — it is critical infrastructure for a photo-heavy app. It handles WebP/AVIF conversion, responsive srcsets, lazy loading, and blur placeholders automatically. Supabase Storage handles up to 1 GB free, sufficient for months of two-user uploads, with Cloudinary as the migration path if storage needs grow.
 
 **Core technologies:**
+
 - **Next.js 16.1:** Full-stack React framework — App Router, server components, built-in image optimization justify the choice for a photo-heavy app
 - **Supabase (hosted):** PostgreSQL + auth + file storage — one service replaces three; Row Level Security enforces the two-user access model at the database layer
 - **Drizzle ORM 0.39+:** Type-safe database queries — 90% smaller bundle and faster cold starts than Prisma, SQL-like queries make behavior predictable
@@ -38,6 +39,7 @@ The key architectural insight is that Next.js's `next/image` component is not op
 The feature landscape has three layers with clear MVP boundaries. All P1 features are required to deliver the gift. P2 features add polish after initial use. P3 features only if real usage reveals the need.
 
 **Must have (table stakes — P1):**
+
 - Design system (pastel/rose gold/cream aesthetic with typography) — the aesthetic IS the gift; generic styling undermines the entire product
 - Image upload and optimization pipeline — foundational infrastructure; every other feature depends on it
 - Public portfolio gallery (masonry layout + lightbox + category filtering) — primary public-facing showcase
@@ -50,6 +52,7 @@ The feature landscape has three layers with clear MVP boundaries. All P1 feature
 - Responsive/mobile-first design — her primary device is her phone
 
 **Should have (differentiators — P2, after validation):**
+
 - Calendar view for journal navigation
 - Routine daily check-off with visual progress
 - Contributor-specific streamlined upload UI for boyfriend
@@ -58,11 +61,13 @@ The feature landscape has three layers with clear MVP boundaries. All P1 feature
 - Page transitions and micro-animations (polish layer)
 
 **Defer (v2+):**
+
 - Product wishlist, routine streak history, before/after photo comparison
 - Portfolio print/PDF export (comp card)
 - Dark mode
 
 **Anti-features (deliberately excluded):**
+
 - Public comments/likes, e-commerce links, ingredient scanning, AI skin analysis, social media integration, video hosting, blog/CMS, public user registration, push notification reminders.
 
 ### Architecture Approach
@@ -70,6 +75,7 @@ The feature landscape has three layers with clear MVP boundaries. All P1 feature
 The architecture follows a clean three-layer pattern with Next.js App Router route groups creating the public/private split: `(public)` route group for the portfolio (no auth overhead, ISR-eligible), and `(private)` route group for beauty tracker and journal (auth middleware enforced at every route). All mutations go through Server Actions (no API routes needed), which run server-side, call Drizzle directly, and include auth + role checks inline. The design system lives as CSS custom properties at `:root`, referenced by Tailwind — a single source of truth that prevents aesthetic drift across features.
 
 **Major components:**
+
 1. **Public Portfolio** — Server-rendered gallery, lightbox, about/contact pages; ISR caching; anonymous access; indexable for SEO and Open Graph
 2. **Private Dashboard** — Beauty tracker CRUD, photo journal, content management; all behind auth middleware with role-based Server Action checks
 3. **Auth System** — Supabase Auth with cookie-based sessions via `@supabase/ssr`; two pre-seeded accounts; no registration; middleware matcher protects `/dashboard/*`, `/beauty/*`, `/journal/*`, `/manage/*`
@@ -179,10 +185,12 @@ Based on the dependency analysis and pitfall mapping across all four research fi
 ### Research Flags
 
 Phases likely needing deeper research during planning:
+
 - **Phase 3 (Beauty Tracker):** Drag-to-reorder with `@dnd-kit` + Next.js Server Actions requires a clear optimistic UI pattern. Research the specific integration before building the routine builder.
 - **Phase 4 (Photo Journal):** Confirm Supabase Storage signed URL generation pattern for private image access — ensure time-limited URLs are feasible within the Server Component / Server Action architecture.
 
 Phases with standard patterns (skip research-phase):
+
 - **Phase 1 (Foundation):** Supabase Auth + Next.js App Router is extensively documented. Tailwind v4 design tokens are well-documented. Next.js Drizzle setup has clear official guidance.
 - **Phase 2 (Public Portfolio):** `next/image` + ISR + `react-photo-album` masonry are all well-documented with official examples.
 - **Phase 5 (Polish):** All P2 features are incremental additions to established foundation. No novel integrations.
@@ -191,12 +199,12 @@ Phases with standard patterns (skip research-phase):
 
 ## Confidence Assessment
 
-| Area | Confidence | Notes |
-|------|------------|-------|
-| Stack | HIGH | Multiple official sources confirmed; version compatibility table verified in STACK.md; all major choices cross-referenced against alternatives |
-| Features | HIGH | Grounded in real competitor analysis (Pixpa, FeelinMySkin, Skin Bliss, BasicBeauty, PicDiary, Day One); feature scope is well-bounded by PROJECT.md constraints |
+| Area         | Confidence  | Notes                                                                                                                                                                                                                                                                                                                                      |
+| ------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Stack        | HIGH        | Multiple official sources confirmed; version compatibility table verified in STACK.md; all major choices cross-referenced against alternatives                                                                                                                                                                                             |
+| Features     | HIGH        | Grounded in real competitor analysis (Pixpa, FeelinMySkin, Skin Bliss, BasicBeauty, PicDiary, Day One); feature scope is well-bounded by PROJECT.md constraints                                                                                                                                                                            |
 | Architecture | MEDIUM-HIGH | Next.js App Router patterns are well-documented at HIGH confidence; Drizzle replaces Prisma from ARCHITECTURE.md's original recommendation (note: ARCHITECTURE.md used Prisma + SQLite in diagrams but STACK.md recommends Drizzle + Supabase — use STACK.md as authoritative); some sources were vendor or community rather than official |
-| Pitfalls | HIGH | Pitfalls are grounded in known CWV metrics (CLS thresholds), OWASP security guidance (file upload security), and well-documented Next.js/image performance patterns; all have concrete measurable verification criteria |
+| Pitfalls     | HIGH        | Pitfalls are grounded in known CWV metrics (CLS thresholds), OWASP security guidance (file upload security), and well-documented Next.js/image performance patterns; all have concrete measurable verification criteria                                                                                                                    |
 
 **Overall confidence:** HIGH
 
@@ -215,6 +223,7 @@ Phases with standard patterns (skip research-phase):
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [Next.js 16.1 blog post](https://nextjs.org/blog/next-16-1) — confirmed latest stable version
 - [Tailwind CSS v4.0 release](https://tailwindcss.com/blog/tailwindcss-v4) — CSS-first config, OKLCH colors
 - [shadcn/ui changelog - CLI v4](https://ui.shadcn.com/docs/changelog/2026-03-cli-v4) — Tailwind v4 support confirmed
@@ -227,6 +236,7 @@ Phases with standard patterns (skip research-phase):
 - [OWASP - File Upload Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/File_Upload_Cheat_Sheet.html) — upload security
 
 ### Secondary (MEDIUM confidence)
+
 - [Drizzle vs Prisma comparison](https://makerkit.dev/blog/tutorials/drizzle-vs-prisma) — bundle size and cold start benchmarks
 - [react-photo-album](https://react-photo-album.com/examples/masonry) — masonry layout patterns
 - [Next.js App Router Authentication Guide 2026 (WorkOS)](https://workos.com/blog/nextjs-app-router-authentication-guide-2026) — auth patterns
@@ -237,9 +247,11 @@ Phases with standard patterns (skip research-phase):
 - [Penpot - Developer Guide to Design Tokens](https://penpot.app/blog/the-developers-guide-to-design-tokens-and-css-variables/) — design token architecture
 
 ### Tertiary (needs validation during implementation)
+
 - Drag-to-reorder with @dnd-kit + Server Actions — no specific source found; needs implementation research
 - Supabase Storage signed URL + next/image integration pattern — not explicitly covered in researched sources
 
 ---
-*Research completed: 2026-03-19*
-*Ready for roadmap: yes*
+
+_Research completed: 2026-03-19_
+_Ready for roadmap: yes_

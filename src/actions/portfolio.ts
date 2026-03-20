@@ -1,27 +1,27 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
 import {
   portfolioItems,
   categories,
   images,
   imageVariants,
-} from "@/lib/db/schema";
-import { eq, desc, lt, and, inArray } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
-import { getPublicImageUrl } from "@/lib/supabase/storage";
+} from '@/lib/db/schema';
+import { eq, desc, lt, and, inArray } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { getPublicImageUrl } from '@/lib/supabase/storage';
 
 const PAGE_SIZE = 12;
 
 export async function getPortfolioItems(
   cursor?: string,
-  categorySlug?: string
+  categorySlug?: string,
 ) {
   const conditions = [];
 
-  if (categorySlug && categorySlug !== "all") {
+  if (categorySlug && categorySlug !== 'all') {
     conditions.push(eq(categories.slug, categorySlug));
   }
 
@@ -89,7 +89,7 @@ export async function getPortfolioItems(
         storagePath: v.storagePath,
         width: v.width,
         height: v.height,
-        url: getPublicImageUrl("public-images", v.storagePath),
+        url: getPublicImageUrl('public-images', v.storagePath),
       });
     }
   }
@@ -111,7 +111,7 @@ const uuidSchema = z.string().uuid();
 export async function getPortfolioItemById(itemId: string) {
   const parsed = uuidSchema.safeParse(itemId);
   if (!parsed.success) {
-    throw new Error("Invalid portfolio item ID");
+    throw new Error('Invalid portfolio item ID');
   }
 
   const results = await db
@@ -152,20 +152,20 @@ export async function getPortfolioItemById(itemId: string) {
       storagePath: v.storagePath,
       width: v.width,
       height: v.height,
-      url: getPublicImageUrl("public-images", v.storagePath),
+      url: getPublicImageUrl('public-images', v.storagePath),
     })),
   };
 }
 
 const createPortfolioItemSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Title too long"),
+  title: z.string().min(1, 'Title is required').max(100, 'Title too long'),
   description: z
     .string()
-    .max(500, "Description too long")
+    .max(500, 'Description too long')
     .optional()
     .nullable(),
-  categoryId: z.string().uuid("Invalid category"),
-  imageId: z.string().uuid("Invalid image"),
+  categoryId: z.string().uuid('Invalid category'),
+  imageId: z.string().uuid('Invalid image'),
 });
 
 export async function createPortfolioItem(data: {
@@ -183,7 +183,7 @@ export async function createPortfolioItem(data: {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [created] = await db
     .insert(portfolioItems)
@@ -195,31 +195,31 @@ export async function createPortfolioItem(data: {
     })
     .returning();
 
-  revalidatePath("/admin/portfolio");
-  revalidatePath("/");
+  revalidatePath('/admin/portfolio');
+  revalidatePath('/');
   return created;
 }
 
 const updatePortfolioItemSchema = z.object({
   title: z
     .string()
-    .min(1, "Title is required")
-    .max(100, "Title too long")
+    .min(1, 'Title is required')
+    .max(100, 'Title too long')
     .optional(),
   description: z
     .string()
-    .max(500, "Description too long")
+    .max(500, 'Description too long')
     .optional()
     .nullable(),
-  categoryId: z.string().uuid("Invalid category").optional(),
+  categoryId: z.string().uuid('Invalid category').optional(),
 });
 
 export async function updatePortfolioItem(
   itemId: string,
-  data: { title?: string; description?: string | null; categoryId?: string }
+  data: { title?: string; description?: string | null; categoryId?: string },
 ) {
   const idParsed = uuidSchema.safeParse(itemId);
-  if (!idParsed.success) throw new Error("Invalid portfolio item ID");
+  if (!idParsed.success) throw new Error('Invalid portfolio item ID');
 
   const parsed = updatePortfolioItemSchema.safeParse(data);
   if (!parsed.success) {
@@ -230,7 +230,7 @@ export async function updatePortfolioItem(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [updated] = await db
     .update(portfolioItems)
@@ -241,20 +241,20 @@ export async function updatePortfolioItem(
     .where(eq(portfolioItems.id, itemId))
     .returning();
 
-  revalidatePath("/admin/portfolio");
-  revalidatePath("/");
+  revalidatePath('/admin/portfolio');
+  revalidatePath('/');
   return updated;
 }
 
 export async function deletePortfolioItem(itemId: string) {
   const parsed = uuidSchema.safeParse(itemId);
-  if (!parsed.success) throw new Error("Invalid portfolio item ID");
+  if (!parsed.success) throw new Error('Invalid portfolio item ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Find the portfolio item to get its imageId
   const [item] = await db
@@ -263,7 +263,7 @@ export async function deletePortfolioItem(itemId: string) {
     .where(eq(portfolioItems.id, itemId))
     .limit(1);
 
-  if (!item) throw new Error("Portfolio item not found");
+  if (!item) throw new Error('Portfolio item not found');
 
   // Get variant storage paths for cleanup
   const variants = await db
@@ -274,7 +274,7 @@ export async function deletePortfolioItem(itemId: string) {
   // Delete from Supabase Storage
   if (variants.length > 0) {
     const paths = variants.map((v) => v.storagePath);
-    await supabase.storage.from("public-images").remove(paths);
+    await supabase.storage.from('public-images').remove(paths);
   }
 
   // Delete the image record (cascades to imageVariants via onDelete: cascade)
@@ -283,7 +283,7 @@ export async function deletePortfolioItem(itemId: string) {
   // Delete the portfolio item record
   await db.delete(portfolioItems).where(eq(portfolioItems.id, itemId));
 
-  revalidatePath("/admin/portfolio");
-  revalidatePath("/");
+  revalidatePath('/admin/portfolio');
+  revalidatePath('/');
   return { success: true };
 }

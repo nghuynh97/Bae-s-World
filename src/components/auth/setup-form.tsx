@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useTransition } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { setupAccount } from "@/actions/auth";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useTransition } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { setupAccount } from '@/actions/auth';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 const setupSchema = z
   .object({
-    email: z.string().email("Please enter a valid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters"),
+    email: z.string().email('Please enter a valid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
   });
 
 type SetupFormData = z.infer<typeof setupSchema>;
@@ -43,14 +43,14 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
     startTransition(async () => {
       const result = await setupAccount(code, data.email, data.password);
       if (result?.error) {
-        setError("root", { message: result.error });
+        setError('root', { message: result.error });
       }
     });
   }
 
   return (
     <div className="w-full">
-      <h2 className="font-display text-2xl font-bold text-text-primary text-center mb-6">
+      <h2 className="mb-6 text-center font-display text-2xl font-bold text-text-primary">
         Welcome, {assignedName}!
       </h2>
 
@@ -61,8 +61,8 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
             id="setup-email"
             type="email"
             placeholder="you@example.com"
-            className={`rounded-[10px] ${errors.email ? "border-destructive" : ""}`}
-            {...register("email")}
+            className={`rounded-[10px] ${errors.email ? 'border-destructive' : ''}`}
+            {...register('email')}
           />
           {errors.email && (
             <p className="text-sm text-destructive" aria-live="polite">
@@ -77,8 +77,8 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
             id="setup-password"
             type="password"
             placeholder="At least 8 characters"
-            className={`rounded-[10px] ${errors.password ? "border-destructive" : ""}`}
-            {...register("password")}
+            className={`rounded-[10px] ${errors.password ? 'border-destructive' : ''}`}
+            {...register('password')}
           />
           {errors.password && (
             <p className="text-sm text-destructive" aria-live="polite">
@@ -93,8 +93,8 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
             id="setup-confirm"
             type="password"
             placeholder="Confirm your password"
-            className={`rounded-[10px] ${errors.confirmPassword ? "border-destructive" : ""}`}
-            {...register("confirmPassword")}
+            className={`rounded-[10px] ${errors.confirmPassword ? 'border-destructive' : ''}`}
+            {...register('confirmPassword')}
           />
           {errors.confirmPassword && (
             <p className="text-sm text-destructive" aria-live="polite">
@@ -112,11 +112,11 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-all duration-100 disabled:opacity-50 active:scale-[0.97]"
+          className="w-full rounded-[10px] bg-accent py-3 text-sm font-bold tracking-wider text-text-primary uppercase transition-all duration-100 hover:bg-accent-hover active:scale-[0.97] disabled:opacity-50"
         >
           <span className="inline-flex items-center gap-2">
             {isPending && <ButtonSpinner />}
-            {isPending ? "Creating account..." : "Create My Account"}
+            {isPending ? 'Creating account...' : 'Create My Account'}
           </span>
         </button>
       </form>

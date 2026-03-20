@@ -1,61 +1,61 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { scheduleJobs } from "@/lib/db/schema";
-import { eq, and, gte, lte, asc } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { scheduleJobs } from '@/lib/db/schema';
+import { eq, and, gte, lte, asc } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
 
 const uuidSchema = z.string().uuid();
 
 const createJobSchema = z.object({
-  jobDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+  jobDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format'),
   clientName: z
     .string()
-    .min(1, "Client name is required")
-    .max(100, "Client name too long"),
+    .min(1, 'Client name is required')
+    .max(100, 'Client name too long'),
   location: z
     .string()
-    .min(1, "Location is required")
-    .max(200, "Location too long"),
-  startTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
-  endTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
-  payAmount: z.number().int().min(0, "Pay amount must be non-negative"),
-  status: z.enum(["paid", "pending"]),
-  notes: z.string().max(1000, "Notes too long").optional().nullable(),
+    .min(1, 'Location is required')
+    .max(200, 'Location too long'),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format'),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time format'),
+  payAmount: z.number().int().min(0, 'Pay amount must be non-negative'),
+  status: z.enum(['paid', 'pending']),
+  notes: z.string().max(1000, 'Notes too long').optional().nullable(),
 });
 
 const updateJobSchema = z.object({
   jobDate: z
     .string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format')
     .optional(),
   clientName: z
     .string()
-    .min(1, "Client name is required")
-    .max(100, "Client name too long")
+    .min(1, 'Client name is required')
+    .max(100, 'Client name too long')
     .optional(),
   location: z
     .string()
-    .min(1, "Location is required")
-    .max(200, "Location too long")
+    .min(1, 'Location is required')
+    .max(200, 'Location too long')
     .optional(),
   startTime: z
     .string()
-    .regex(/^\d{2}:\d{2}$/, "Invalid time format")
+    .regex(/^\d{2}:\d{2}$/, 'Invalid time format')
     .optional(),
   endTime: z
     .string()
-    .regex(/^\d{2}:\d{2}$/, "Invalid time format")
+    .regex(/^\d{2}:\d{2}$/, 'Invalid time format')
     .optional(),
   payAmount: z
     .number()
     .int()
-    .min(0, "Pay amount must be non-negative")
+    .min(0, 'Pay amount must be non-negative')
     .optional(),
-  status: z.enum(["paid", "pending"]).optional(),
-  notes: z.string().max(1000, "Notes too long").optional().nullable(),
+  status: z.enum(['paid', 'pending']).optional(),
+  notes: z.string().max(1000, 'Notes too long').optional().nullable(),
 });
 
 export async function createJob(data: z.infer<typeof createJobSchema>) {
@@ -68,14 +68,14 @@ export async function createJob(data: z.infer<typeof createJobSchema>) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [created] = await db
     .insert(scheduleJobs)
     .values(parsed.data)
     .returning();
 
-  revalidatePath("/schedule");
+  revalidatePath('/schedule');
   return created;
 }
 
@@ -84,10 +84,10 @@ export async function getJobsForMonth(year: number, month: number) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
-  const startDate = `${year}-${String(month).padStart(2, "0")}-01`;
-  const endDate = `${year}-${String(month).padStart(2, "0")}-31`;
+  const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
+  const endDate = `${year}-${String(month).padStart(2, '0')}-31`;
 
   return db
     .select()
@@ -95,21 +95,21 @@ export async function getJobsForMonth(year: number, month: number) {
     .where(
       and(
         gte(scheduleJobs.jobDate, startDate),
-        lte(scheduleJobs.jobDate, endDate)
-      )
+        lte(scheduleJobs.jobDate, endDate),
+      ),
     )
     .orderBy(asc(scheduleJobs.jobDate), asc(scheduleJobs.startTime));
 }
 
 export async function getJobById(jobId: string) {
   const parsed = uuidSchema.safeParse(jobId);
-  if (!parsed.success) throw new Error("Invalid job ID");
+  if (!parsed.success) throw new Error('Invalid job ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const results = await db
     .select()
@@ -122,10 +122,10 @@ export async function getJobById(jobId: string) {
 
 export async function updateJob(
   jobId: string,
-  data: z.infer<typeof updateJobSchema>
+  data: z.infer<typeof updateJobSchema>,
 ) {
   const idParsed = uuidSchema.safeParse(jobId);
-  if (!idParsed.success) throw new Error("Invalid job ID");
+  if (!idParsed.success) throw new Error('Invalid job ID');
 
   const parsed = updateJobSchema.safeParse(data);
   if (!parsed.success) {
@@ -136,7 +136,7 @@ export async function updateJob(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [updated] = await db
     .update(scheduleJobs)
@@ -147,23 +147,23 @@ export async function updateJob(
     .where(eq(scheduleJobs.id, jobId))
     .returning();
 
-  revalidatePath("/schedule");
+  revalidatePath('/schedule');
   return updated;
 }
 
 export async function deleteJob(jobId: string) {
   const parsed = uuidSchema.safeParse(jobId);
-  if (!parsed.success) throw new Error("Invalid job ID");
+  if (!parsed.success) throw new Error('Invalid job ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   await db.delete(scheduleJobs).where(eq(scheduleJobs.id, jobId));
 
-  revalidatePath("/schedule");
+  revalidatePath('/schedule');
   return { success: true };
 }
 
@@ -172,10 +172,10 @@ export async function getIncomeStats(year: number, month: number) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
-  const startDate = `${year}-${String(month).padStart(2, "0")}-01`;
-  const endDate = `${year}-${String(month).padStart(2, "0")}-31`;
+  const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
+  const endDate = `${year}-${String(month).padStart(2, '0')}-31`;
 
   const jobs = await db
     .select()
@@ -183,15 +183,15 @@ export async function getIncomeStats(year: number, month: number) {
     .where(
       and(
         gte(scheduleJobs.jobDate, startDate),
-        lte(scheduleJobs.jobDate, endDate)
-      )
+        lte(scheduleJobs.jobDate, endDate),
+      ),
     );
 
   const totalPaid = jobs
-    .filter((j) => j.status === "paid")
+    .filter((j) => j.status === 'paid')
     .reduce((sum, j) => sum + j.payAmount, 0);
   const totalPending = jobs
-    .filter((j) => j.status === "pending")
+    .filter((j) => j.status === 'pending')
     .reduce((sum, j) => sum + j.payAmount, 0);
 
   return {
@@ -207,7 +207,7 @@ export async function getYearlyStats(year: number) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const startDate = `${year}-01-01`;
   const endDate = `${year}-12-31`;
@@ -218,8 +218,8 @@ export async function getYearlyStats(year: number) {
     .where(
       and(
         gte(scheduleJobs.jobDate, startDate),
-        lte(scheduleJobs.jobDate, endDate)
-      )
+        lte(scheduleJobs.jobDate, endDate),
+      ),
     );
 
   // Group by month
@@ -231,15 +231,15 @@ export async function getYearlyStats(year: number) {
   }[] = [];
 
   for (let m = 1; m <= 12; m++) {
-    const monthStr = String(m).padStart(2, "0");
+    const monthStr = String(m).padStart(2, '0');
     const prefix = `${year}-${monthStr}`;
     const monthJobs = jobs.filter((j) => j.jobDate.startsWith(prefix));
 
     const totalPaid = monthJobs
-      .filter((j) => j.status === "paid")
+      .filter((j) => j.status === 'paid')
       .reduce((sum, j) => sum + j.payAmount, 0);
     const totalPending = monthJobs
-      .filter((j) => j.status === "pending")
+      .filter((j) => j.status === 'pending')
       .reduce((sum, j) => sum + j.payAmount, 0);
 
     monthlyStats.push({

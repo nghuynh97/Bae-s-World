@@ -1,41 +1,37 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
 import {
   beautyProducts,
   beautyCategories,
   images,
   imageVariants,
-} from "@/lib/db/schema";
-import { eq, desc, inArray, ilike, and } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
-import { getSignedImageUrls } from "@/lib/supabase/storage";
+} from '@/lib/db/schema';
+import { eq, desc, inArray, ilike, and } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { getSignedImageUrls } from '@/lib/supabase/storage';
 
 const uuidSchema = z.string().uuid();
 
 export async function getBeautyProducts(
   categorySlug?: string,
-  favoritesOnly?: boolean
+  favoritesOnly?: boolean,
 ) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const conditions = [];
 
-  if (
-    categorySlug &&
-    categorySlug !== "all" &&
-    categorySlug !== "favorites"
-  ) {
+  if (categorySlug && categorySlug !== 'all' && categorySlug !== 'favorites') {
     conditions.push(eq(beautyCategories.slug, categorySlug));
   }
 
-  if (favoritesOnly || categorySlug === "favorites") {
+  if (favoritesOnly || categorySlug === 'favorites') {
     conditions.push(eq(beautyProducts.isFavorite, 1));
   }
 
@@ -66,7 +62,7 @@ export async function getBeautyProducts(
     .from(beautyProducts)
     .innerJoin(
       beautyCategories,
-      eq(beautyProducts.categoryId, beautyCategories.id)
+      eq(beautyProducts.categoryId, beautyCategories.id),
     )
     .innerJoin(images, eq(beautyProducts.imageId, images.id))
     .where(whereClause)
@@ -108,7 +104,7 @@ export async function getBeautyProducts(
         storagePath: v.storagePath,
         width: v.width,
         height: v.height,
-        url: signedUrls[i]?.signedUrl ?? "",
+        url: signedUrls[i]?.signedUrl ?? '',
       });
     }
   }
@@ -124,10 +120,10 @@ export async function getBeautyProductById(productId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const parsed = uuidSchema.safeParse(productId);
-  if (!parsed.success) throw new Error("Invalid product ID");
+  if (!parsed.success) throw new Error('Invalid product ID');
 
   const results = await db
     .select({
@@ -149,7 +145,7 @@ export async function getBeautyProductById(productId: string) {
     .from(beautyProducts)
     .innerJoin(
       beautyCategories,
-      eq(beautyProducts.categoryId, beautyCategories.id)
+      eq(beautyProducts.categoryId, beautyCategories.id),
     )
     .innerJoin(images, eq(beautyProducts.imageId, images.id))
     .where(eq(beautyProducts.id, productId))
@@ -178,18 +174,18 @@ export async function getBeautyProductById(productId: string) {
       storagePath: v.storagePath,
       width: v.width,
       height: v.height,
-      url: signedUrls[i]?.signedUrl ?? "",
+      url: signedUrls[i]?.signedUrl ?? '',
     })),
   };
 }
 
 const createBeautyProductSchema = z.object({
-  name: z.string().min(1, "Name is required").max(100, "Name too long"),
-  brand: z.string().max(100, "Brand too long").optional().nullable(),
-  categoryId: z.string().uuid("Invalid category"),
+  name: z.string().min(1, 'Name is required').max(100, 'Name too long'),
+  brand: z.string().max(100, 'Brand too long').optional().nullable(),
+  categoryId: z.string().uuid('Invalid category'),
   rating: z.number().int().min(0).max(5),
-  notes: z.string().max(1000, "Notes too long").optional().nullable(),
-  imageId: z.string().uuid("Invalid image"),
+  notes: z.string().max(1000, 'Notes too long').optional().nullable(),
+  imageId: z.string().uuid('Invalid image'),
 });
 
 export async function createBeautyProduct(data: {
@@ -209,7 +205,7 @@ export async function createBeautyProduct(data: {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [created] = await db
     .insert(beautyProducts)
@@ -223,20 +219,20 @@ export async function createBeautyProduct(data: {
     })
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return created;
 }
 
 const updateBeautyProductSchema = z.object({
   name: z
     .string()
-    .min(1, "Name is required")
-    .max(100, "Name too long")
+    .min(1, 'Name is required')
+    .max(100, 'Name too long')
     .optional(),
-  brand: z.string().max(100, "Brand too long").optional().nullable(),
-  categoryId: z.string().uuid("Invalid category").optional(),
+  brand: z.string().max(100, 'Brand too long').optional().nullable(),
+  categoryId: z.string().uuid('Invalid category').optional(),
   rating: z.number().int().min(0).max(5).optional(),
-  notes: z.string().max(1000, "Notes too long").optional().nullable(),
+  notes: z.string().max(1000, 'Notes too long').optional().nullable(),
 });
 
 export async function updateBeautyProduct(
@@ -247,10 +243,10 @@ export async function updateBeautyProduct(
     categoryId?: string;
     rating?: number;
     notes?: string | null;
-  }
+  },
 ) {
   const idParsed = uuidSchema.safeParse(productId);
-  if (!idParsed.success) throw new Error("Invalid product ID");
+  if (!idParsed.success) throw new Error('Invalid product ID');
 
   const parsed = updateBeautyProductSchema.safeParse(data);
   if (!parsed.success) {
@@ -261,7 +257,7 @@ export async function updateBeautyProduct(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const [updated] = await db
     .update(beautyProducts)
@@ -272,19 +268,19 @@ export async function updateBeautyProduct(
     .where(eq(beautyProducts.id, productId))
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return updated;
 }
 
 export async function deleteBeautyProduct(productId: string) {
   const parsed = uuidSchema.safeParse(productId);
-  if (!parsed.success) throw new Error("Invalid product ID");
+  if (!parsed.success) throw new Error('Invalid product ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Find the product to get its imageId
   const [product] = await db
@@ -293,7 +289,7 @@ export async function deleteBeautyProduct(productId: string) {
     .where(eq(beautyProducts.id, productId))
     .limit(1);
 
-  if (!product) throw new Error("Product not found");
+  if (!product) throw new Error('Product not found');
 
   // Get variant storage paths for cleanup
   const variants = await db
@@ -304,7 +300,7 @@ export async function deleteBeautyProduct(productId: string) {
   // Delete from Supabase Storage (private bucket)
   if (variants.length > 0) {
     const paths = variants.map((v) => v.storagePath);
-    await supabase.storage.from("private-images").remove(paths);
+    await supabase.storage.from('private-images').remove(paths);
   }
 
   // Delete the image record (cascades to imageVariants via onDelete: cascade)
@@ -313,19 +309,19 @@ export async function deleteBeautyProduct(productId: string) {
   // Delete the product record
   await db.delete(beautyProducts).where(eq(beautyProducts.id, productId));
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return { success: true };
 }
 
 export async function toggleFavorite(productId: string) {
   const parsed = uuidSchema.safeParse(productId);
-  if (!parsed.success) throw new Error("Invalid product ID");
+  if (!parsed.success) throw new Error('Invalid product ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Fetch current product
   const [product] = await db
@@ -334,7 +330,7 @@ export async function toggleFavorite(productId: string) {
     .where(eq(beautyProducts.id, productId))
     .limit(1);
 
-  if (!product) throw new Error("Product not found");
+  if (!product) throw new Error('Product not found');
 
   const [updated] = await db
     .update(beautyProducts)
@@ -345,7 +341,7 @@ export async function toggleFavorite(productId: string) {
     .where(eq(beautyProducts.id, productId))
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return updated;
 }
 
@@ -354,7 +350,7 @@ export async function searchBeautyProducts(query: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const results = await db
     .select({

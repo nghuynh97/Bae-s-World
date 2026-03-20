@@ -2,7 +2,17 @@
 phase: 01-foundation
 plan: 02
 subsystem: auth
-tags: [supabase-auth, supabase-ssr, drizzle-orm, invite-code, middleware, zod, react-hook-form, server-actions]
+tags:
+  [
+    supabase-auth,
+    supabase-ssr,
+    drizzle-orm,
+    invite-code,
+    middleware,
+    zod,
+    react-hook-form,
+    server-actions,
+  ]
 
 # Dependency graph
 requires:
@@ -23,7 +33,13 @@ affects: [01-03, 02-portfolio, 03-beauty, 04-journal, 05-polish]
 # Tech tracking
 tech-stack:
   added: [drizzle-kit]
-  patterns: [supabase-ssr-cookie-auth, admin-api-user-creation, middleware-route-protection, server-actions-with-zod]
+  patterns:
+    [
+      supabase-ssr-cookie-auth,
+      admin-api-user-creation,
+      middleware-route-protection,
+      server-actions-with-zod,
+    ]
 
 key-files:
   created:
@@ -54,15 +70,15 @@ key-files:
     - package.json
 
 key-decisions:
-  - "Used admin.createUser() instead of auth.signUp() since public signup is disabled in Supabase"
-  - "Middleware uses getUser() (server-verified) instead of getSession() (cookie-only) per Supabase best practice"
-  - "Removed asChild prop from DropdownMenuTrigger due to base-ui v4 API change (shadcn v4 uses base-ui, not Radix)"
+  - 'Used admin.createUser() instead of auth.signUp() since public signup is disabled in Supabase'
+  - 'Middleware uses getUser() (server-verified) instead of getSession() (cookie-only) per Supabase best practice'
+  - 'Removed asChild prop from DropdownMenuTrigger due to base-ui v4 API change (shadcn v4 uses base-ui, not Radix)'
 
 patterns-established:
-  - "Server Actions with zod validation for all form submissions"
-  - "Three Supabase client factories: browser (client.ts), server (server.ts), admin (admin.ts)"
-  - "Middleware route protection pattern: getUser() check then redirect"
-  - "Invite code flow: validate code -> admin.createUser -> mark used -> signIn -> redirect"
+  - 'Server Actions with zod validation for all form submissions'
+  - 'Three Supabase client factories: browser (client.ts), server (server.ts), admin (admin.ts)'
+  - 'Middleware route protection pattern: getUser() check then redirect'
+  - 'Invite code flow: validate code -> admin.createUser -> mark used -> signIn -> redirect'
 
 requirements-completed: [AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05]
 
@@ -84,6 +100,7 @@ completed: 2026-03-19
 - **Files modified:** 25
 
 ## Accomplishments
+
 - Three Supabase client factories (browser, server, admin) with cookie-based SSR auth
 - Middleware protecting /dashboard, /beauty, /journal, /upload using getUser() with redirect to /login
 - Complete invite-code setup flow: validate code, create account via admin API, auto-login, redirect to dashboard
@@ -101,6 +118,7 @@ Each task was committed atomically:
 3. **Task 3: Dynamic navigation with auth state, real user data** - `2d6bac8` (feat)
 
 ## Files Created/Modified
+
 - `src/lib/supabase/client.ts` - Browser Supabase client factory using createBrowserClient
 - `src/lib/supabase/server.ts` - Server Component Supabase client with cookie handling
 - `src/lib/supabase/admin.ts` - Service role client for admin operations (user creation)
@@ -123,6 +141,7 @@ Each task was committed atomically:
 - `src/components/layout/top-nav.tsx` - Added userMenu prop for authenticated dropdown
 
 ## Decisions Made
+
 - Used `admin.createUser()` instead of `auth.signUp()` because public signup is disabled in Supabase Dashboard -- the admin API bypasses this restriction using the service role key
 - Middleware uses `getUser()` (server-verified) not `getSession()` (cookie-only) per Supabase security best practice
 - Removed `asChild` prop from DropdownMenuTrigger because shadcn v4 uses base-ui (not Radix), which does not support `asChild`
@@ -133,6 +152,7 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 1 - Bug] Fixed test false positive from comment containing getSession()**
+
 - **Found during:** Task 1 (route protection tests)
 - **Issue:** The comment "Use getUser(), not getSession()" in middleware.ts caused the test checking for absence of getSession() to fail
 - **Fix:** Rewrote comment to avoid the literal string "getSession()"
@@ -141,6 +161,7 @@ Each task was committed atomically:
 - **Committed in:** cb414e6 (Task 1 commit)
 
 **2. [Rule 3 - Blocking] Fixed DropdownMenuTrigger asChild prop not supported in base-ui**
+
 - **Found during:** Task 2 (user menu component)
 - **Issue:** shadcn v4 uses base-ui instead of Radix, and MenuPrimitive.Trigger does not support the asChild prop
 - **Fix:** Removed asChild, passed className and children directly to DropdownMenuTrigger
@@ -154,16 +175,20 @@ Each task was committed atomically:
 **Impact on plan:** Both auto-fixes necessary for test correctness and type safety. No scope creep.
 
 ## Issues Encountered
+
 None beyond the auto-fixed issues above.
 
 ## User Setup Required
+
 **External services require manual configuration before auth can be tested end-to-end:**
+
 - Create a Supabase project and configure .env.local with real credentials
 - Disable public signup in Supabase Dashboard (Authentication > Settings)
 - Run `npx drizzle-kit push` to create database tables
 - Run `npm run db:seed` to insert the two invite codes
 
 ## Next Phase Readiness
+
 - Auth system complete, ready for image upload pipeline (Plan 03)
 - All navigation components accept dynamic auth state
 - Middleware protects all private route prefixes
@@ -174,5 +199,6 @@ None beyond the auto-fixed issues above.
 All 17 key files verified present. All 3 task commits (cb414e6, a53c022, 2d6bac8) confirmed in git history.
 
 ---
-*Phase: 01-foundation*
-*Completed: 2026-03-19*
+
+_Phase: 01-foundation_
+_Completed: 2026-03-19_

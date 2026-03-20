@@ -1,10 +1,10 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { categories, portfolioItems } from "@/lib/db/schema";
-import { eq, asc, max } from "drizzle-orm";
-import { z } from "zod";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { categories, portfolioItems } from '@/lib/db/schema';
+import { eq, asc, max } from 'drizzle-orm';
+import { z } from 'zod';
 
 export async function getCategories() {
   const results = await db
@@ -24,15 +24,15 @@ export async function getCategories() {
 function generateSlug(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
 }
 
 const createCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Category name is required")
-    .max(50, "Category name too long"),
+    .min(1, 'Category name is required')
+    .max(50, 'Category name too long'),
 });
 
 export async function createCategory(data: { name: string }) {
@@ -45,7 +45,7 @@ export async function createCategory(data: { name: string }) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const slug = generateSlug(parsed.data.name);
 
@@ -71,8 +71,8 @@ export async function createCategory(data: { name: string }) {
 const updateCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Category name is required")
-    .max(50, "Category name too long")
+    .min(1, 'Category name is required')
+    .max(50, 'Category name too long')
     .optional(),
   displayOrder: z.number().int().min(0).optional(),
 });
@@ -81,10 +81,10 @@ const uuidSchema = z.string().uuid();
 
 export async function updateCategory(
   categoryId: string,
-  data: { name?: string; displayOrder?: number }
+  data: { name?: string; displayOrder?: number },
 ) {
   const idParsed = uuidSchema.safeParse(categoryId);
-  if (!idParsed.success) throw new Error("Invalid category ID");
+  if (!idParsed.success) throw new Error('Invalid category ID');
 
   const parsed = updateCategorySchema.safeParse(data);
   if (!parsed.success) {
@@ -95,7 +95,7 @@ export async function updateCategory(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const updateData: Record<string, unknown> = {};
   if (parsed.data.name !== undefined) {
@@ -117,13 +117,13 @@ export async function updateCategory(
 
 export async function deleteCategory(categoryId: string) {
   const parsed = uuidSchema.safeParse(categoryId);
-  if (!parsed.success) throw new Error("Invalid category ID");
+  if (!parsed.success) throw new Error('Invalid category ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Check if category has portfolio items
   const itemCount = await db
@@ -134,7 +134,7 @@ export async function deleteCategory(categoryId: string) {
 
   if (itemCount.length > 0) {
     throw new Error(
-      "Cannot delete category with existing photos. Move or delete the photos first."
+      'Cannot delete category with existing photos. Move or delete the photos first.',
     );
   }
 

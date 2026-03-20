@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { isSameDay, isSameMonth } from "date-fns";
-import { getCalendarDays } from "@/lib/schedule/date-utils";
-import { DayCell } from "./day-cell";
-import { DayDetail } from "./day-detail";
-import { JobForm } from "./job-form";
+import { useState } from 'react';
+import { isSameDay, isSameMonth } from 'date-fns';
+import { getCalendarDays } from '@/lib/schedule/date-utils';
+import { DayCell } from './day-cell';
+import { DayDetail } from './day-detail';
+import { JobForm } from './job-form';
 
 interface Job {
   id: string;
@@ -45,8 +45,8 @@ export function CalendarGrid({ jobs, year, month }: CalendarGridProps) {
 
   const formatDateKey = (date: Date): string => {
     const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
   };
 
@@ -79,21 +79,23 @@ export function CalendarGrid({ jobs, year, month }: CalendarGridProps) {
   };
 
   const selectedDateKey = selectedDate ? formatDateKey(selectedDate) : null;
-  const selectedDayJobs = selectedDateKey ? jobsByDate[selectedDateKey] || [] : [];
+  const selectedDayJobs = selectedDateKey
+    ? jobsByDate[selectedDateKey] || []
+    : [];
   const editingJob = editingJobId
-    ? jobs.find((j) => j.id === editingJobId) ?? undefined
+    ? (jobs.find((j) => j.id === editingJobId) ?? undefined)
     : undefined;
 
-  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   return (
-    <div className="bg-white shadow-sm rounded-xl p-3">
+    <div className="rounded-xl bg-white p-3 shadow-sm">
       {/* Weekday headers */}
-      <div className="grid grid-cols-7 mb-1">
+      <div className="mb-1 grid grid-cols-7">
         {weekdays.map((day) => (
           <div
             key={day}
-            className="text-center text-xs font-medium font-body text-muted-foreground uppercase tracking-wider py-2"
+            className="py-2 text-center font-body text-xs font-medium tracking-wider text-muted-foreground uppercase"
           >
             {day}
           </div>

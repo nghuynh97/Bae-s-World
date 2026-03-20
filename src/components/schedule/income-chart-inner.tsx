@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   BarChart,
   Bar,
@@ -8,8 +8,8 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-} from "recharts";
-import { formatVND, formatVNDCompact } from "@/lib/schedule/format-vnd";
+} from 'recharts';
+import { formatVND, formatVNDCompact } from '@/lib/schedule/format-vnd';
 
 interface ChartDataPoint {
   label: string;
@@ -26,33 +26,33 @@ export default function IncomeChartInner({
   monthlyData,
   yearlyData,
 }: IncomeChartInnerProps) {
-  const [period, setPeriod] = useState<"monthly" | "yearly">("monthly");
+  const [period, setPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
-  const data = period === "monthly" ? monthlyData : yearlyData;
+  const data = period === 'monthly' ? monthlyData : yearlyData;
   const isEmpty = data.every((d) => d.paid === 0 && d.pending === 0);
 
   return (
-    <div className="bg-surface rounded-lg shadow-sm p-6">
-      <div className="flex justify-center mb-4">
-        <div className="bg-muted rounded-lg p-1 flex">
+    <div className="rounded-lg bg-surface p-6 shadow-sm">
+      <div className="mb-4 flex justify-center">
+        <div className="flex rounded-lg bg-muted p-1">
           <button
             type="button"
-            onClick={() => setPeriod("monthly")}
-            className={`px-3 py-1 text-sm rounded-md transition-colors ${
-              period === "monthly"
-                ? "bg-accent text-white"
-                : "text-text-secondary"
+            onClick={() => setPeriod('monthly')}
+            className={`rounded-md px-3 py-1 text-sm transition-colors ${
+              period === 'monthly'
+                ? 'bg-accent text-white'
+                : 'text-text-secondary'
             }`}
           >
             Monthly
           </button>
           <button
             type="button"
-            onClick={() => setPeriod("yearly")}
-            className={`px-3 py-1 text-sm rounded-md transition-colors ${
-              period === "yearly"
-                ? "bg-accent text-white"
-                : "text-text-secondary"
+            onClick={() => setPeriod('yearly')}
+            className={`rounded-md px-3 py-1 text-sm transition-colors ${
+              period === 'yearly'
+                ? 'bg-accent text-white'
+                : 'text-text-secondary'
             }`}
           >
             Yearly
@@ -61,7 +61,7 @@ export default function IncomeChartInner({
       </div>
 
       {isEmpty ? (
-        <div className="flex items-center justify-center h-[200px] text-text-secondary text-sm">
+        <div className="flex h-[200px] items-center justify-center text-sm text-text-secondary">
           No income data for this period.
         </div>
       ) : (
@@ -72,7 +72,7 @@ export default function IncomeChartInner({
             <Tooltip
               formatter={(value, name) => [
                 formatVND(Number(value)),
-                name === "paid" ? "Paid" : "Pending",
+                name === 'paid' ? 'Paid' : 'Pending',
               ]}
             />
             <Bar

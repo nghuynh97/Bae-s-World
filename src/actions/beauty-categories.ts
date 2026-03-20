@@ -1,19 +1,19 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { beautyCategories, beautyProducts } from "@/lib/db/schema";
-import { eq, asc, max } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { beautyCategories, beautyProducts } from '@/lib/db/schema';
+import { eq, asc, max } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
 
 const uuidSchema = z.string().uuid();
 
 function generateSlug(name: string): string {
   return name
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '');
 }
 
 export async function getBeautyCategories() {
@@ -21,7 +21,7 @@ export async function getBeautyCategories() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const results = await db
     .select({
@@ -40,8 +40,8 @@ export async function getBeautyCategories() {
 const createBeautyCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Category name is required")
-    .max(50, "Category name too long"),
+    .min(1, 'Category name is required')
+    .max(50, 'Category name too long'),
 });
 
 export async function createBeautyCategory(data: { name: string }) {
@@ -54,7 +54,7 @@ export async function createBeautyCategory(data: { name: string }) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const slug = generateSlug(parsed.data.name);
 
@@ -74,24 +74,24 @@ export async function createBeautyCategory(data: { name: string }) {
     })
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return created;
 }
 
 const updateBeautyCategorySchema = z.object({
   name: z
     .string()
-    .min(1, "Category name is required")
-    .max(50, "Category name too long")
+    .min(1, 'Category name is required')
+    .max(50, 'Category name too long')
     .optional(),
 });
 
 export async function updateBeautyCategory(
   categoryId: string,
-  data: { name?: string }
+  data: { name?: string },
 ) {
   const idParsed = uuidSchema.safeParse(categoryId);
-  if (!idParsed.success) throw new Error("Invalid category ID");
+  if (!idParsed.success) throw new Error('Invalid category ID');
 
   const parsed = updateBeautyCategorySchema.safeParse(data);
   if (!parsed.success) {
@@ -102,7 +102,7 @@ export async function updateBeautyCategory(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const updateData: Record<string, unknown> = {};
   if (parsed.data.name !== undefined) {
@@ -116,19 +116,19 @@ export async function updateBeautyCategory(
     .where(eq(beautyCategories.id, categoryId))
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return updated;
 }
 
 export async function deleteBeautyCategory(categoryId: string) {
   const parsed = uuidSchema.safeParse(categoryId);
-  if (!parsed.success) throw new Error("Invalid category ID");
+  if (!parsed.success) throw new Error('Invalid category ID');
 
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Check if category is a default category
   const [category] = await db
@@ -137,10 +137,10 @@ export async function deleteBeautyCategory(categoryId: string) {
     .where(eq(beautyCategories.id, categoryId))
     .limit(1);
 
-  if (!category) throw new Error("Category not found");
+  if (!category) throw new Error('Category not found');
 
   if (category.isDefault === 1) {
-    throw new Error("Cannot delete default categories");
+    throw new Error('Cannot delete default categories');
   }
 
   // Check if products reference this category
@@ -152,14 +152,12 @@ export async function deleteBeautyCategory(categoryId: string) {
 
   if (productCount.length > 0) {
     throw new Error(
-      "Cannot delete category with existing products. Move or delete the products first."
+      'Cannot delete category with existing products. Move or delete the products first.',
     );
   }
 
-  await db
-    .delete(beautyCategories)
-    .where(eq(beautyCategories.id, categoryId));
+  await db.delete(beautyCategories).where(eq(beautyCategories.id, categoryId));
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return { success: true };
 }

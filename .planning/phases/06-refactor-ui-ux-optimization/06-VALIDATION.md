@@ -15,13 +15,13 @@ created: 2026-03-20
 
 ## Test Infrastructure
 
-| Property | Value |
-|----------|-------|
-| **Framework** | vitest 4.1 |
-| **Config file** | vitest.config.ts |
-| **Quick run command** | `npx vitest run --reporter=verbose` |
+| Property               | Value                               |
+| ---------------------- | ----------------------------------- |
+| **Framework**          | vitest 4.1                          |
+| **Config file**        | vitest.config.ts                    |
+| **Quick run command**  | `npx vitest run --reporter=verbose` |
 | **Full suite command** | `npx vitest run --reporter=verbose` |
-| **Estimated runtime** | ~5 seconds |
+| **Estimated runtime**  | ~5 seconds                          |
 
 ---
 
@@ -36,13 +36,13 @@ created: 2026-03-20
 
 ## Per-Task Verification Map
 
-| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 06-01-T1 | 06-01 | 1 | REFAC-02, REFAC-03 | build + grep | `npx vitest run --reporter=verbose` | vitest.config.ts | ⬜ pending |
-| 06-01-T2 | 06-01 | 1 | REFAC-04, REFAC-05 | build + grep | `npx vitest run --reporter=verbose` | vitest.config.ts | ⬜ pending |
-| 06-02-T1 | 06-02 | 2 | REFAC-06, REFAC-07 | build + grep | `npx vitest run --reporter=verbose` | vitest.config.ts | ⬜ pending |
-| 06-02-T2 | 06-02 | 2 | REFAC-08, REFAC-09 | build + grep | `npx vitest run --reporter=verbose` | vitest.config.ts | ⬜ pending |
-| 06-03-T1 | 06-03 | 3 | REFAC-01 | build + format:check | `npm run format:check && npx vitest run --reporter=verbose` | .prettierrc | ⬜ pending |
+| Task ID  | Plan  | Wave | Requirement        | Test Type            | Automated Command                                           | File Exists      | Status     |
+| -------- | ----- | ---- | ------------------ | -------------------- | ----------------------------------------------------------- | ---------------- | ---------- |
+| 06-01-T1 | 06-01 | 1    | REFAC-02, REFAC-03 | build + grep         | `npx vitest run --reporter=verbose`                         | vitest.config.ts | ⬜ pending |
+| 06-01-T2 | 06-01 | 1    | REFAC-04, REFAC-05 | build + grep         | `npx vitest run --reporter=verbose`                         | vitest.config.ts | ⬜ pending |
+| 06-02-T1 | 06-02 | 2    | REFAC-06, REFAC-07 | build + grep         | `npx vitest run --reporter=verbose`                         | vitest.config.ts | ⬜ pending |
+| 06-02-T2 | 06-02 | 2    | REFAC-08, REFAC-09 | build + grep         | `npx vitest run --reporter=verbose`                         | vitest.config.ts | ⬜ pending |
+| 06-03-T1 | 06-03 | 3    | REFAC-01           | build + format:check | `npm run format:check && npx vitest run --reporter=verbose` | .prettierrc      | ⬜ pending |
 
 ---
 
@@ -54,12 +54,12 @@ No test stubs needed. This is a refactor phase — all tasks rely on existing vi
 
 ## Manual-Only Verifications
 
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| shadcn Select renders correctly | REFAC-02 | Component visual output | Open forms, verify Select dropdowns work |
-| UI updates after CRUD without reload | REFAC-04, REFAC-05 | Server Action + React re-render | Create/edit/delete, verify list updates instantly |
-| Spacing/color improvements | REFAC-06 to REFAC-09 | Visual assessment | Compare before/after on all pages |
-| Prettier formatting consistency | REFAC-01 | Code style | Run format:check, verify 0 errors |
+| Behavior                             | Requirement          | Why Manual                      | Test Instructions                                 |
+| ------------------------------------ | -------------------- | ------------------------------- | ------------------------------------------------- |
+| shadcn Select renders correctly      | REFAC-02             | Component visual output         | Open forms, verify Select dropdowns work          |
+| UI updates after CRUD without reload | REFAC-04, REFAC-05   | Server Action + React re-render | Create/edit/delete, verify list updates instantly |
+| Spacing/color improvements           | REFAC-06 to REFAC-09 | Visual assessment               | Compare before/after on all pages                 |
+| Prettier formatting consistency      | REFAC-01             | Code style                      | Run format:check, verify 0 errors                 |
 
 ---
 

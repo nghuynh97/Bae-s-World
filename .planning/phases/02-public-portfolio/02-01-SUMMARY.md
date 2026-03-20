@@ -2,7 +2,17 @@
 phase: 02-public-portfolio
 plan: 01
 subsystem: database, api
-tags: [drizzle, server-actions, portfolio, categories, about, pagination, zod, supabase-storage]
+tags:
+  [
+    drizzle,
+    server-actions,
+    portfolio,
+    categories,
+    about,
+    pagination,
+    zod,
+    supabase-storage,
+  ]
 
 # Dependency graph
 requires:
@@ -16,12 +26,27 @@ provides:
   - About content read/update Server Actions with profile image support
   - Seed script for default categories and about content
   - react-intersection-observer installed for infinite scroll
-affects: [02-02, 02-03, admin-portfolio, admin-categories, admin-about, gallery, about-page]
+affects:
+  [
+    02-02,
+    02-03,
+    admin-portfolio,
+    admin-categories,
+    admin-about,
+    gallery,
+    about-page,
+  ]
 
 # Tech tracking
 tech-stack:
   added: [react-intersection-observer]
-  patterns: [cursor-based pagination, Server Action CRUD with auth gates, upsert pattern for singleton rows, slug generation]
+  patterns:
+    [
+      cursor-based pagination,
+      Server Action CRUD with auth gates,
+      upsert pattern for singleton rows,
+      slug generation,
+    ]
 
 key-files:
   created:
@@ -34,15 +59,15 @@ key-files:
     - package.json
 
 key-decisions:
-  - "Used filter-then-fetch pattern for variants instead of complex joins to keep queries readable"
-  - "Upsert pattern for aboutContent since it is always a single-row table"
-  - "Both users can create/update/delete (no role restriction) satisfying AUTH-06"
+  - 'Used filter-then-fetch pattern for variants instead of complex joins to keep queries readable'
+  - 'Upsert pattern for aboutContent since it is always a single-row table'
+  - 'Both users can create/update/delete (no role restriction) satisfying AUTH-06'
 
 patterns-established:
-  - "Cursor-based pagination: PAGE_SIZE + 1 fetch, check hasMore, return nextCursor as ISO timestamp"
-  - "Server Action auth gate: createClient() -> getUser() -> throw Unauthorized"
-  - "Slug generation: lowercase, spaces to hyphens, strip non-alphanumeric"
-  - "Public image URL construction via getPublicImageUrl for all variant URLs"
+  - 'Cursor-based pagination: PAGE_SIZE + 1 fetch, check hasMore, return nextCursor as ISO timestamp'
+  - 'Server Action auth gate: createClient() -> getUser() -> throw Unauthorized'
+  - 'Slug generation: lowercase, spaces to hyphens, strip non-alphanumeric'
+  - 'Public image URL construction via getPublicImageUrl for all variant URLs'
 
 requirements-completed: [PORT-01, PORT-03, PORT-05, PORT-06, AUTH-06]
 
@@ -64,6 +89,7 @@ completed: 2026-03-19
 - **Files modified:** 7
 
 ## Accomplishments
+
 - Extended DB schema with categories, portfolioItems, and aboutContent tables plus Drizzle relations
 - Created full portfolio CRUD with cursor-based pagination, category filtering, and public image URL construction
 - Category CRUD with auto slug generation, display ordering, and delete protection (cannot delete with existing photos)
@@ -79,6 +105,7 @@ Each task was committed atomically:
 2. **Task 2: Create Server Actions for portfolio CRUD, categories, about content, and seed script** - `28612f4` (feat)
 
 ## Files Created/Modified
+
 - `src/lib/db/schema.ts` - Added categories, portfolioItems, aboutContent tables and all relations
 - `src/actions/portfolio.ts` - Portfolio CRUD with cursor pagination, getById, auth gates
 - `src/actions/categories.ts` - Category CRUD with slug generation and delete protection
@@ -87,6 +114,7 @@ Each task was committed atomically:
 - `package.json` - Added react-intersection-observer dependency and db:seed:portfolio script
 
 ## Decisions Made
+
 - Used filter-then-fetch pattern for image variants instead of complex multi-table joins to keep queries readable
 - Upsert pattern for aboutContent since it is always a single-row table
 - Both authenticated users can perform all CRUD operations (no role restriction), satisfying AUTH-06
@@ -96,15 +124,18 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 - drizzle-kit push failed due to missing DATABASE_URL env var (expected in dev environment without .env loaded). User will run manually.
 
 ## User Setup Required
 
 After pulling these changes, run:
+
 1. `npx drizzle-kit push` to apply new schema to database
 2. `npm run db:seed:portfolio` to seed default categories and about content
 
 ## Next Phase Readiness
+
 - All Server Actions ready for gallery UI (02-02) and admin management (02-03) plans
 - react-intersection-observer installed for infinite scroll implementation
 - Public reads (getPortfolioItems, getCategories, getAboutContent) available for server-rendered pages
@@ -114,5 +145,6 @@ After pulling these changes, run:
 All 5 created files verified on disk. Both task commits (dbbef8e, 28612f4) verified in git log.
 
 ---
-*Phase: 02-public-portfolio*
-*Completed: 2026-03-19*
+
+_Phase: 02-public-portfolio_
+_Completed: 2026-03-19_

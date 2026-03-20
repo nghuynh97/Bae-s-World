@@ -1,7 +1,7 @@
-import { TopNav } from "@/components/layout/top-nav";
-import { BottomTabBar } from "@/components/layout/bottom-tab-bar";
-import { UserMenu } from "@/components/layout/user-menu";
-import { createClient } from "@/lib/supabase/server";
+import { TopNav } from '@/components/layout/top-nav';
+import { BottomTabBar } from '@/components/layout/bottom-tab-bar';
+import { UserMenu } from '@/components/layout/user-menu';
+import { createClient } from '@/lib/supabase/server';
 
 export default async function PrivateLayout({
   children,
@@ -13,8 +13,7 @@ export default async function PrivateLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  const userName =
-    (user?.user_metadata?.display_name as string) || "User";
+  const userName = (user?.user_metadata?.display_name as string) || 'User';
 
   return (
     <>
@@ -23,7 +22,7 @@ export default async function PrivateLayout({
         userName={userName}
         userMenu={<UserMenu userName={userName} />}
       />
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 pb-14 md:pb-0">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 md:px-8 md:pb-0">
         {children}
       </main>
       <BottomTabBar isAuthenticated={true} />

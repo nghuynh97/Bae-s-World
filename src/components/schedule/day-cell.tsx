@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { formatVNDCompact } from "@/lib/schedule/format-vnd";
+import { cn } from '@/lib/utils';
+import { formatVNDCompact } from '@/lib/schedule/format-vnd';
 
 interface Job {
   id: string;
@@ -44,17 +44,19 @@ export function DayCell({
         if (isCurrentMonth) onSelect(date);
       }}
       className={cn(
-        "min-h-[80px] flex flex-col items-start p-1.5 bg-surface border border-border/30 transition-colors",
-        isCurrentMonth ? "cursor-pointer hover:bg-hover" : "cursor-default bg-muted/30",
-        isSelected && "bg-accent/10 border-accent",
-        isToday && "bg-accent/20 ring-2 ring-accent"
+        'flex min-h-[80px] flex-col items-start border border-border/30 bg-surface p-1.5 transition-colors',
+        isCurrentMonth
+          ? 'hover:bg-hover cursor-pointer'
+          : 'cursor-default bg-muted/30',
+        isSelected && 'border-accent bg-accent/10',
+        isToday && 'bg-accent/20 ring-2 ring-accent',
       )}
     >
       <span
         className={cn(
-          "text-sm font-medium font-body",
-          isCurrentMonth ? "text-foreground" : "text-muted-foreground/40",
-          isToday && "font-bold"
+          'font-body text-sm font-medium',
+          isCurrentMonth ? 'text-foreground' : 'text-muted-foreground/40',
+          isToday && 'font-bold',
         )}
       >
         {date.getDate()}
@@ -62,20 +64,20 @@ export function DayCell({
 
       {jobs.length > 0 && (
         <>
-          <div className="flex gap-1 mt-auto">
+          <div className="mt-auto flex gap-1">
             {dots.map((job) => (
               <span
                 key={job.id}
                 className={cn(
-                  "w-2 h-2 rounded-full",
-                  job.status === "paid"
-                    ? "bg-[var(--color-paid)]"
-                    : "bg-[var(--color-pending)]"
+                  'h-2 w-2 rounded-full',
+                  job.status === 'paid'
+                    ? 'bg-[var(--color-paid)]'
+                    : 'bg-[var(--color-pending)]',
                 )}
               />
             ))}
           </div>
-          <span className="text-xs font-medium font-body text-accent">
+          <span className="font-body text-xs font-medium text-accent">
             {formatVNDCompact(totalIncome)}
           </span>
         </>

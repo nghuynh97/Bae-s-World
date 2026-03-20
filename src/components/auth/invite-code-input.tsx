@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { useState, useRef, useTransition } from "react";
-import { Input } from "@/components/ui/input";
-import { validateInviteCode } from "@/actions/auth";
+import { useState, useRef, useTransition } from 'react';
+import { Input } from '@/components/ui/input';
+import { validateInviteCode } from '@/actions/auth';
 
 interface InviteCodeInputProps {
   onValid: (code: string, name: string) => void;
 }
 
 export function InviteCodeInput({ onValid }: InviteCodeInputProps) {
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     setCode(value);
     setError(null);
 
@@ -26,7 +26,7 @@ export function InviteCodeInput({ onValid }: InviteCodeInputProps) {
           onValid(value, result.name);
         } else {
           setError(result.error);
-          setCode("");
+          setCode('');
           inputRef.current?.focus();
         }
       });
@@ -43,16 +43,16 @@ export function InviteCodeInput({ onValid }: InviteCodeInputProps) {
         onChange={handleChange}
         placeholder="Enter code"
         disabled={isPending}
-        className="rounded-[10px] text-center text-lg tracking-wider font-mono"
+        className="rounded-[10px] text-center font-mono text-lg tracking-wider"
         aria-label="Invite code"
       />
       {error && (
-        <p className="text-sm text-destructive text-center" aria-live="polite">
+        <p className="text-center text-sm text-destructive" aria-live="polite">
           {error}
         </p>
       )}
       {isPending && (
-        <p className="text-sm text-text-secondary text-center">
+        <p className="text-center text-sm text-text-secondary">
           Checking code...
         </p>
       )}

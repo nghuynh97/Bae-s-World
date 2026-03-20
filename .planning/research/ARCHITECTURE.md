@@ -40,15 +40,15 @@
 
 ### Component Responsibilities
 
-| Component | Responsibility | Typical Implementation |
-|-----------|----------------|------------------------|
-| Public Portfolio | Serve gallery, photo pages, about section to anonymous visitors | Next.js App Router static/ISR pages with `next/image` |
-| Private Dashboard | Beauty tracker CRUD, photo journal entries, content management | Next.js App Router dynamic pages behind auth middleware |
-| Auth System | Two-user login, session management, route protection | NextAuth.js with credentials provider, middleware matcher |
-| Image Pipeline | Upload, optimize, store, serve responsive images | Cloudinary SDK for upload/transform, `next/image` for delivery |
-| Design System | Consistent pastel/rose-gold aesthetic across all pages | CSS custom properties (design tokens) + Tailwind CSS |
-| Data Access | All database reads/writes, relation management | Prisma ORM with SQLite, Server Actions for mutations |
-| Content Upload | Boyfriend uploads photos/content for Funnghy | Server Actions with role-based permission checks |
+| Component         | Responsibility                                                  | Typical Implementation                                         |
+| ----------------- | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| Public Portfolio  | Serve gallery, photo pages, about section to anonymous visitors | Next.js App Router static/ISR pages with `next/image`          |
+| Private Dashboard | Beauty tracker CRUD, photo journal entries, content management  | Next.js App Router dynamic pages behind auth middleware        |
+| Auth System       | Two-user login, session management, route protection            | NextAuth.js with credentials provider, middleware matcher      |
+| Image Pipeline    | Upload, optimize, store, serve responsive images                | Cloudinary SDK for upload/transform, `next/image` for delivery |
+| Design System     | Consistent pastel/rose-gold aesthetic across all pages          | CSS custom properties (design tokens) + Tailwind CSS           |
+| Data Access       | All database reads/writes, relation management                  | Prisma ORM with SQLite, Server Actions for mutations           |
+| Content Upload    | Boyfriend uploads photos/content for Funnghy                    | Server Actions with role-based permission checks               |
 
 ## Recommended Project Structure
 
@@ -164,9 +164,10 @@ src/
 **Trade-offs:** Clean URL structure (no `/private/` prefix in URLs), clear code organization. Slight mental overhead of understanding route groups. Middleware still needed for actual auth enforcement.
 
 **Example:**
+
 ```typescript
 // middleware.ts
-import { withAuth } from "next-auth/middleware";
+import { withAuth } from 'next-auth/middleware';
 
 export default withAuth({
   callbacks: {
@@ -177,7 +178,12 @@ export default withAuth({
 export const config = {
   // Protect all routes under (private) group
   // These map to /dashboard, /beauty, /journal, /manage
-  matcher: ["/dashboard/:path*", "/beauty/:path*", "/journal/:path*", "/manage/:path*"],
+  matcher: [
+    '/dashboard/:path*',
+    '/beauty/:path*',
+    '/journal/:path*',
+    '/manage/:path*',
+  ],
 };
 ```
 
@@ -188,29 +194,30 @@ export const config = {
 **Trade-offs:** Simpler code (no fetch calls for mutations), type-safe with TypeScript, automatic revalidation. Less familiar to developers used to REST APIs. Not suitable if you need a public API consumed by other clients.
 
 **Example:**
+
 ```typescript
 // actions/beauty.ts
-"use server";
+'use server';
 
-import { getServerSession } from "next-auth";
-import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { getServerSession } from 'next-auth';
+import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 export async function addProduct(formData: FormData) {
   const session = await getServerSession();
-  if (!session) throw new Error("Unauthorized");
+  if (!session) throw new Error('Unauthorized');
 
   const product = await prisma.product.create({
     data: {
-      name: formData.get("name") as string,
-      brand: formData.get("brand") as string,
-      category: formData.get("category") as string,
-      rating: Number(formData.get("rating")),
-      notes: formData.get("notes") as string,
+      name: formData.get('name') as string,
+      brand: formData.get('brand') as string,
+      category: formData.get('category') as string,
+      rating: Number(formData.get('rating')),
+      notes: formData.get('notes') as string,
     },
   });
 
-  revalidatePath("/beauty/products");
+  revalidatePath('/beauty/products');
   return product;
 }
 ```
@@ -222,6 +229,7 @@ export async function addProduct(formData: FormData) {
 **Trade-offs:** Single source of truth for all design values, easy to tweak the entire aesthetic by changing a few root variables. Requires upfront planning of the token hierarchy.
 
 **Example:**
+
 ```css
 /* globals.css */
 :root {
@@ -246,8 +254,8 @@ export async function addProduct(formData: FormData) {
   --color-border: var(--color-rose-100);
 
   /* Typography */
-  --font-display: "Playfair Display", serif;
-  --font-body: "Lato", sans-serif;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Lato', sans-serif;
 
   /* Spacing scale */
   --space-xs: 0.25rem;
@@ -356,11 +364,11 @@ export async function addProduct(formData: FormData) {
 
 ## Scaling Considerations
 
-| Scale | Architecture Adjustments |
-|-------|--------------------------|
-| 2 users (this project) | SQLite is perfect. No connection pooling needed. Cloudinary free tier covers image hosting. Deploy to Vercel free tier. |
+| Scale                  | Architecture Adjustments                                                                                                                     |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2 users (this project) | SQLite is perfect. No connection pooling needed. Cloudinary free tier covers image hosting. Deploy to Vercel free tier.                      |
 | If photos grow to 10K+ | Cloudinary still handles it well. Consider paginating gallery queries. Add database indexes on frequently filtered columns (category, date). |
-| If moved to a platform | Replace SQLite with PostgreSQL, add proper user registration, but this is a fundamental scope change and not planned. |
+| If moved to a platform | Replace SQLite with PostgreSQL, add proper user registration, but this is a fundamental scope change and not planned.                        |
 
 ### Scaling Priorities
 
@@ -397,22 +405,22 @@ export async function addProduct(formData: FormData) {
 
 ### External Services
 
-| Service | Integration Pattern | Notes |
-|---------|---------------------|-------|
-| Cloudinary | Server-side SDK (`cloudinary` npm package) via Server Actions for upload; `next/image` with custom loader for delivery | Free tier: 25 credits/month. More than enough for a two-user app. Use folders to organize (portfolio/, journal/, products/). |
-| NextAuth.js | Credentials provider with hardcoded users (or env-stored hashes) | Only two users ever. No need for OAuth providers or a users table with registration flow. Store bcrypt hashes in env vars. |
-| Vercel (hosting) | `next deploy` or Git-push deploy | Free tier handles this project easily. Edge middleware for auth. Automatic HTTPS. SQLite file persists with serverless caveats -- see pitfalls. |
-| Google Fonts | `next/font/google` for Playfair Display + Lato | Self-hosted by Next.js for performance. No external requests at runtime. |
+| Service          | Integration Pattern                                                                                                    | Notes                                                                                                                                           |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cloudinary       | Server-side SDK (`cloudinary` npm package) via Server Actions for upload; `next/image` with custom loader for delivery | Free tier: 25 credits/month. More than enough for a two-user app. Use folders to organize (portfolio/, journal/, products/).                    |
+| NextAuth.js      | Credentials provider with hardcoded users (or env-stored hashes)                                                       | Only two users ever. No need for OAuth providers or a users table with registration flow. Store bcrypt hashes in env vars.                      |
+| Vercel (hosting) | `next deploy` or Git-push deploy                                                                                       | Free tier handles this project easily. Edge middleware for auth. Automatic HTTPS. SQLite file persists with serverless caveats -- see pitfalls. |
+| Google Fonts     | `next/font/google` for Playfair Display + Lato                                                                         | Self-hosted by Next.js for performance. No external requests at runtime.                                                                        |
 
 ### Internal Boundaries
 
-| Boundary | Communication | Notes |
-|----------|---------------|-------|
-| Public pages <-> Data layer | Server Components call Prisma directly | No API layer needed. Server Components run on the server and can import Prisma. |
-| Private pages <-> Data layer | Server Actions with auth checks | Every mutation goes through a Server Action that verifies the session before touching the database. |
-| Any page <-> Image storage | Cloudinary URLs stored in DB, rendered via `next/image` | `next/image` handles responsive sizing, lazy loading, and format negotiation automatically. |
-| Auth middleware <-> Route groups | Middleware `matcher` config aligned with `(private)` route group paths | Middleware protects `/dashboard/*`, `/beauty/*`, `/journal/*`, `/manage/*`. Public routes pass through untouched. |
-| Boyfriend role <-> Mutations | Role check inside Server Actions | The boyfriend user has an `isSecondary` flag. Server Actions for destructive operations (delete) reject secondary users. Upload actions allow both users. |
+| Boundary                         | Communication                                                          | Notes                                                                                                                                                     |
+| -------------------------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public pages <-> Data layer      | Server Components call Prisma directly                                 | No API layer needed. Server Components run on the server and can import Prisma.                                                                           |
+| Private pages <-> Data layer     | Server Actions with auth checks                                        | Every mutation goes through a Server Action that verifies the session before touching the database.                                                       |
+| Any page <-> Image storage       | Cloudinary URLs stored in DB, rendered via `next/image`                | `next/image` handles responsive sizing, lazy loading, and format negotiation automatically.                                                               |
+| Auth middleware <-> Route groups | Middleware `matcher` config aligned with `(private)` route group paths | Middleware protects `/dashboard/*`, `/beauty/*`, `/journal/*`, `/manage/*`. Public routes pass through untouched.                                         |
+| Boyfriend role <-> Mutations     | Role check inside Server Actions                                       | The boyfriend user has an `isSecondary` flag. Server Actions for destructive operations (delete) reject secondary users. Upload actions allow both users. |
 
 ## Database Schema (Conceptual)
 
@@ -469,5 +477,6 @@ Based on dependency analysis, components should be built in this order:
 - [Modern Full Stack Application Architecture Using Next.js 15+](https://softwaremill.com/modern-full-stack-application-architecture-using-next-js-15/) -- MEDIUM confidence
 
 ---
-*Architecture research for: Funnghy's World -- personal portfolio with beauty tracker and photo journal*
-*Researched: 2026-03-19*
+
+_Architecture research for: Funnghy's World -- personal portfolio with beauty tracker and photo journal_
+_Researched: 2026-03-19_

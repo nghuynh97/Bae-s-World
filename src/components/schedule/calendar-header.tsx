@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { format } from "date-fns";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRouter } from 'next/navigation';
+import { format } from 'date-fns';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface CalendarHeaderProps {
   year: number;
@@ -32,7 +32,7 @@ export function CalendarHeader({ year, month }: CalendarHeaderProps) {
   const goToToday = () => {
     const today = new Date();
     router.push(
-      `/schedule?month=${today.getMonth() + 1}&year=${today.getFullYear()}`
+      `/schedule?month=${today.getMonth() + 1}&year=${today.getFullYear()}`,
     );
   };
 
@@ -49,13 +49,13 @@ export function CalendarHeader({ year, month }: CalendarHeaderProps) {
 
       <div className="text-center">
         <h2 className="font-display text-xl font-bold text-primary">
-          {format(displayDate, "MMMM yyyy")}
+          {format(displayDate, 'MMMM yyyy')}
         </h2>
         {!isCurrentMonth && (
           <button
             type="button"
             onClick={goToToday}
-            className="text-xs font-body text-accent hover:text-accent-hover mt-1"
+            className="mt-1 font-body text-xs text-accent hover:text-accent-hover"
           >
             Today
           </button>

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from 'react';
 import {
   DndContext,
   closestCenter,
@@ -9,20 +9,20 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
-} from "@dnd-kit/core";
+} from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
   arrayMove,
-} from "@dnd-kit/sortable";
-import { RoutineStep } from "./routine-step";
-import { RoutineStepSearch } from "./routine-step-search";
+} from '@dnd-kit/sortable';
+import { RoutineStep } from './routine-step';
+import { RoutineStepSearch } from './routine-step-search';
 import {
   reorderRoutineSteps,
   removeRoutineStep,
   type RoutineWithSteps,
-} from "@/actions/routines";
-import { toast } from "sonner";
+} from '@/actions/routines';
+import { toast } from 'sonner';
 
 interface RoutineListProps {
   initialRoutines: RoutineWithSteps[];
@@ -60,7 +60,7 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
             ...routine,
             steps: arrayMove(routine.steps, oldIndex, newIndex),
           };
-        })
+        }),
       );
 
       try {
@@ -71,14 +71,14 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
         const newSteps = arrayMove(routine.steps, oldIndex, newIndex);
         await reorderRoutineSteps(
           routineId,
-          newSteps.map((s) => s.id)
+          newSteps.map((s) => s.id),
         );
       } catch {
         setRoutinesState(prevRoutines);
-        toast("Something went wrong. Please try again.");
+        toast('Something went wrong. Please try again.');
       }
     },
-    [routinesState]
+    [routinesState],
   );
 
   const handleRemoveStep = useCallback(
@@ -86,8 +86,8 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
       const prevRoutines = routinesState;
 
       // Find which routine and step for the toast
-      let productName = "";
-      let routineName = "";
+      let productName = '';
+      let routineName = '';
       for (const r of routinesState) {
         const step = r.steps.find((s) => s.id === stepId);
         if (step) {
@@ -102,7 +102,7 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
         prev.map((routine) => ({
           ...routine,
           steps: routine.steps.filter((s) => s.id !== stepId),
-        }))
+        })),
       );
 
       try {
@@ -110,10 +110,10 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
         toast(`${productName} removed from ${routineName}`);
       } catch {
         setRoutinesState(prevRoutines);
-        toast("Something went wrong. Please try again.");
+        toast('Something went wrong. Please try again.');
       }
     },
-    [routinesState]
+    [routinesState],
   );
 
   const handleStepAdded = useCallback(() => {
@@ -125,20 +125,20 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
       {routinesState.map((routine) => (
         <div
           key={routine.id}
-          className="bg-surface rounded-lg shadow-sm p-6 mb-6"
+          className="mb-6 rounded-lg bg-surface p-6 shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <h3 className="font-display text-xl font-bold text-primary">
               {routine.name}
             </h3>
-            <span className="text-xs text-text-secondary bg-muted px-2 py-1 rounded-full">
+            <span className="rounded-full bg-muted px-2 py-1 text-xs text-text-secondary">
               {routine.steps.length} step
-              {routine.steps.length !== 1 ? "s" : ""}
+              {routine.steps.length !== 1 ? 's' : ''}
             </span>
           </div>
 
           {routine.steps.length === 0 ? (
-            <p className="text-sm text-text-secondary text-center py-4">
+            <p className="py-4 text-center text-sm text-text-secondary">
               No steps yet. Search for products to add.
             </p>
           ) : (

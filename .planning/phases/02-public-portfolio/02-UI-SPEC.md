@@ -15,13 +15,13 @@ created: 2026-03-19
 
 ## Design System
 
-| Property | Value |
-|----------|-------|
-| Tool | shadcn v4 |
-| Preset | base-nova |
-| Component library | base-ui (@base-ui/react 1.3.0) |
-| Icon library | lucide-react 0.577.0 |
-| Fonts | Playfair Display (display), Inter (body) |
+| Property          | Value                                    |
+| ----------------- | ---------------------------------------- |
+| Tool              | shadcn v4                                |
+| Preset            | base-nova                                |
+| Component library | base-ui (@base-ui/react 1.3.0)           |
+| Icon library      | lucide-react 0.577.0                     |
+| Fonts             | Playfair Display (display), Inter (body) |
 
 ---
 
@@ -29,15 +29,15 @@ created: 2026-03-19
 
 Declared values (must be multiples of 4):
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| xs | 4px | Icon gaps, gallery card border-radius fine-tuning |
-| sm | 8px | Compact element spacing, pill button internal padding vertical |
-| md | 16px | Gallery grid gap, card padding, filter row margins |
-| lg | 24px | Section padding, about page content spacing |
-| xl | 32px | Page horizontal padding on mobile |
-| 2xl | 48px | Page horizontal padding on desktop, major section breaks |
-| 3xl | 64px | Page top/bottom spacing, hero-level vertical rhythm |
+| Token | Value | Usage                                                          |
+| ----- | ----- | -------------------------------------------------------------- |
+| xs    | 4px   | Icon gaps, gallery card border-radius fine-tuning              |
+| sm    | 8px   | Compact element spacing, pill button internal padding vertical |
+| md    | 16px  | Gallery grid gap, card padding, filter row margins             |
+| lg    | 24px  | Section padding, about page content spacing                    |
+| xl    | 32px  | Page horizontal padding on mobile                              |
+| 2xl   | 48px  | Page horizontal padding on desktop, major section breaks       |
+| 3xl   | 64px  | Page top/bottom spacing, hero-level vertical rhythm            |
 
 Exceptions: Gallery card hover overlay padding uses 16px (md) on all sides. Lightbox arrow buttons use 44px touch target (accessibility minimum for touch).
 
@@ -45,12 +45,12 @@ Exceptions: Gallery card hover overlay padding uses 16px (md) on all sides. Ligh
 
 ## Typography
 
-| Role | Size | Weight | Line Height | Font | Usage |
-|------|------|--------|-------------|------|-------|
-| Body | 14px (text-sm) | 400 (normal) | 1.5 | Inter | Gallery card category label, about body text, admin form labels |
-| Base | 16px (text-base) | 400 (normal) | 1.5 | Inter | About page bio paragraph text, empty state body copy |
-| Heading | 20px (text-xl) | 700 (bold) | 1.2 | Playfair Display | Section headings ("About", admin page titles) |
-| Display | 28px (text-2xl) | 700 (bold) | 1.2 | Playfair Display | Page titles ("Portfolio", "About Funnghy") |
+| Role    | Size             | Weight       | Line Height | Font             | Usage                                                           |
+| ------- | ---------------- | ------------ | ----------- | ---------------- | --------------------------------------------------------------- |
+| Body    | 14px (text-sm)   | 400 (normal) | 1.5         | Inter            | Gallery card category label, about body text, admin form labels |
+| Base    | 16px (text-base) | 400 (normal) | 1.5         | Inter            | About page bio paragraph text, empty state body copy            |
+| Heading | 20px (text-xl)   | 700 (bold)   | 1.2         | Playfair Display | Section headings ("About", admin page titles)                   |
+| Display | 28px (text-2xl)  | 700 (bold)   | 1.2         | Playfair Display | Page titles ("Portfolio", "About Funnghy")                      |
 
 Weight constraint: Only 400 (normal) and 700 (bold) are used. No medium (500) or semibold (600) in this phase.
 
@@ -60,14 +60,15 @@ Additional: Category filter pills use 14px (text-sm) at weight 400. Gallery hove
 
 ## Color
 
-| Role | Value | Usage |
-|------|-------|-------|
-| Dominant (60%) | #F8F6FF (--color-dominant) | Page background, gallery page surface |
-| Secondary (30%) | #FFFFFF (--color-surface) | Gallery card surfaces, about page card, admin panels, lightbox info panel |
-| Accent (10%) | #E8B4B8 (--color-accent) | See reserved list below |
-| Destructive | #DC2626 (--color-destructive) | Delete photo button, delete category button, error messages |
+| Role            | Value                         | Usage                                                                     |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------- |
+| Dominant (60%)  | #F8F6FF (--color-dominant)    | Page background, gallery page surface                                     |
+| Secondary (30%) | #FFFFFF (--color-surface)     | Gallery card surfaces, about page card, admin panels, lightbox info panel |
+| Accent (10%)    | #E8B4B8 (--color-accent)      | See reserved list below                                                   |
+| Destructive     | #DC2626 (--color-destructive) | Delete photo button, delete category button, error messages               |
 
 Accent reserved for:
+
 - Active category filter pill background
 - "Upload Photo" primary CTA button background
 - Lightbox close button hover state
@@ -79,6 +80,7 @@ Accent reserved for:
 NOT used for: gallery card backgrounds, nav links, body text, borders (borders use #E8E4EE).
 
 Additional colors used:
+
 - Text primary: #2D2235 (--color-text-primary) -- headings, body text, card titles
 - Text secondary: #6B5F76 (--color-text-secondary) -- category labels, metadata, muted descriptions
 - Border: #E8E4EE (--color-border) -- inactive filter pill outlines, card borders, separator lines
@@ -98,24 +100,24 @@ Primary visual anchor: masonry photo grid. The gallery grid dominates the viewpo
 
 Components needed for this phase, mapped to source:
 
-| Component | Source | Status | Usage |
-|-----------|--------|--------|-------|
-| Button | shadcn/ui | Existing | Admin CTAs, lightbox nav arrows |
-| Card | shadcn/ui | Existing | Admin portfolio item cards |
-| Dialog | shadcn/ui (base-ui) | Existing | Lightbox foundation, delete confirmation |
-| Input | shadcn/ui | Existing | Admin forms (title, description) |
-| Label | shadcn/ui | Existing | Admin form labels |
-| Skeleton | shadcn/ui | Existing | Gallery loading placeholders |
-| Separator | shadcn/ui | Existing | About page section dividers |
-| Progress | shadcn/ui | Existing | Upload progress (reuse from Phase 1) |
-| DropdownMenu | shadcn/ui | Existing | Admin photo actions (edit/delete) |
-| MasonryGrid | Custom | New | CSS flex columns with JS round-robin distribution |
-| GalleryCard | Custom | New | Photo card with hover overlay |
-| Lightbox | Custom (on Dialog) | New | Full-screen photo viewer |
-| CategoryFilter | Custom | New | Pill/chip horizontal filter row |
-| InfiniteScroll | Custom | New | Scroll trigger with IntersectionObserver |
-| AboutSection | Custom | New | Bio + photo layout |
-| PhotoStrip | Custom | New | Thumbnail strip on about page |
+| Component      | Source              | Status   | Usage                                             |
+| -------------- | ------------------- | -------- | ------------------------------------------------- |
+| Button         | shadcn/ui           | Existing | Admin CTAs, lightbox nav arrows                   |
+| Card           | shadcn/ui           | Existing | Admin portfolio item cards                        |
+| Dialog         | shadcn/ui (base-ui) | Existing | Lightbox foundation, delete confirmation          |
+| Input          | shadcn/ui           | Existing | Admin forms (title, description)                  |
+| Label          | shadcn/ui           | Existing | Admin form labels                                 |
+| Skeleton       | shadcn/ui           | Existing | Gallery loading placeholders                      |
+| Separator      | shadcn/ui           | Existing | About page section dividers                       |
+| Progress       | shadcn/ui           | Existing | Upload progress (reuse from Phase 1)              |
+| DropdownMenu   | shadcn/ui           | Existing | Admin photo actions (edit/delete)                 |
+| MasonryGrid    | Custom              | New      | CSS flex columns with JS round-robin distribution |
+| GalleryCard    | Custom              | New      | Photo card with hover overlay                     |
+| Lightbox       | Custom (on Dialog)  | New      | Full-screen photo viewer                          |
+| CategoryFilter | Custom              | New      | Pill/chip horizontal filter row                   |
+| InfiniteScroll | Custom              | New      | Scroll trigger with IntersectionObserver          |
+| AboutSection   | Custom              | New      | Bio + photo layout                                |
+| PhotoStrip     | Custom              | New      | Thumbnail strip on about page                     |
 
 ---
 
@@ -124,6 +126,7 @@ Components needed for this phase, mapped to source:
 ### Gallery Page (Public)
 
 **Masonry Grid:**
+
 - 2 columns on mobile (< 768px), 3 columns on desktop (>= 768px)
 - Gap between cards: 16px (md)
 - Cards preserve natural aspect ratio of each photo
@@ -131,6 +134,7 @@ Components needed for this phase, mapped to source:
 - Cards have rounded corners: 16px (radius-lg)
 
 **Gallery Card Hover:**
+
 - Scale transform: 1.02x over 300ms ease
 - Overlay: bg-black/0 to bg-black/30 over 300ms
 - Text fade-in: opacity 0 to 1 over 300ms
@@ -138,6 +142,7 @@ Components needed for this phase, mapped to source:
 - Text positioned at bottom-left with 16px padding
 
 **Infinite Scroll:**
+
 - Initial load: 12 items server-rendered
 - Subsequent pages: 12 items per fetch
 - Sentinel element with 200px rootMargin (pre-fetch before user reaches bottom)
@@ -145,6 +150,7 @@ Components needed for this phase, mapped to source:
 - End state: no indicator (scrolling simply stops)
 
 **Category Filter:**
+
 - Horizontal scrollable row with 8px gap between pills
 - Pill padding: 16px horizontal, 8px vertical
 - Pill border-radius: 9999px (fully rounded)
@@ -157,23 +163,27 @@ Components needed for this phase, mapped to source:
 ### Lightbox (Public)
 
 **Opening:**
+
 - Triggered by clicking any gallery card
 - Backdrop: fixed inset-0, bg-black/40 with backdrop-blur-md
 - No URL change (overlay only)
 - Body scroll locked while open
 
 **Navigation:**
+
 - Left/right arrow buttons on screen (44px touch target, centered vertically)
 - Keyboard: ArrowLeft (previous), ArrowRight (next), Escape (close)
 - Mobile: horizontal swipe with 50px threshold, only when |deltaX| > |deltaY|
 - Arrow icons: lucide ChevronLeft / ChevronRight, 24px, white with bg-black/20 rounded-full padding
 
 **Content Display:**
+
 - Photo centered, max-width 90vw, max-height 80vh, object-contain
 - Below photo: title (20px Playfair Display bold), category (14px Inter), description (14px Inter, text-secondary)
 - Close button: top-right, lucide X icon, 24px, white, 44px touch target
 
 **Closing:**
+
 - Click backdrop (outside photo area)
 - Press Escape
 - Click X button
@@ -182,6 +192,7 @@ Components needed for this phase, mapped to source:
 ### About Page (Public)
 
 **Layout:**
+
 - Desktop: 2-column grid, photo left (40% width), text right (60% width), gap 48px
 - Mobile: single column, photo on top (full width, max-height 400px), text below
 - Profile photo: rounded-lg (16px), object-cover, shadow-md
@@ -189,6 +200,7 @@ Components needed for this phase, mapped to source:
 - Contact section: email as mailto link, social icons as 24px lucide icons with 8px gap
 
 **Photo Strip:**
+
 - 3-4 thumbnails from portfolio, horizontally laid out
 - Thumbnail size: 80px x 80px, object-cover, rounded-md (10px)
 - Gap: 8px
@@ -198,22 +210,26 @@ Components needed for this phase, mapped to source:
 ### Admin Content Management (Private)
 
 **Portfolio List:**
+
 - Grid of cards showing thumbnail, title, category, upload date
 - Each card has a dropdown menu (three-dot icon) with Edit and Delete actions
 - Empty state displayed when no portfolio items exist
 
 **Upload/Edit Form:**
+
 - Reuses existing ImageUploader component from Phase 1
 - Fields: title (Input), description (textarea), category (select dropdown from DB categories)
 - Primary CTA: "Upload Photo" (new) or "Save Changes" (edit)
 - Cancel action: "Discard Changes" (edit form) or "Cancel Upload" (upload form), outlined style, text-secondary
 
 **Category Management:**
+
 - Simple list with inline edit capability
 - Each row: category name, display order, delete button
 - Add new category: input field + "Add Category" button
 
 **About Page Editor:**
+
 - Form with: bio (textarea), email (input), social links (input per platform), profile photo (ImageUploader)
 - Primary CTA: "Save About Page"
 
@@ -221,36 +237,36 @@ Components needed for this phase, mapped to source:
 
 ## Copywriting Contract
 
-| Element | Copy |
-|---------|------|
-| Primary CTA (upload) | "Upload Photo" |
-| Primary CTA (save) | "Save Changes" |
-| Primary CTA (about) | "Save About Page" |
-| Primary CTA (category) | "Add Category" |
-| Cancel action (edit form) | "Discard Changes" |
-| Cancel action (upload form) | "Cancel Upload" |
-| Empty state heading (gallery) | "No photos yet" |
-| Empty state body (gallery) | "Your portfolio is waiting for its first photo. Head to the admin panel to upload one." |
-| Empty state heading (admin list) | "No portfolio photos" |
-| Empty state body (admin list) | "Upload your first photo to start building the portfolio." |
-| Empty state heading (about) | "About page not set up yet" |
-| Empty state body (about, public) | "Check back soon." |
-| Error state (upload failed) | "Upload failed. Check your connection and try again." |
-| Error state (load failed) | "Could not load photos. Please refresh the page." |
-| Error state (save failed) | "Changes could not be saved. Please try again." |
-| Destructive: delete photo | "Delete Photo": "This photo will be permanently removed from the portfolio. This cannot be undone." |
-| Destructive: delete category | "Delete Category": "This category and all its photos will need to be recategorized. Continue?" |
-| Lightbox empty nav | No copy needed -- arrows hidden when only 1 photo |
-| Filter "all" label | "All" |
+| Element                          | Copy                                                                                                |
+| -------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Primary CTA (upload)             | "Upload Photo"                                                                                      |
+| Primary CTA (save)               | "Save Changes"                                                                                      |
+| Primary CTA (about)              | "Save About Page"                                                                                   |
+| Primary CTA (category)           | "Add Category"                                                                                      |
+| Cancel action (edit form)        | "Discard Changes"                                                                                   |
+| Cancel action (upload form)      | "Cancel Upload"                                                                                     |
+| Empty state heading (gallery)    | "No photos yet"                                                                                     |
+| Empty state body (gallery)       | "Your portfolio is waiting for its first photo. Head to the admin panel to upload one."             |
+| Empty state heading (admin list) | "No portfolio photos"                                                                               |
+| Empty state body (admin list)    | "Upload your first photo to start building the portfolio."                                          |
+| Empty state heading (about)      | "About page not set up yet"                                                                         |
+| Empty state body (about, public) | "Check back soon."                                                                                  |
+| Error state (upload failed)      | "Upload failed. Check your connection and try again."                                               |
+| Error state (load failed)        | "Could not load photos. Please refresh the page."                                                   |
+| Error state (save failed)        | "Changes could not be saved. Please try again."                                                     |
+| Destructive: delete photo        | "Delete Photo": "This photo will be permanently removed from the portfolio. This cannot be undone." |
+| Destructive: delete category     | "Delete Category": "This category and all its photos will need to be recategorized. Continue?"      |
+| Lightbox empty nav               | No copy needed -- arrows hidden when only 1 photo                                                   |
+| Filter "all" label               | "All"                                                                                               |
 
 ---
 
 ## Responsive Breakpoints
 
-| Breakpoint | Value | Gallery Columns | About Layout | Filter Row |
-|------------|-------|-----------------|--------------|------------|
-| Mobile | < 768px | 2 columns | Stacked (photo on top) | Horizontal scroll |
-| Desktop | >= 768px | 3 columns | Side-by-side (photo left 40%) | Horizontal row |
+| Breakpoint | Value    | Gallery Columns | About Layout                  | Filter Row        |
+| ---------- | -------- | --------------- | ----------------------------- | ----------------- |
+| Mobile     | < 768px  | 2 columns       | Stacked (photo on top)        | Horizontal scroll |
+| Desktop    | >= 768px | 3 columns       | Side-by-side (photo left 40%) | Horizontal row    |
 
 Page horizontal padding: 16px on mobile, 48px on desktop.
 
@@ -258,16 +274,16 @@ Page horizontal padding: 16px on mobile, 48px on desktop.
 
 ## Animation & Transition Contract
 
-| Element | Property | Duration | Easing | Trigger |
-|---------|----------|----------|--------|---------|
-| Gallery card hover | transform: scale(1.02) | 300ms | ease | Mouse enter/leave |
-| Gallery card overlay | background-color | 300ms | ease | Mouse enter/leave |
-| Gallery card text | opacity | 300ms | ease | Mouse enter/leave |
-| Category filter switch | opacity on gallery items | 200ms | ease-out | Category pill click |
-| Lightbox open | opacity | 200ms | ease-out | Gallery card click |
-| Lightbox close | opacity | 150ms | ease-in | Close action |
-| Lightbox photo transition | opacity crossfade | 200ms | ease | Arrow nav / swipe |
-| Inactive pill hover | border-color, color | 150ms | ease | Mouse enter/leave |
+| Element                   | Property                 | Duration | Easing   | Trigger             |
+| ------------------------- | ------------------------ | -------- | -------- | ------------------- |
+| Gallery card hover        | transform: scale(1.02)   | 300ms    | ease     | Mouse enter/leave   |
+| Gallery card overlay      | background-color         | 300ms    | ease     | Mouse enter/leave   |
+| Gallery card text         | opacity                  | 300ms    | ease     | Mouse enter/leave   |
+| Category filter switch    | opacity on gallery items | 200ms    | ease-out | Category pill click |
+| Lightbox open             | opacity                  | 200ms    | ease-out | Gallery card click  |
+| Lightbox close            | opacity                  | 150ms    | ease-in  | Close action        |
+| Lightbox photo transition | opacity crossfade        | 200ms    | ease     | Arrow nav / swipe   |
+| Inactive pill hover       | border-color, color      | 150ms    | ease     | Mouse enter/leave   |
 
 No page transition animations in this phase (deferred to Phase 5).
 
@@ -275,26 +291,26 @@ No page transition animations in this phase (deferred to Phase 5).
 
 ## Accessibility
 
-| Requirement | Implementation |
-|-------------|----------------|
-| Gallery card click target | Full card is a button element with descriptive alt text on img |
-| Lightbox focus trap | base-ui Dialog handles focus trapping automatically |
-| Lightbox keyboard nav | ArrowLeft, ArrowRight, Escape -- all documented in interaction contract |
-| Lightbox close button | Icon-only button with `aria-label="Close lightbox"` |
-| Lightbox previous button | Icon-only button with `aria-label="Previous photo"` |
-| Lightbox next button | Icon-only button with `aria-label="Next photo"` |
-| Category filter | role="tablist" on container, role="tab" on each pill, aria-selected on active |
-| Touch targets | All interactive elements minimum 44px touch target |
-| Image alt text | Portfolio title used as alt text; empty alt for decorative thumbnails |
-| Color contrast | Text primary (#2D2235) on dominant (#F8F6FF) = ratio > 10:1 (passes AAA) |
-| Reduced motion | Respect prefers-reduced-motion: disable scale hover, crossfade transitions |
+| Requirement               | Implementation                                                                |
+| ------------------------- | ----------------------------------------------------------------------------- |
+| Gallery card click target | Full card is a button element with descriptive alt text on img                |
+| Lightbox focus trap       | base-ui Dialog handles focus trapping automatically                           |
+| Lightbox keyboard nav     | ArrowLeft, ArrowRight, Escape -- all documented in interaction contract       |
+| Lightbox close button     | Icon-only button with `aria-label="Close lightbox"`                           |
+| Lightbox previous button  | Icon-only button with `aria-label="Previous photo"`                           |
+| Lightbox next button      | Icon-only button with `aria-label="Next photo"`                               |
+| Category filter           | role="tablist" on container, role="tab" on each pill, aria-selected on active |
+| Touch targets             | All interactive elements minimum 44px touch target                            |
+| Image alt text            | Portfolio title used as alt text; empty alt for decorative thumbnails         |
+| Color contrast            | Text primary (#2D2235) on dominant (#F8F6FF) = ratio > 10:1 (passes AAA)      |
+| Reduced motion            | Respect prefers-reduced-motion: disable scale hover, crossfade transitions    |
 
 ---
 
 ## Registry Safety
 
-| Registry | Blocks Used | Safety Gate |
-|----------|-------------|-------------|
+| Registry        | Blocks Used                                                                      | Safety Gate  |
+| --------------- | -------------------------------------------------------------------------------- | ------------ |
 | shadcn official | button, card, dialog, input, label, skeleton, separator, progress, dropdown-menu | not required |
 
 No third-party registries declared.

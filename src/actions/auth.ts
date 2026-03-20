@@ -1,31 +1,31 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
-import { db } from "@/lib/db";
-import { inviteCodes, profiles } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { redirect } from "next/navigation";
-import { z } from "zod";
+import { createClient } from '@/lib/supabase/server';
+import { createAdminClient } from '@/lib/supabase/admin';
+import { db } from '@/lib/db';
+import { inviteCodes, profiles } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
+import { z } from 'zod';
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 const setupSchema = z.object({
   code: z
     .string()
-    .length(6, "Code must be exactly 6 characters")
-    .regex(/^[A-Z0-9]+$/, "Code must be alphanumeric"),
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+    .length(6, 'Code must be exactly 6 characters')
+    .regex(/^[A-Z0-9]+$/, 'Code must be alphanumeric'),
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 const inviteCodeSchema = z
   .string()
-  .length(6, "Code must be exactly 6 characters")
-  .regex(/^[A-Z0-9]+$/i, "Code must be alphanumeric");
+  .length(6, 'Code must be exactly 6 characters')
+  .regex(/^[A-Z0-9]+$/i, 'Code must be alphanumeric');
 
 export async function validateInviteCode(code: string) {
   const parsed = inviteCodeSchema.safeParse(code);
@@ -57,7 +57,7 @@ export async function validateInviteCode(code: string) {
 export async function setupAccount(
   code: string,
   email: string,
-  password: string
+  password: string,
 ) {
   const parsed = setupSchema.safeParse({
     code: code.toUpperCase(),
@@ -111,7 +111,7 @@ export async function setupAccount(
     return { error: signInError.message };
   }
 
-  redirect("/dashboard");
+  redirect('/dashboard');
 }
 
 export async function login(email: string, password: string) {
@@ -124,15 +124,14 @@ export async function login(email: string, password: string) {
   const { error } = await supabase.auth.signInWithPassword({ email, password });
 
   if (error) {
-    return { error: "Email or password is incorrect. Please try again." };
+    return { error: 'Email or password is incorrect. Please try again.' };
   }
 
-  redirect("/dashboard");
+  redirect('/dashboard');
 }
 
 export async function logout() {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  redirect('/login');
 }
-

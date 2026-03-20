@@ -1,51 +1,55 @@
-"use client";
+'use client';
 
-import { useCallback, useState } from "react";
-import { useDropzone } from "react-dropzone";
-import { Upload } from "lucide-react";
-import { toast } from "sonner";
-import { uploadImage } from "@/actions/upload";
-import { UploadProgress, type UploadFile } from "./upload-progress";
+import { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { Upload } from 'lucide-react';
+import { toast } from 'sonner';
+import { uploadImage } from '@/actions/upload';
+import { UploadProgress, type UploadFile } from './upload-progress';
 
 interface ImageUploaderProps {
-  bucket: "public-images" | "private-images";
+  bucket: 'public-images' | 'private-images';
   folder: string;
   onUploadComplete?: (imageId: string) => void;
 }
 
-export function ImageUploader({ bucket, folder, onUploadComplete }: ImageUploaderProps) {
+export function ImageUploader({
+  bucket,
+  folder,
+  onUploadComplete,
+}: ImageUploaderProps) {
   const [uploadFiles, setUploadFiles] = useState<UploadFile[]>([]);
 
   const updateFile = useCallback(
     (index: number, updates: Partial<UploadFile>) => {
       setUploadFiles((prev) =>
-        prev.map((f, i) => (i === index ? { ...f, ...updates } : f))
+        prev.map((f, i) => (i === index ? { ...f, ...updates } : f)),
       );
     },
-    []
+    [],
   );
 
   const processFile = useCallback(
     async (file: File, index: number) => {
-      updateFile(index, { status: "uploading", progress: 50 });
+      updateFile(index, { status: 'uploading', progress: 50 });
 
       try {
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append('file', file);
 
         const result = await uploadImage(formData, { bucket, folder });
-        updateFile(index, { status: "complete", progress: 100 });
+        updateFile(index, { status: 'complete', progress: 100 });
         onUploadComplete?.(result.imageId);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Upload failed";
+        const message = err instanceof Error ? err.message : 'Upload failed';
         updateFile(index, {
-          status: "error",
+          status: 'error',
           error: message,
           onRetry: () => processFile(file, index),
         });
       }
     },
-    [bucket, folder, onUploadComplete, updateFile]
+    [bucket, folder, onUploadComplete, updateFile],
   );
 
   const onDrop = useCallback(
@@ -54,7 +58,7 @@ export function ImageUploader({ bucket, folder, onUploadComplete }: ImageUploade
       const newFiles: UploadFile[] = acceptedFiles.map((file) => ({
         file,
         progress: 0,
-        status: "pending" as const,
+        status: 'pending' as const,
       }));
 
       setUploadFiles((prev) => [...prev, ...newFiles]);
@@ -65,7 +69,9 @@ export function ImageUploader({ bucket, folder, onUploadComplete }: ImageUploade
       const totalFiles = acceptedFiles.length;
 
       const processQueue = async () => {
-        const queue = [...acceptedFiles.map((f, i) => ({ file: f, index: startIndex + i }))];
+        const queue = [
+          ...acceptedFiles.map((f, i) => ({ file: f, index: startIndex + i })),
+        ];
         const active: Promise<void>[] = [];
 
         while (queue.length > 0 || active.length > 0) {
@@ -90,15 +96,15 @@ export function ImageUploader({ bucket, folder, onUploadComplete }: ImageUploade
         toast.success(`${completedCount} photo(s) uploaded successfully`);
       }
     },
-    [uploadFiles.length, processFile]
+    [uploadFiles.length, processFile],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      "image/jpeg": [],
-      "image/png": [],
-      "image/webp": [],
+      'image/jpeg': [],
+      'image/png': [],
+      'image/webp': [],
     },
     multiple: true,
   });
@@ -107,18 +113,18 @@ export function ImageUploader({ bucket, folder, onUploadComplete }: ImageUploade
     <div>
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-[16px] p-12 text-center cursor-pointer transition-colors ${
+        className={`cursor-pointer rounded-[16px] border-2 border-dashed p-12 text-center transition-colors ${
           isDragActive
-            ? "border-accent border-solid bg-[rgba(232,180,184,0.05)]"
-            : "border-border"
+            ? 'border-solid border-accent bg-[rgba(232,180,184,0.05)]'
+            : 'border-border'
         }`}
       >
         <input {...getInputProps()} />
-        <Upload className="mx-auto h-12 w-12 text-text-secondary mb-4" />
-        <p className="text-base font-body text-text-secondary">
+        <Upload className="mx-auto mb-4 h-12 w-12 text-text-secondary" />
+        <p className="font-body text-base text-text-secondary">
           Drag photos here or click to browse
         </p>
-        <p className="text-sm font-body text-text-secondary mt-1">
+        <p className="mt-1 font-body text-sm text-text-secondary">
           JPEG, PNG, WebP accepted
         </p>
       </div>

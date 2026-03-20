@@ -13,9 +13,11 @@ The calendar should be custom-built (not a library) because the requirements are
 **Primary recommendation:** Custom calendar grid with date-fns for date math, Recharts 3.x for charts, Intl.NumberFormat for VND, and a single `schedule_jobs` table following existing Drizzle schema patterns.
 
 <user_constraints>
+
 ## User Constraints (from CONTEXT.md)
 
 ### Locked Decisions
+
 - Each job has: client name, location, start time, end time, pay amount (VND), notes (optional)
 - Jobs are single-day only -- no multi-day spanning
 - Add a job by tapping a date on the calendar -- form slides up for that date
@@ -37,6 +39,7 @@ The calendar should be custom-built (not a library) because the requirements are
 - Both users (Funnghy + boyfriend) can view and manage the schedule
 
 ### Claude's Discretion
+
 - Calendar component approach (custom build vs library)
 - Chart library choice for income statistics
 - Job form layout and slide-up animation
@@ -45,51 +48,58 @@ The calendar should be custom-built (not a library) because the requirements are
 - Empty state design for days/months with no jobs
 
 ### Deferred Ideas (OUT OF SCOPE)
+
 - Recurring jobs / templates (e.g., "weekly shoot with Agency X")
 - Job type/category tagging
 - Export to CSV/PDF for tax purposes
 - Client contact info management
-</user_constraints>
+  </user_constraints>
 
 ## Standard Stack
 
 ### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| date-fns | 4.1.0 | Date math (month days, week starts, formatting) | Tree-shakeable, no class overhead, pure functions, widely used |
-| recharts | 3.8.0 | Bar/line charts for income statistics | Officially supports React 19, SVG-based, declarative API, most popular React chart lib |
-| Intl.NumberFormat (built-in) | N/A | VND currency formatting with dot separators | Native browser API, zero bundle cost, correct vi-VN locale formatting |
+
+| Library                      | Version | Purpose                                         | Why Standard                                                                           |
+| ---------------------------- | ------- | ----------------------------------------------- | -------------------------------------------------------------------------------------- |
+| date-fns                     | 4.1.0   | Date math (month days, week starts, formatting) | Tree-shakeable, no class overhead, pure functions, widely used                         |
+| recharts                     | 3.8.0   | Bar/line charts for income statistics           | Officially supports React 19, SVG-based, declarative API, most popular React chart lib |
+| Intl.NumberFormat (built-in) | N/A     | VND currency formatting with dot separators     | Native browser API, zero bundle cost, correct vi-VN locale formatting                  |
 
 ### Supporting (Already in Project)
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| react-hook-form | 7.71.2 | Job add/edit form state | All form handling (existing pattern) |
-| zod | 4.3.6 | Job form + server action validation | All input validation (existing pattern) |
-| @hookform/resolvers | 5.2.2 | Connect zod to react-hook-form | Form validation binding (existing pattern) |
-| lucide-react | 0.577.0 | Icons (chevrons for nav, status icons) | All iconography (existing pattern) |
-| sonner | 2.0.7 | Toast notifications for job CRUD | Success/error feedback (existing pattern) |
+
+| Library             | Version | Purpose                                | When to Use                                |
+| ------------------- | ------- | -------------------------------------- | ------------------------------------------ |
+| react-hook-form     | 7.71.2  | Job add/edit form state                | All form handling (existing pattern)       |
+| zod                 | 4.3.6   | Job form + server action validation    | All input validation (existing pattern)    |
+| @hookform/resolvers | 5.2.2   | Connect zod to react-hook-form         | Form validation binding (existing pattern) |
+| lucide-react        | 0.577.0 | Icons (chevrons for nav, status icons) | All iconography (existing pattern)         |
+| sonner              | 2.0.7   | Toast notifications for job CRUD       | Success/error feedback (existing pattern)  |
 
 ### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Custom calendar | react-big-calendar | Over-engineered for month-only grid; custom cells with income totals need full control |
-| Custom calendar | react-day-picker | Designed for date picking, not event display; would fight the API |
-| Recharts | Chart.js + react-chartjs-2 | Canvas-based (not SSR-friendly), heavier for simple bar charts |
-| Recharts | @nivo/bar | More dependencies, heavier bundle for what amounts to 2 simple charts |
-| date-fns | dayjs | Either works; date-fns is more tree-shakeable and project has no existing date lib |
+
+| Instead of      | Could Use                  | Tradeoff                                                                               |
+| --------------- | -------------------------- | -------------------------------------------------------------------------------------- |
+| Custom calendar | react-big-calendar         | Over-engineered for month-only grid; custom cells with income totals need full control |
+| Custom calendar | react-day-picker           | Designed for date picking, not event display; would fight the API                      |
+| Recharts        | Chart.js + react-chartjs-2 | Canvas-based (not SSR-friendly), heavier for simple bar charts                         |
+| Recharts        | @nivo/bar                  | More dependencies, heavier bundle for what amounts to 2 simple charts                  |
+| date-fns        | dayjs                      | Either works; date-fns is more tree-shakeable and project has no existing date lib     |
 
 **Installation:**
+
 ```bash
 npm install date-fns recharts
 ```
 
 **Version verification:** Verified via `npm view` on 2026-03-20:
+
 - date-fns: 4.1.0 (no peer dependencies, standalone)
 - recharts: 3.8.0 (peerDependencies: react ^19.0.0 -- confirmed compatible)
 
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 src/
 ├── app/(private)/schedule/
@@ -117,15 +127,23 @@ src/
 ```
 
 ### Pattern 1: Custom Month Calendar Grid
+
 **What:** Build the month grid as a CSS grid with 7 columns (Sun-Sat or Mon-Sun), generating day cells from date-fns calculations.
 **When to use:** When you need full control over day cell rendering (job dots, income totals, color coding).
 **Example:**
+
 ```typescript
 // Calendar date math with date-fns
 import {
-  startOfMonth, endOfMonth, startOfWeek, endOfWeek,
-  eachDayOfInterval, isSameMonth, isSameDay, format
-} from "date-fns";
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
+  format,
+} from 'date-fns';
 
 function getCalendarDays(currentMonth: Date): Date[] {
   const monthStart = startOfMonth(currentMonth);
@@ -138,9 +156,11 @@ function getCalendarDays(currentMonth: Date): Date[] {
 ```
 
 ### Pattern 2: Server Component Data Fetching + Client Interactivity
+
 **What:** Server Component fetches all jobs for the visible month range, passes as props to Client Components.
 **When to use:** Page-level data loading with client-side state for selected day, form visibility.
 **Example:**
+
 ```typescript
 // app/(private)/schedule/page.tsx (Server Component)
 import { getJobsForMonth } from "@/actions/schedule";
@@ -165,27 +185,31 @@ export default async function SchedulePage({
 ```
 
 ### Pattern 3: Income Aggregation on Server
+
 **What:** Compute income summaries (daily/weekly/monthly/yearly totals, paid vs pending) in Server Actions, not client-side.
 **When to use:** Statistics cards and chart data. Avoids shipping raw job data for large date ranges.
 **Example:**
+
 ```typescript
 // Server Action: aggregate income by period
 export async function getIncomeStats(year: number, month: number) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Unauthorized');
 
   // Fetch all jobs in the month
-  const monthJobs = await db.select()
+  const monthJobs = await db
+    .select()
     .from(scheduleJobs)
-    .where(and(
-      eq(scheduleJobs.year, year),
-      eq(scheduleJobs.month, month),
-    ));
+    .where(and(eq(scheduleJobs.year, year), eq(scheduleJobs.month, month)));
 
-  const totalPaid = monthJobs.filter(j => j.status === "paid")
+  const totalPaid = monthJobs
+    .filter((j) => j.status === 'paid')
     .reduce((sum, j) => sum + j.payAmount, 0);
-  const totalPending = monthJobs.filter(j => j.status === "pending")
+  const totalPending = monthJobs
+    .filter((j) => j.status === 'pending')
     .reduce((sum, j) => sum + j.payAmount, 0);
 
   return { totalPaid, totalPending, total: totalPaid + totalPending };
@@ -193,6 +217,7 @@ export async function getIncomeStats(year: number, month: number) {
 ```
 
 ### Anti-Patterns to Avoid
+
 - **Client-side date math with raw Date objects:** Always use date-fns -- timezone bugs are subtle and painful. Never do `new Date(year, month, 0).getDate()` for days-in-month.
 - **Storing VND as float/decimal:** VND has no fractional units. Use integer column (bigint if totals could exceed 2B VND). Never use numeric/decimal.
 - **Month navigation via client state only:** Use URL search params (`?month=3&year=2026`) so month navigation is bookmarkable and works with browser back/forward.
@@ -200,43 +225,48 @@ export async function getIncomeStats(year: number, month: number) {
 
 ## Don't Hand-Roll
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Calendar date calculations | Manual month/week/day math | date-fns `startOfMonth`, `endOfMonth`, `eachDayOfInterval`, `startOfWeek` | Leap years, month boundaries, week padding are deceptively tricky |
-| Currency formatting | Regex-based number formatting | `Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })` | Handles dot separators, dong symbol, edge cases natively |
-| Chart rendering | SVG/Canvas chart from scratch | Recharts `<BarChart>`, `<LineChart>` | Axes, tooltips, responsiveness, animations are massive effort |
-| Form validation | Manual field checks | zod schemas + react-hook-form (existing pattern) | Already established in project; consistency matters |
-| Slide-up form | Custom animation logic | Existing Sheet component (base-ui Dialog) | Already built and used for beauty product forms |
+| Problem                    | Don't Build                   | Use Instead                                                               | Why                                                               |
+| -------------------------- | ----------------------------- | ------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Calendar date calculations | Manual month/week/day math    | date-fns `startOfMonth`, `endOfMonth`, `eachDayOfInterval`, `startOfWeek` | Leap years, month boundaries, week padding are deceptively tricky |
+| Currency formatting        | Regex-based number formatting | `Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })`      | Handles dot separators, dong symbol, edge cases natively          |
+| Chart rendering            | SVG/Canvas chart from scratch | Recharts `<BarChart>`, `<LineChart>`                                      | Axes, tooltips, responsiveness, animations are massive effort     |
+| Form validation            | Manual field checks           | zod schemas + react-hook-form (existing pattern)                          | Already established in project; consistency matters               |
+| Slide-up form              | Custom animation logic        | Existing Sheet component (base-ui Dialog)                                 | Already built and used for beauty product forms                   |
 
 **Key insight:** The only "new" UI pattern here is the calendar grid itself, which is just a CSS grid with date-fns math. Everything else (forms, sheets, CRUD actions, auth gates) reuses existing project patterns.
 
 ## Common Pitfalls
 
 ### Pitfall 1: Integer Overflow with VND Amounts
+
 **What goes wrong:** VND amounts are large (a single job might be 5,000,000-50,000,000 VND). Yearly totals can exceed JavaScript's safe integer range or PostgreSQL integer limits.
 **Why it happens:** PostgreSQL `integer` maxes at ~2.1 billion. A busy freelancer earning 50M VND/month = 600M/year, which fits integer. But if the schema ever stores cumulative values, it could overflow.
 **How to avoid:** Use `integer` for individual job pay (max ~2.1B VND per job is safe). For aggregated stats, compute in-query with `sum()` which returns `bigint` in PostgreSQL. In TypeScript, the values come back as strings from bigint columns -- parse with `Number()` since yearly totals won't exceed Number.MAX_SAFE_INTEGER.
 **Warning signs:** Aggregated totals showing as strings instead of numbers.
 
 ### Pitfall 2: Calendar Month Boundary Off-by-One
+
 **What goes wrong:** Displaying wrong days at month start/end, especially when padding weeks.
 **Why it happens:** JavaScript months are 0-indexed but display is 1-indexed. Mixing `new Date(2026, 2)` (March) with user-facing "month 3" causes confusion.
 **How to avoid:** Use date-fns throughout -- it handles month indexing consistently. Pass `Date` objects internally, format to strings only for display. Use `isSameMonth()` to gray out padding days.
 **Warning signs:** February showing 30 days, or first day of month appearing on wrong weekday.
 
 ### Pitfall 3: Time Zone Issues with Date Filtering
+
 **What goes wrong:** Jobs on the last day of the month appear in the next month's query, or jobs disappear near midnight.
 **Why it happens:** Storing timestamps with timezone info, then querying by date range using server's timezone vs user's timezone.
 **How to avoid:** Store job dates as `date` type (not `timestamp`) in PostgreSQL since jobs are single-day. Store start_time and end_time as `time` type or as text strings ("09:00", "17:00"). Query jobs by date equality, not timestamp ranges.
 **Warning signs:** Jobs appearing on wrong dates in calendar.
 
 ### Pitfall 4: Recharts Bundle Size
+
 **What goes wrong:** Recharts adds significant bundle size (~300KB unparsed) even for simple charts.
 **Why it happens:** Importing top-level `import { BarChart } from 'recharts'` pulls in everything.
 **How to avoid:** Use specific imports. Recharts 3.x has improved tree-shaking. Wrap chart components in dynamic imports with `next/dynamic` and `ssr: false` since charts are client-only and below the fold.
 **Warning signs:** Large initial JS bundle, slow page load.
 
 ### Pitfall 5: Form Sheet Not Resetting on Day Change
+
 **What goes wrong:** User taps day 1, opens form, taps day 15 -- form still shows day 1's date.
 **Why it happens:** React state not resetting when the "selected day" prop changes.
 **How to avoid:** Use `key={selectedDate.toISOString()}` on the Sheet/form to force remount on date change. Or use react-hook-form's `reset()` in a `useEffect` watching the selected date.
@@ -245,11 +275,12 @@ export async function getIncomeStats(year: number, month: number) {
 ## Code Examples
 
 ### VND Currency Formatting
+
 ```typescript
 // src/lib/schedule/format-vnd.ts
-const vndFormatter = new Intl.NumberFormat("vi-VN", {
-  style: "currency",
-  currency: "VND",
+const vndFormatter = new Intl.NumberFormat('vi-VN', {
+  style: 'currency',
+  currency: 'VND',
 });
 
 // Full format: "5.000.000 d"
@@ -270,26 +301,36 @@ export function formatVNDCompact(amount: number): string {
 ```
 
 ### Database Schema (Drizzle)
+
 ```typescript
 // src/lib/db/schema.ts - new table
-import { date, integer, pgTable, text, time, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  date,
+  integer,
+  pgTable,
+  text,
+  time,
+  timestamp,
+  uuid,
+} from 'drizzle-orm/pg-core';
 
-export const scheduleJobs = pgTable("schedule_jobs", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  jobDate: date("job_date").notNull(),          // DATE type, no timezone issues
-  clientName: text("client_name").notNull(),
-  location: text("location").notNull(),
-  startTime: text("start_time").notNull(),      // "09:00" format - text for simplicity
-  endTime: text("end_time").notNull(),           // "17:00" format
-  payAmount: integer("pay_amount").notNull(),    // VND, no decimals
-  status: text("status").notNull().default("pending"), // "paid" | "pending"
-  notes: text("notes"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+export const scheduleJobs = pgTable('schedule_jobs', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  jobDate: date('job_date').notNull(), // DATE type, no timezone issues
+  clientName: text('client_name').notNull(),
+  location: text('location').notNull(),
+  startTime: text('start_time').notNull(), // "09:00" format - text for simplicity
+  endTime: text('end_time').notNull(), // "17:00" format
+  payAmount: integer('pay_amount').notNull(), // VND, no decimals
+  status: text('status').notNull().default('pending'), // "paid" | "pending"
+  notes: text('notes'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });
 ```
 
 ### Recharts Income Bar Chart
+
 ```typescript
 // src/components/schedule/income-chart.tsx
 "use client";
@@ -319,24 +360,25 @@ export function IncomeChart({ data }: { data: ChartData[] }) {
 ```
 
 ### Server Action Pattern (following beauty-products.ts)
+
 ```typescript
 // src/actions/schedule.ts
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { scheduleJobs } from "@/lib/db/schema";
-import { eq, and, gte, lte } from "drizzle-orm";
-import { z } from "zod";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { scheduleJobs } from '@/lib/db/schema';
+import { eq, and, gte, lte } from 'drizzle-orm';
+import { z } from 'zod';
 
 const createJobSchema = z.object({
-  jobDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),  // "2026-03-20"
+  jobDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // "2026-03-20"
   clientName: z.string().min(1).max(100),
   location: z.string().min(1).max(200),
-  startTime: z.string().regex(/^\d{2}:\d{2}$/),       // "09:00"
+  startTime: z.string().regex(/^\d{2}:\d{2}$/), // "09:00"
   endTime: z.string().regex(/^\d{2}:\d{2}$/),
   payAmount: z.number().int().min(0),
-  status: z.enum(["paid", "pending"]),
+  status: z.enum(['paid', 'pending']),
   notes: z.string().max(1000).optional().nullable(),
 });
 
@@ -345,10 +387,13 @@ export async function createJob(data: z.infer<typeof createJobSchema>) {
   if (!parsed.success) throw new Error(parsed.error.issues[0].message);
 
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Unauthorized');
 
-  const [created] = await db.insert(scheduleJobs)
+  const [created] = await db
+    .insert(scheduleJobs)
     .values(parsed.data)
     .returning();
 
@@ -357,31 +402,37 @@ export async function createJob(data: z.infer<typeof createJobSchema>) {
 
 export async function getJobsForMonth(year: number, month: number) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Unauthorized');
 
-  const startDate = `${year}-${String(month).padStart(2, "0")}-01`;
-  const endDate = `${year}-${String(month).padStart(2, "0")}-31`; // PostgreSQL DATE handles overflow
+  const startDate = `${year}-${String(month).padStart(2, '0')}-01`;
+  const endDate = `${year}-${String(month).padStart(2, '0')}-31`; // PostgreSQL DATE handles overflow
 
-  return db.select()
+  return db
+    .select()
     .from(scheduleJobs)
-    .where(and(
-      gte(scheduleJobs.jobDate, startDate),
-      lte(scheduleJobs.jobDate, endDate),
-    ))
+    .where(
+      and(
+        gte(scheduleJobs.jobDate, startDate),
+        lte(scheduleJobs.jobDate, endDate),
+      ),
+    )
     .orderBy(scheduleJobs.jobDate, scheduleJobs.startTime);
 }
 ```
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| Recharts 2.x (React 18 only) | Recharts 3.x (React 19 support) | 2025 | Can now use with React 19 without workarounds |
-| moment.js for date math | date-fns 4.x (ESM-first, tree-shakeable) | 2024 | Smaller bundles, no mutable state |
-| Custom number formatting | Intl.NumberFormat (widely supported) | Stable since 2020 | Zero-dependency, locale-aware |
+| Old Approach                 | Current Approach                         | When Changed      | Impact                                        |
+| ---------------------------- | ---------------------------------------- | ----------------- | --------------------------------------------- |
+| Recharts 2.x (React 18 only) | Recharts 3.x (React 19 support)          | 2025              | Can now use with React 19 without workarounds |
+| moment.js for date math      | date-fns 4.x (ESM-first, tree-shakeable) | 2024              | Smaller bundles, no mutable state             |
+| Custom number formatting     | Intl.NumberFormat (widely supported)     | Stable since 2020 | Zero-dependency, locale-aware                 |
 
 **Deprecated/outdated:**
+
 - moment.js: Officially in maintenance mode. Use date-fns instead.
 - Recharts 2.x: Requires react-is override for React 19. Use 3.x.
 
@@ -405,33 +456,36 @@ export async function getJobsForMonth(year: number, month: number) {
 ## Validation Architecture
 
 ### Test Framework
-| Property | Value |
-|----------|-------|
-| Framework | vitest 4.1.0 + @testing-library/react 16.3.2 |
-| Config file | `vitest.config.ts` (exists) |
-| Quick run command | `npx vitest run src/__tests__/schedule/ --reporter=verbose` |
-| Full suite command | `npx vitest run --reporter=verbose` |
+
+| Property           | Value                                                       |
+| ------------------ | ----------------------------------------------------------- |
+| Framework          | vitest 4.1.0 + @testing-library/react 16.3.2                |
+| Config file        | `vitest.config.ts` (exists)                                 |
+| Quick run command  | `npx vitest run src/__tests__/schedule/ --reporter=verbose` |
+| Full suite command | `npx vitest run --reporter=verbose`                         |
 
 ### Phase Requirements -> Test Map
 
 Note: Phase 5 adds NEW requirements not yet in REQUIREMENTS.md. Using SCHED-XX IDs.
 
-| Req ID | Behavior | Test Type | Automated Command | File Exists? |
-|--------|----------|-----------|-------------------|-------------|
-| SCHED-01 | Job CRUD (create, read, update, delete) with all fields | unit | `npx vitest run src/__tests__/schedule/schedule-actions.test.ts -x` | No - Wave 0 |
-| SCHED-02 | Month calendar grid renders correct days | unit | `npx vitest run src/__tests__/schedule/calendar-grid.test.tsx -x` | No - Wave 0 |
-| SCHED-03 | VND formatting (dots, dong symbol, compact) | unit | `npx vitest run src/__tests__/schedule/format-vnd.test.ts -x` | No - Wave 0 |
-| SCHED-04 | Income stats aggregation (paid vs pending, time periods) | unit | `npx vitest run src/__tests__/schedule/stats.test.ts -x` | No - Wave 0 |
-| SCHED-05 | Auth gate on all schedule actions | unit | `npx vitest run src/__tests__/schedule/schedule-actions.test.ts -x` | No - Wave 0 |
-| SCHED-06 | Paid/pending status color coding | unit | `npx vitest run src/__tests__/schedule/calendar-grid.test.tsx -x` | No - Wave 0 |
-| SCHED-07 | Route protection for /schedule | unit | `npx vitest run src/__tests__/middleware/route-protection.test.ts -x` | Exists (needs update) |
+| Req ID   | Behavior                                                 | Test Type | Automated Command                                                     | File Exists?          |
+| -------- | -------------------------------------------------------- | --------- | --------------------------------------------------------------------- | --------------------- |
+| SCHED-01 | Job CRUD (create, read, update, delete) with all fields  | unit      | `npx vitest run src/__tests__/schedule/schedule-actions.test.ts -x`   | No - Wave 0           |
+| SCHED-02 | Month calendar grid renders correct days                 | unit      | `npx vitest run src/__tests__/schedule/calendar-grid.test.tsx -x`     | No - Wave 0           |
+| SCHED-03 | VND formatting (dots, dong symbol, compact)              | unit      | `npx vitest run src/__tests__/schedule/format-vnd.test.ts -x`         | No - Wave 0           |
+| SCHED-04 | Income stats aggregation (paid vs pending, time periods) | unit      | `npx vitest run src/__tests__/schedule/stats.test.ts -x`              | No - Wave 0           |
+| SCHED-05 | Auth gate on all schedule actions                        | unit      | `npx vitest run src/__tests__/schedule/schedule-actions.test.ts -x`   | No - Wave 0           |
+| SCHED-06 | Paid/pending status color coding                         | unit      | `npx vitest run src/__tests__/schedule/calendar-grid.test.tsx -x`     | No - Wave 0           |
+| SCHED-07 | Route protection for /schedule                           | unit      | `npx vitest run src/__tests__/middleware/route-protection.test.ts -x` | Exists (needs update) |
 
 ### Sampling Rate
+
 - **Per task commit:** `npx vitest run src/__tests__/schedule/ --reporter=verbose`
 - **Per wave merge:** `npx vitest run --reporter=verbose`
 - **Phase gate:** Full suite green before `/gsd:verify-work`
 
 ### Wave 0 Gaps
+
 - [ ] `src/__tests__/schedule/schedule-actions.test.ts` -- covers SCHED-01, SCHED-05
 - [ ] `src/__tests__/schedule/calendar-grid.test.tsx` -- covers SCHED-02, SCHED-06
 - [ ] `src/__tests__/schedule/format-vnd.test.ts` -- covers SCHED-03
@@ -441,22 +495,26 @@ Note: Phase 5 adds NEW requirements not yet in REQUIREMENTS.md. Using SCHED-XX I
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - npm registry -- verified recharts 3.8.0 peerDependencies include react ^19.0.0
 - npm registry -- verified date-fns 4.1.0 (no peer dependencies)
 - MDN Intl.NumberFormat docs -- vi-VN locale with VND currency produces dot-separated formatting
 - Existing project codebase -- beauty-products.ts, schema.ts, middleware.ts patterns
 
 ### Secondary (MEDIUM confidence)
+
 - [recharts/recharts releases](https://github.com/recharts/recharts/releases) -- React 19 support confirmed in 3.x
 - [MDN Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) -- VND formatting reference
 - [Freeformatter Vietnam standards](https://www.freeformatter.com/vietnam-standards-code-snippets.html) -- Dot separator as Vietnamese grouping character
 
 ### Tertiary (LOW confidence)
+
 - None -- all findings verified against primary sources
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH -- recharts 3.x React 19 peer dep verified via npm registry, date-fns is dependency-free
 - Architecture: HIGH -- follows established project patterns (Server Actions, Drizzle, react-hook-form, Sheet)
 - Pitfalls: HIGH -- date/timezone and VND formatting issues are well-documented; calendar math verified with date-fns API

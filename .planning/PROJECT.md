@@ -57,12 +57,13 @@ Funnghy has a single, beautiful space that showcases her work to the world and h
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
+| Decision                                         | Rationale                                                        | Outcome   |
+| ------------------------------------------------ | ---------------------------------------------------------------- | --------- |
 | Mixed portfolio feed (not separated by category) | She does modeling, travel, and beauty — all part of her identity | — Pending |
-| Soft feminine design system | Matches her aesthetic and makes it feel like a personal gift | — Pending |
-| Two-user system (no public registration) | This is a gift, not a platform | — Pending |
-| Public portfolio + private tools | Best of both worlds — showcase and personal utility | — Pending |
+| Soft feminine design system                      | Matches her aesthetic and makes it feel like a personal gift     | — Pending |
+| Two-user system (no public registration)         | This is a gift, not a platform                                   | — Pending |
+| Public portfolio + private tools                 | Best of both worlds — showcase and personal utility              | — Pending |
 
 ---
-*Last updated: 2026-03-19 after initialization*
+
+_Last updated: 2026-03-19 after initialization_

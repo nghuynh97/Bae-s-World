@@ -14,6 +14,7 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 ## Implementation Decisions
 
 ### Prettier configuration
+
 - Install prettier as devDependency
 - Tab width: 2 spaces
 - Semicolons: yes
@@ -27,6 +28,7 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Run `npm run format` on entire codebase after setup
 
 ### shadcn component replacements
+
 - Replace ALL native HTML form elements with shadcn equivalents — no exceptions
 - Install shadcn `Select` component (not currently installed) for all `<select>` elements
 - Install shadcn `Textarea` component for notes fields
@@ -40,6 +42,7 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Keep hidden `<input>` from react-dropzone (file inputs are special — shadcn doesn't wrap these)
 
 ### Fix stale UI after CRUD actions (no full page reload)
+
 - After any create, edit, or delete action, the UI must update immediately — no manual F5 refresh
 - Do NOT use `router.refresh()` on the client — it causes a visible page reload flash
 - Instead, use `revalidatePath()` inside Server Actions to seamlessly revalidate server data without a full reload
@@ -55,6 +58,7 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - For forms that navigate after submit, use `redirect()` after `revalidatePath()` in the Server Action
 
 ### UX spacing & color fixes
+
 - Forms feel cramped — increase gap between fields, add more padding in form containers
 - Calendar looks plain — improve day cell visual treatment, better job dot styling, clearer income display
 - Cards need more contrast — stronger shadow or ring on JobCard, product cards, stat cards against the lavender background
@@ -62,6 +66,7 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Apply consistent spacing scale from design system (8, 16, 24, 32 gap values)
 
 ### Claude's Discretion
+
 - Exact spacing values per component (use design system scale)
 - Exact shadow/ring values for card contrast improvement
 - Calendar day cell visual improvements (border, background, dot size)
@@ -71,19 +76,23 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 </decisions>
 
 <canonical_refs>
+
 ## Canonical References
 
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Project context
+
 - `.planning/PROJECT.md` — Soft feminine aesthetic, premium feel
 - `src/app/globals.css` — Design system tokens (colors, fonts, shadows, radii) — single source of truth
 
 ### Design specs
+
 - `.planning/phases/03-beauty-tracker/03-UI-SPEC.md` — Spacing scale, typography, color contracts for beauty components
 - `.planning/phases/05-polish/05-CONTEXT.md` — Hover effects, loading states, button spinners already applied
 
 ### Files to refactor
+
 - `src/components/beauty/product-form.tsx` — native `<select>`, spacing issues
 - `src/components/schedule/job-form.tsx` — form spacing
 - `src/components/schedule/job-card.tsx` — card contrast
@@ -97,9 +106,11 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 </canonical_refs>
 
 <code_context>
+
 ## Existing Code Insights
 
 ### Reusable Assets
+
 - `src/components/ui/input.tsx` — shadcn Input (already installed)
 - `src/components/ui/label.tsx` — shadcn Label (already installed)
 - `src/components/ui/button.tsx` — shadcn Button (already installed)
@@ -107,12 +118,14 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Need to install: `Select`, `Textarea` via shadcn CLI
 
 ### Established Patterns
+
 - react-hook-form + zod validation for all forms
 - Design system tokens in globals.css @theme block
 - `motion-safe:` prefix for animations
 - `transition-all duration-100` for hover effects
 
 ### Integration Points
+
 - Prettier formatting touches every file — run last to avoid merge conflicts
 - shadcn Select needs to integrate with react-hook-form Controller pattern
 - All form components share the same zod + react-hook-form pattern
@@ -139,5 +152,5 @@ None — discussion stayed within phase scope
 
 ---
 
-*Phase: 06-refactor-ui-ux-optimization*
-*Context gathered: 2026-03-20*
+_Phase: 06-refactor-ui-ux-optimization_
+_Context gathered: 2026-03-20_

@@ -15,14 +15,14 @@ created: 2026-03-20
 
 ## Design System
 
-| Property | Value |
-|----------|-------|
-| Tool | shadcn (base-nova style) |
-| Preset | base-nova, baseColor neutral, cssVariables true |
-| Component library | @base-ui/react |
-| Icon library | lucide-react 0.577.0 |
-| Font (display) | Playfair Display (400, 700) |
-| Font (body) | Inter (400, 700) |
+| Property          | Value                                           |
+| ----------------- | ----------------------------------------------- |
+| Tool              | shadcn (base-nova style)                        |
+| Preset            | base-nova, baseColor neutral, cssVariables true |
+| Component library | @base-ui/react                                  |
+| Icon library      | lucide-react 0.577.0                            |
+| Font (display)    | Playfair Display (400, 700)                     |
+| Font (body)       | Inter (400, 700)                                |
 
 **Existing shadcn components reused:** button, input, label, card, sonner, skeleton, separator, dialog, sheet.
 
@@ -36,15 +36,15 @@ created: 2026-03-20
 
 Declared values (multiples of 4):
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| xs | 4px | Gap between calendar day-cell elements (dot + income text), icon gaps |
-| sm | 8px | Calendar grid gap between day cells, inline padding inside stat cards |
-| md | 16px | Default element spacing, form field gaps, job card internal padding |
-| lg | 24px | Section padding, sheet internal padding, stats header card padding |
-| xl | 32px | Page horizontal padding on desktop, gap between stats cards |
-| 2xl | 48px | Gap between stats header and calendar, between calendar and day detail |
-| 3xl | 64px | Page top padding below nav |
+| Token | Value | Usage                                                                  |
+| ----- | ----- | ---------------------------------------------------------------------- |
+| xs    | 4px   | Gap between calendar day-cell elements (dot + income text), icon gaps  |
+| sm    | 8px   | Calendar grid gap between day cells, inline padding inside stat cards  |
+| md    | 16px  | Default element spacing, form field gaps, job card internal padding    |
+| lg    | 24px  | Section padding, sheet internal padding, stats header card padding     |
+| xl    | 32px  | Page horizontal padding on desktop, gap between stats cards            |
+| 2xl   | 48px  | Gap between stats header and calendar, between calendar and day detail |
+| 3xl   | 64px  | Page top padding below nav                                             |
 
 Exceptions: Calendar day cells are 44px minimum height on mobile for touch targets. Month navigation arrow buttons have 44px touch target.
 
@@ -52,25 +52,26 @@ Exceptions: Calendar day cells are 44px minimum height on mobile for touch targe
 
 ## Typography
 
-| Role | Size | Weight | Line Height | Font | Usage |
-|------|------|--------|-------------|------|-------|
-| Body | 14px | 400 (regular) | 1.5 | Inter | Job card details, form labels, day detail text, chart axis labels |
-| Label | 12px | 400 (regular) | 1.4 | Inter | Calendar day numbers, compact VND amounts in day cells, stat card labels, weekday headers |
-| Heading | 20px | 700 (bold) | 1.2 | Playfair Display | Page title "Schedule", month/year display in calendar header |
-| Display | 28px | 700 (bold) | 1.2 | Playfair Display | Stat card primary numbers (total income for the period) |
+| Role    | Size | Weight        | Line Height | Font             | Usage                                                                                     |
+| ------- | ---- | ------------- | ----------- | ---------------- | ----------------------------------------------------------------------------------------- |
+| Body    | 14px | 400 (regular) | 1.5         | Inter            | Job card details, form labels, day detail text, chart axis labels                         |
+| Label   | 12px | 400 (regular) | 1.4         | Inter            | Calendar day numbers, compact VND amounts in day cells, stat card labels, weekday headers |
+| Heading | 20px | 700 (bold)    | 1.2         | Playfair Display | Page title "Schedule", month/year display in calendar header                              |
+| Display | 28px | 700 (bold)    | 1.2         | Playfair Display | Stat card primary numbers (total income for the period)                                   |
 
 ---
 
 ## Color
 
-| Role | Value | Usage |
-|------|-------|-------|
-| Dominant (60%) | #F8F6FF (`--color-dominant`) | Page background, calendar background |
-| Secondary (30%) | #FFFFFF (`--color-surface`) | Calendar day cells, stat cards, job cards, sheet background |
-| Accent (10%) | #E8B4B8 (`--color-accent`) | See reserved list below |
-| Destructive | #DC2626 (`--color-destructive`) | Delete job action only |
+| Role            | Value                           | Usage                                                       |
+| --------------- | ------------------------------- | ----------------------------------------------------------- |
+| Dominant (60%)  | #F8F6FF (`--color-dominant`)    | Page background, calendar background                        |
+| Secondary (30%) | #FFFFFF (`--color-surface`)     | Calendar day cells, stat cards, job cards, sheet background |
+| Accent (10%)    | #E8B4B8 (`--color-accent`)      | See reserved list below                                     |
+| Destructive     | #DC2626 (`--color-destructive`) | Delete job action only                                      |
 
 Accent reserved for:
+
 - Primary CTA button ("Add Job") background
 - Today's date ring/highlight in calendar
 - Selected day cell border
@@ -79,10 +80,10 @@ Accent reserved for:
 
 ### Phase-Specific Semantic Colors
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--color-paid` | #059669 (`--color-success`, existing) | Paid job indicator dot, paid portion of stacked bar chart, paid badge background (at 15% opacity with solid text) |
-| `--color-pending` | #D97706 (amber-600, NEW) | Pending job indicator dot, pending portion of stacked bar chart, pending badge background (at 15% opacity with solid text) |
+| Token             | Value                                 | Usage                                                                                                                      |
+| ----------------- | ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--color-paid`    | #059669 (`--color-success`, existing) | Paid job indicator dot, paid portion of stacked bar chart, paid badge background (at 15% opacity with solid text)          |
+| `--color-pending` | #D97706 (amber-600, NEW)              | Pending job indicator dot, pending portion of stacked bar chart, pending badge background (at 15% opacity with solid text) |
 
 **Important:** Paid/pending colors are used as subtle tints, not traffic-light bright. Apply at 15% opacity for backgrounds (`bg-paid/15`, `bg-pending/15`) with full-saturation text/icons. This keeps the palette feminine and soft per DESG-01.
 
@@ -100,6 +101,7 @@ Supporting colors (existing, reused):
 ## Component Inventory
 
 ### Stats Header (stats-header.tsx)
+
 - **Position:** Above the calendar, always visible
 - **Layout:** Horizontal scroll row of stat cards on mobile; 2-column grid on tablet+
 - **Cards (always shown):**
@@ -114,6 +116,7 @@ Supporting colors (existing, reused):
 - **Gap between cards:** 16px
 
 ### Calendar Header (calendar-header.tsx)
+
 - **Layout:** Row: left arrow | month + year title | right arrow
 - **Month/year:** 20px Playfair Display bold, centered (e.g., "March 2026")
 - **Arrows:** lucide `ChevronLeft` and `ChevronRight`, 24px, `text-primary`, 44px touch target button
@@ -121,6 +124,7 @@ Supporting colors (existing, reused):
 - **"Today" button:** Small text button below or beside title, 12px Inter, `text-accent`, only shown when viewing a non-current month
 
 ### Calendar Grid (calendar-grid.tsx)
+
 - **Layout:** CSS Grid, 7 columns (`grid-cols-7`)
 - **Weekday headers:** Row of 7 labels ("Mon", "Tue", ..., "Sun"), 12px Inter regular, `text-secondary`, centered, 32px row height
 - **Week start:** Monday (`weekStartsOn: 1` in date-fns)
@@ -129,6 +133,7 @@ Supporting colors (existing, reused):
 - **Month padding days:** Days from previous/next month shown with `text-secondary` at 40% opacity, not interactive
 
 ### Day Cell (day-cell.tsx)
+
 - **Minimum size:** 44px height on mobile, auto-expand on desktop
 - **Aspect ratio:** Near-square on mobile, flexible on desktop
 - **Layout (vertical stack within cell):**
@@ -143,6 +148,7 @@ Supporting colors (existing, reused):
 - **Empty day tap:** Opens job form sheet for that date
 
 ### Day Detail Panel (day-detail.tsx)
+
 - **Position:** Below the calendar grid (Apple Calendar pattern -- calendar stays visible above)
 - **Animation:** Slide down/expand, 200ms ease-out
 - **Header:** Date formatted as "Thursday, March 20, 2026" in 14px Inter bold + job count badge (muted pill)
@@ -151,6 +157,7 @@ Supporting colors (existing, reused):
 - **Add button:** "Add Job" button (accent background) at bottom of panel
 
 ### Job Card (job-card.tsx)
+
 - **Layout:** Horizontal card with left color stripe
 - **Left stripe:** 4px wide vertical bar -- `--color-paid` (green) or `--color-pending` (amber)
 - **Content (left to right):**
@@ -168,6 +175,7 @@ Supporting colors (existing, reused):
 - **Swipe (optional, Claude's discretion):** Not implemented in v1 -- use tap-to-edit with delete in form
 
 ### Job Form Sheet (job-form.tsx)
+
 - **Component:** Existing Sheet component with `side="bottom"`
 - **Max height:** 90vh (`max-h-[90vh]`)
 - **Top corners:** Rounded 16px (`rounded-t-2xl`)
@@ -193,6 +201,7 @@ Supporting colors (existing, reused):
 - **Key prop:** `key={selectedDate}` on Sheet to force form reset when date changes
 
 ### Income Chart (income-chart.tsx)
+
 - **Wrapped in:** `next/dynamic` with `ssr: false` (Recharts is client-only, below the fold)
 - **Position:** Below day detail panel, collapsible/expandable section
 - **Toggle:** Segmented control -- "Monthly" | "Yearly"
@@ -209,12 +218,14 @@ Supporting colors (existing, reused):
 - **Empty chart:** Show flat bars with "No income data" centered text
 
 ### Empty State (schedule-empty.tsx)
+
 - **Icon:** lucide `CalendarDays`, 48px, `text-accent`, centered
 - **Heading:** "No jobs yet", 20px Playfair Display bold, `text-primary`
 - **Body:** "Tap a date to add your first job.", 14px Inter regular, `text-secondary`
 - **Vertical spacing:** 16px between each element, centered vertically in content area below calendar
 
 ### Loading Skeleton (loading.tsx)
+
 - **Stats header:** 2 skeleton cards (full width on mobile, 50% each on tablet+), 80px tall, `animate-pulse`
 - **Calendar header:** Skeleton bar 200px wide centered, 32px tall
 - **Calendar grid:** 35 skeleton day cells in 7x5 grid, `animate-pulse`
@@ -224,50 +235,53 @@ Supporting colors (existing, reused):
 
 ## Copywriting Contract
 
-| Element | Copy |
-|---------|------|
-| Page title | "Schedule" |
-| Primary CTA | "Add Job" |
-| Empty state heading (no jobs ever) | "No jobs yet" |
-| Empty state body (no jobs ever) | "Tap a date to add your first job." |
-| Empty state (selected day, no jobs) | "No jobs on this day. Tap + to add one." |
-| Empty chart | "No income data for this period." |
-| Error state (form validation) | Inline per-field errors (e.g., "Client name is required") |
-| Error state (server action) | Toast: "Something went wrong. Please try again." |
-| Destructive: Delete job | Confirm dialog: "Delete this job?" / "This job for [client name] on [date] will be permanently removed." / Buttons: "Cancel" and "Delete" |
-| Success: Job added | Toast: "Job added" |
-| Success: Job updated | Toast: "Job updated" |
-| Success: Job deleted | Toast: "Job deleted" |
-| Success: Status toggled | Toast: "Marked as paid" or "Marked as pending" |
-| Stats: Month label | "This Month" with formatted month name below (e.g., "March 2026") |
-| Stats: Year label | "This Year" with year below (e.g., "2026") |
-| Stats: Breakdown | "Paid: [amount] | Pending: [amount]" |
-| Chart toggle: Monthly | "Monthly" |
-| Chart toggle: Yearly | "Yearly" |
-| Calendar weekday headers | "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" |
-| Today button | "Today" |
-| Form: time separator | "to" (between start and end time inputs) |
-| Form: VND suffix | "VND" |
-| Status toggle: options | "Pending" / "Paid" |
-| Day detail header format | "Thursday, March 20, 2026" (full date with weekday) |
-| Job count badge | "[N] jobs" or "1 job" (singular/plural) |
+| Element                             | Copy                                                                                                                                      |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| Page title                          | "Schedule"                                                                                                                                |
+| Primary CTA                         | "Add Job"                                                                                                                                 |
+| Empty state heading (no jobs ever)  | "No jobs yet"                                                                                                                             |
+| Empty state body (no jobs ever)     | "Tap a date to add your first job."                                                                                                       |
+| Empty state (selected day, no jobs) | "No jobs on this day. Tap + to add one."                                                                                                  |
+| Empty chart                         | "No income data for this period."                                                                                                         |
+| Error state (form validation)       | Inline per-field errors (e.g., "Client name is required")                                                                                 |
+| Error state (server action)         | Toast: "Something went wrong. Please try again."                                                                                          |
+| Destructive: Delete job             | Confirm dialog: "Delete this job?" / "This job for [client name] on [date] will be permanently removed." / Buttons: "Cancel" and "Delete" |
+| Success: Job added                  | Toast: "Job added"                                                                                                                        |
+| Success: Job updated                | Toast: "Job updated"                                                                                                                      |
+| Success: Job deleted                | Toast: "Job deleted"                                                                                                                      |
+| Success: Status toggled             | Toast: "Marked as paid" or "Marked as pending"                                                                                            |
+| Stats: Month label                  | "This Month" with formatted month name below (e.g., "March 2026")                                                                         |
+| Stats: Year label                   | "This Year" with year below (e.g., "2026")                                                                                                |
+| Stats: Breakdown                    | "Paid: [amount]                                                                                                                           | Pending: [amount]" |
+| Chart toggle: Monthly               | "Monthly"                                                                                                                                 |
+| Chart toggle: Yearly                | "Yearly"                                                                                                                                  |
+| Calendar weekday headers            | "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"                                                                                           |
+| Today button                        | "Today"                                                                                                                                   |
+| Form: time separator                | "to" (between start and end time inputs)                                                                                                  |
+| Form: VND suffix                    | "VND"                                                                                                                                     |
+| Status toggle: options              | "Pending" / "Paid"                                                                                                                        |
+| Day detail header format            | "Thursday, March 20, 2026" (full date with weekday)                                                                                       |
+| Job count badge                     | "[N] jobs" or "1 job" (singular/plural)                                                                                                   |
 
 ---
 
 ## Interaction Contracts
 
 ### Calendar Day Tap
+
 - Tap a day cell with jobs: Set as selected day, show day detail panel below calendar
 - Tap a day cell without jobs: Open job form sheet pre-filled with that date
 - Tap already-selected day: Toggle day detail panel closed
 
 ### Month Navigation
+
 - Tap left chevron: Navigate to previous month (update URL search params)
 - Tap right chevron: Navigate to next month (update URL search params)
 - Tap "Today" button: Navigate to current month and select today's date
 - Server Component re-fetches jobs for new month range
 
 ### Job Form Open/Close
+
 - Open (add): Tap empty day cell, or tap "Add Job" button in day detail panel
 - Open (edit): Tap existing job card in day detail panel
 - Close: Tap backdrop, swipe down, or tap X button
@@ -275,6 +289,7 @@ Supporting colors (existing, reused):
 - Form reset: `key={selectedDate}` forces remount on date change
 
 ### Job Status Toggle
+
 - Location: Inside job edit form (status segmented control)
 - Also available: Quick-action on job card long-press or dedicated toggle button (Claude's discretion for v1: keep in edit form only)
 - Optimistic UI: Immediately update card stripe color and badge
@@ -282,11 +297,13 @@ Supporting colors (existing, reused):
 - Error: Revert visual state, show error toast
 
 ### Chart Period Toggle
+
 - Tap "Monthly" or "Yearly" in segmented control
 - Chart re-renders with corresponding data
 - Client-side toggle, data pre-fetched or lazy-loaded
 
 ### Delete Job
+
 - Trigger: "Delete Job" button in edit form sheet
 - Shows confirmation dialog (shadcn Dialog)
 - Confirm: Server Action deletes job, closes sheet, revalidates calendar data, shows success toast
@@ -296,31 +313,31 @@ Supporting colors (existing, reused):
 
 ## VND Formatting Contract
 
-| Context | Format | Example |
-|---------|--------|---------|
-| Full display (stat cards, tooltips, form blur) | `Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })` | 5.000.000d |
-| Compact (calendar day cells) | Custom: >=1M show "[N]M", >=1K show "[N]K", else raw | 5M, 500K, 0 |
-| Form input (on blur) | Dot-separated thousands, no currency symbol | 5.000.000 |
-| Form input (on focus) | Raw integer for editing | 5000000 |
-| Chart Y-axis | Compact format | 5M, 10M |
-| Chart tooltip | Full format | 5.000.000d |
+| Context                                        | Format                                                               | Example     |
+| ---------------------------------------------- | -------------------------------------------------------------------- | ----------- |
+| Full display (stat cards, tooltips, form blur) | `Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })` | 5.000.000d  |
+| Compact (calendar day cells)                   | Custom: >=1M show "[N]M", >=1K show "[N]K", else raw                 | 5M, 500K, 0 |
+| Form input (on blur)                           | Dot-separated thousands, no currency symbol                          | 5.000.000   |
+| Form input (on focus)                          | Raw integer for editing                                              | 5000000     |
+| Chart Y-axis                                   | Compact format                                                       | 5M, 10M     |
+| Chart tooltip                                  | Full format                                                          | 5.000.000d  |
 
 ---
 
 ## Responsive Behavior
 
-| Breakpoint | Calendar | Stats Header | Day Detail | Chart |
-|------------|----------|-------------|------------|-------|
-| Mobile (<640px) | 7-col grid, compact day cells (44px min-h), day numbers only + dots | Horizontal scroll, cards full width | Full width below calendar | Full width, 200px height |
-| Tablet (640-1024px) | 7-col grid, larger day cells, show income amounts | 2-col grid | Full width below calendar | Full width, 200px height |
-| Desktop (>1024px) | 7-col grid, spacious day cells with full income display | 2-col grid, max 600px | Full width below calendar | Full width, max 800px centered |
+| Breakpoint          | Calendar                                                            | Stats Header                        | Day Detail                | Chart                          |
+| ------------------- | ------------------------------------------------------------------- | ----------------------------------- | ------------------------- | ------------------------------ |
+| Mobile (<640px)     | 7-col grid, compact day cells (44px min-h), day numbers only + dots | Horizontal scroll, cards full width | Full width below calendar | Full width, 200px height       |
+| Tablet (640-1024px) | 7-col grid, larger day cells, show income amounts                   | 2-col grid                          | Full width below calendar | Full width, 200px height       |
+| Desktop (>1024px)   | 7-col grid, spacious day cells with full income display             | 2-col grid, max 600px               | Full width below calendar | Full width, max 800px centered |
 
 ---
 
 ## Registry Safety
 
-| Registry | Blocks Used | Safety Gate |
-|----------|-------------|-------------|
+| Registry        | Blocks Used                                                            | Safety Gate  |
+| --------------- | ---------------------------------------------------------------------- | ------------ |
 | shadcn official | button, input, label, card, sonner, skeleton, separator, dialog, sheet | not required |
 
 No third-party registries declared. All components are either existing shadcn official components or custom-built (calendar grid, chart wrapper).

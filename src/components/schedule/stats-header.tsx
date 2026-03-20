@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { formatVND } from "@/lib/schedule/format-vnd";
+import { formatVND } from '@/lib/schedule/format-vnd';
 
 interface StatGroup {
   totalPaid: number;
@@ -25,13 +25,13 @@ function StatCard({
   stats: StatGroup;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow-sm ring-1 ring-black/5 p-4 min-w-[260px] snap-start flex-shrink-0 sm:min-w-0 motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
-      <p className="text-xs font-body text-muted-foreground">{title}</p>
-      <p className="text-xs font-body text-muted-foreground">{subLabel}</p>
-      <p className="font-display text-[28px] font-bold text-foreground mt-2">
+    <div className="min-w-[260px] flex-shrink-0 snap-start rounded-lg bg-white p-4 shadow-sm ring-1 ring-black/5 motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:-translate-y-0.5 motion-safe:hover:shadow-md sm:min-w-0">
+      <p className="font-body text-xs text-muted-foreground">{title}</p>
+      <p className="font-body text-xs text-muted-foreground">{subLabel}</p>
+      <p className="mt-2 font-display text-[28px] font-bold text-foreground">
         {formatVND(stats.total)}
       </p>
-      <p className="text-xs font-body mt-1">
+      <p className="mt-1 font-body text-xs">
         <span className="text-[var(--color-paid)]">
           Paid: {formatVND(stats.totalPaid)}
         </span>
@@ -51,7 +51,7 @@ export function StatsHeader({
   yearLabel,
 }: StatsHeaderProps) {
   return (
-    <div className="flex overflow-x-auto snap-x gap-4 sm:grid sm:grid-cols-2 sm:overflow-visible pb-2">
+    <div className="flex snap-x gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-2 sm:overflow-visible">
       <StatCard title="This Month" subLabel={monthLabel} stats={monthStats} />
       <StatCard title="This Year" subLabel={yearLabel} stats={yearStats} />
     </div>

@@ -6,18 +6,19 @@ tags: [recharts, charts, navigation, middleware, tailwind, nextjs]
 
 requires:
   - phase: 05-freelance-schedule-income-tracker
-    provides: "Server actions (getIncomeStats, getYearlyStats), formatVND utilities, calendar grid, schedule page"
+    provides: 'Server actions (getIncomeStats, getYearlyStats), formatVND utilities, calendar grid, schedule page'
 provides:
-  - "Stats header with This Month/This Year income cards"
-  - "Income chart with monthly/yearly stacked bar toggle"
-  - "Schedule link in top nav and bottom tab bar"
-  - "/schedule route protection via middleware"
-  - "--color-paid and --color-pending CSS variables"
+  - 'Stats header with This Month/This Year income cards'
+  - 'Income chart with monthly/yearly stacked bar toggle'
+  - 'Schedule link in top nav and bottom tab bar'
+  - '/schedule route protection via middleware'
+  - '--color-paid and --color-pending CSS variables'
 affects: []
 
 tech-stack:
   added: [recharts]
-  patterns: [dynamic-import-ssr-false, stacked-bar-chart, css-variable-chart-colors]
+  patterns:
+    [dynamic-import-ssr-false, stacked-bar-chart, css-variable-chart-colors]
 
 key-files:
   created:
@@ -34,13 +35,13 @@ key-files:
     - src/__tests__/middleware/route-protection.test.ts
 
 key-decisions:
-  - "Used next/dynamic with ssr:false for Recharts to avoid SSR bundle bloat"
-  - "Recharts Tooltip formatter uses Number() cast to satisfy strict TypeScript types"
-  - "Week-of-month grouping uses day/7 ceil for monthly chart data (W1-W5)"
+  - 'Used next/dynamic with ssr:false for Recharts to avoid SSR bundle bloat'
+  - 'Recharts Tooltip formatter uses Number() cast to satisfy strict TypeScript types'
+  - 'Week-of-month grouping uses day/7 ceil for monthly chart data (W1-W5)'
 
 patterns-established:
-  - "Dynamic import wrapper pattern for client-only chart libraries"
-  - "CSS custom property references in Recharts fill (var(--color-paid))"
+  - 'Dynamic import wrapper pattern for client-only chart libraries'
+  - 'CSS custom property references in Recharts fill (var(--color-paid))'
 
 requirements-completed: [SCHED-04, SCHED-07]
 
@@ -61,6 +62,7 @@ completed: 2026-03-20
 - **Files modified:** 10
 
 ## Accomplishments
+
 - Stats header renders This Month and This Year cards with total, paid, and pending VND amounts
 - Income chart with stacked bar visualization (paid green, pending orange) and monthly/yearly period toggle
 - Schedule link added to both desktop top-nav and mobile bottom-tab-bar for authenticated users
@@ -75,6 +77,7 @@ Each task was committed atomically:
 2. **Task 2: Navigation links, middleware protection, and page wiring** - `be01c2a` (feat)
 
 ## Files Created/Modified
+
 - `src/components/schedule/stats-header.tsx` - Two-card income summary with formatVND and paid/pending colors
 - `src/components/schedule/income-chart.tsx` - Dynamic import wrapper with ssr:false for Recharts
 - `src/components/schedule/income-chart-inner.tsx` - Stacked BarChart with monthly/yearly toggle
@@ -87,6 +90,7 @@ Each task was committed atomically:
 - `src/__tests__/middleware/route-protection.test.ts` - Added /schedule route protection test
 
 ## Decisions Made
+
 - Used next/dynamic with ssr:false for Recharts to avoid SSR bundle issues (client-only library)
 - Recharts Tooltip formatter uses Number() cast for strict TypeScript ValueType compatibility
 - Week-of-month grouping uses Math.ceil(day/7) capped at 5 for monthly chart data labels (W1-W5)
@@ -96,6 +100,7 @@ Each task was committed atomically:
 ### Auto-fixed Issues
 
 **1. [Rule 1 - Bug] Fixed Recharts Tooltip formatter TypeScript error**
+
 - **Found during:** Task 1 (income chart component)
 - **Issue:** Recharts Tooltip formatter parameter types are `ValueType | undefined`, not `number`
 - **Fix:** Changed explicit type annotations to inferred types with `Number(value)` cast
@@ -109,16 +114,20 @@ Each task was committed atomically:
 **Impact on plan:** Minor type fix for Recharts API compatibility. No scope creep.
 
 ## Issues Encountered
+
 None
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Phase 5 (Freelance Schedule & Income Tracker) is now complete with all 3 plans executed
 - Schedule feature has full CRUD, calendar UI, stats dashboard, charts, navigation, and route protection
 - Ready for Phase 6 or project polish/deployment
 
 ---
-*Phase: 05-freelance-schedule-income-tracker*
-*Completed: 2026-03-20*
+
+_Phase: 05-freelance-schedule-income-tracker_
+_Completed: 2026-03-20_

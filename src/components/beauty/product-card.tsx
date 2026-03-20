@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { Heart } from "lucide-react";
+import Image from 'next/image';
+import { Heart } from 'lucide-react';
 
 export interface ProductCardData {
   id: string;
@@ -24,14 +24,19 @@ interface ProductCardProps {
   onToggleFavorite: (productId: string) => void;
 }
 
-export function ProductCard({ product, onSelect, onToggleFavorite }: ProductCardProps) {
-  const mediumVariant = product.variants.find((v) => v.variantName === "medium")
-    ?? product.variants.find((v) => v.variantName === "small")
-    ?? product.variants[0];
+export function ProductCard({
+  product,
+  onSelect,
+  onToggleFavorite,
+}: ProductCardProps) {
+  const mediumVariant =
+    product.variants.find((v) => v.variantName === 'medium') ??
+    product.variants.find((v) => v.variantName === 'small') ??
+    product.variants[0];
 
   return (
     <div
-      className="aspect-square rounded-md overflow-hidden relative cursor-pointer group"
+      className="group relative aspect-square cursor-pointer overflow-hidden rounded-md"
       onClick={() => onSelect(product)}
     >
       {mediumVariant?.url ? (
@@ -43,7 +48,7 @@ export function ProductCard({ product, onSelect, onToggleFavorite }: ProductCard
           sizes="(max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
         />
       ) : (
-        <div className="w-full h-full bg-muted flex items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center bg-muted">
           <span className="text-xs text-muted-foreground">No photo</span>
         </div>
       )}
@@ -55,14 +60,18 @@ export function ProductCard({ product, onSelect, onToggleFavorite }: ProductCard
           e.stopPropagation();
           onToggleFavorite(product.id);
         }}
-        className="absolute top-1 right-1 bg-black/20 rounded-full p-1.5 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors hover:bg-black/40"
-        aria-label={product.isFavorite === 1 ? "Remove from favorites" : "Add to favorites"}
+        className="absolute top-1 right-1 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full bg-black/20 p-1.5 transition-colors hover:bg-black/40"
+        aria-label={
+          product.isFavorite === 1
+            ? 'Remove from favorites'
+            : 'Add to favorites'
+        }
       >
         <Heart
           className={`h-5 w-5 ${
             product.isFavorite === 1
-              ? "fill-accent text-accent"
-              : "fill-none text-white drop-shadow"
+              ? 'fill-accent text-accent'
+              : 'fill-none text-white drop-shadow'
           }`}
         />
       </button>

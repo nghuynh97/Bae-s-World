@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useTransition, useCallback } from "react";
-import { useInView } from "react-intersection-observer";
-import { getPortfolioItems } from "@/actions/portfolio";
-import { MasonryGrid } from "./masonry-grid";
-import { GalleryCard } from "./gallery-card";
-import { CategoryFilter } from "./category-filter";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Lightbox } from "./lightbox";
+import { useState, useEffect, useTransition, useCallback } from 'react';
+import { useInView } from 'react-intersection-observer';
+import { getPortfolioItems } from '@/actions/portfolio';
+import { MasonryGrid } from './masonry-grid';
+import { GalleryCard } from './gallery-card';
+import { CategoryFilter } from './category-filter';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Lightbox } from './lightbox';
 
 interface PortfolioItem {
   id: string;
@@ -42,30 +42,30 @@ interface InfiniteScrollGalleryProps {
 }
 
 function getImageUrl(
-  variants: PortfolioItem["variants"],
-  preferred: string = "medium"
+  variants: PortfolioItem['variants'],
+  preferred: string = 'medium',
 ): string {
   const variant =
     variants.find((v) => v.variantName === preferred) ||
-    variants.find((v) => v.variantName === "large") ||
+    variants.find((v) => v.variantName === 'large') ||
     variants[0];
-  return variant?.url ?? "";
+  return variant?.url ?? '';
 }
 
 function useResponsiveColumns() {
   const [columns, setColumns] = useState(3);
 
   useEffect(() => {
-    const mql = window.matchMedia("(max-width: 768px)");
+    const mql = window.matchMedia('(max-width: 768px)');
     const handler = (e: MediaQueryListEvent | MediaQueryList) => {
       setColumns(e.matches ? 2 : 3);
     };
     handler(mql);
-    mql.addEventListener("change", handler as (e: MediaQueryListEvent) => void);
+    mql.addEventListener('change', handler as (e: MediaQueryListEvent) => void);
     return () =>
       mql.removeEventListener(
-        "change",
-        handler as (e: MediaQueryListEvent) => void
+        'change',
+        handler as (e: MediaQueryListEvent) => void,
       );
   }, []);
 
@@ -90,14 +90,17 @@ export function InfiniteScrollGallery({
 
   const { ref, inView } = useInView({
     threshold: 0,
-    rootMargin: "200px",
+    rootMargin: '200px',
   });
 
   // Load more items when sentinel is in view
   const loadMore = useCallback(() => {
     if (!cursor || isPending) return;
     startTransition(async () => {
-      const result = await getPortfolioItems(cursor, activeCategorySlug === "all" ? undefined : activeCategorySlug);
+      const result = await getPortfolioItems(
+        cursor,
+        activeCategorySlug === 'all' ? undefined : activeCategorySlug,
+      );
       setItems((prev) => [...prev, ...result.items]);
       setCursor(result.nextCursor);
     });
@@ -119,14 +122,14 @@ export function InfiniteScrollGallery({
       startTransition(async () => {
         const result = await getPortfolioItems(
           undefined,
-          slug === "all" ? undefined : slug
+          slug === 'all' ? undefined : slug,
         );
         setItems(result.items);
         setCursor(result.nextCursor);
         setIsSwitchingCategory(false);
       });
     },
-    [activeCategorySlug]
+    [activeCategorySlug],
   );
 
   const galleryItems = items.map((item, index) => (
@@ -155,7 +158,7 @@ export function InfiniteScrollGallery({
             <h2 className="font-display text-xl font-bold text-text-primary">
               No photos yet
             </h2>
-            <p className="mt-2 text-text-secondary text-sm text-center max-w-md">
+            <p className="mt-2 max-w-md text-center text-sm text-text-secondary">
               Your portfolio is waiting for its first photo. Head to the admin
               panel to upload one.
             </p>
@@ -163,7 +166,7 @@ export function InfiniteScrollGallery({
         ) : (
           <div
             className={`transition-opacity duration-200 ${
-              isSwitchingCategory ? "opacity-0" : "opacity-100"
+              isSwitchingCategory ? 'opacity-0' : 'opacity-100'
             }`}
           >
             <MasonryGrid items={galleryItems} columns={columns} />
@@ -172,18 +175,18 @@ export function InfiniteScrollGallery({
 
         {/* Loading skeletons */}
         {(isPending || isSwitchingCategory) && items.length === 0 && (
-          <div className="flex gap-4 mt-4">
-            <div className="flex-1 flex flex-col gap-4">
-              <Skeleton className="w-full h-64 rounded-lg" />
-              <Skeleton className="w-full h-48 rounded-lg" />
+          <div className="mt-4 flex gap-4">
+            <div className="flex flex-1 flex-col gap-4">
+              <Skeleton className="h-64 w-full rounded-lg" />
+              <Skeleton className="h-48 w-full rounded-lg" />
             </div>
-            <div className="flex-1 flex flex-col gap-4">
-              <Skeleton className="w-full h-48 rounded-lg" />
-              <Skeleton className="w-full h-64 rounded-lg" />
+            <div className="flex flex-1 flex-col gap-4">
+              <Skeleton className="h-48 w-full rounded-lg" />
+              <Skeleton className="h-64 w-full rounded-lg" />
             </div>
-            <div className="hidden md:flex flex-1 flex-col gap-4">
-              <Skeleton className="w-full h-56 rounded-lg" />
-              <Skeleton className="w-full h-52 rounded-lg" />
+            <div className="hidden flex-1 flex-col gap-4 md:flex">
+              <Skeleton className="h-56 w-full rounded-lg" />
+              <Skeleton className="h-52 w-full rounded-lg" />
             </div>
           </div>
         )}
@@ -193,10 +196,10 @@ export function InfiniteScrollGallery({
 
         {/* Loading indicator for next page */}
         {isPending && items.length > 0 && (
-          <div className="flex gap-4 mt-4">
-            <Skeleton className="flex-1 h-48 rounded-lg" />
-            <Skeleton className="flex-1 h-48 rounded-lg" />
-            <Skeleton className="hidden md:block flex-1 h-48 rounded-lg" />
+          <div className="mt-4 flex gap-4">
+            <Skeleton className="h-48 flex-1 rounded-lg" />
+            <Skeleton className="h-48 flex-1 rounded-lg" />
+            <Skeleton className="hidden h-48 flex-1 rounded-lg md:block" />
           </div>
         )}
       </div>

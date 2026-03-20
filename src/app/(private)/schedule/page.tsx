@@ -2,49 +2,49 @@ import {
   getJobsForMonth,
   getIncomeStats,
   getYearlyStats,
-} from "@/actions/schedule";
-import { CalendarHeader } from "@/components/schedule/calendar-header";
-import { CalendarGrid } from "@/components/schedule/calendar-grid";
-import { ScheduleEmpty } from "@/components/schedule/schedule-empty";
-import { StatsHeader } from "@/components/schedule/stats-header";
-import { IncomeChart } from "@/components/schedule/income-chart";
+} from '@/actions/schedule';
+import { CalendarHeader } from '@/components/schedule/calendar-header';
+import { CalendarGrid } from '@/components/schedule/calendar-grid';
+import { ScheduleEmpty } from '@/components/schedule/schedule-empty';
+import { StatsHeader } from '@/components/schedule/stats-header';
+import { IncomeChart } from '@/components/schedule/income-chart';
 
 interface SchedulePageProps {
   searchParams: Promise<{ month?: string; year?: string }>;
 }
 
 const MONTH_NAMES = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 const MONTH_SHORT = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
 ];
 
 function getWeekOfMonth(dateStr: string): number {
-  const day = parseInt(dateStr.split("-")[2], 10);
+  const day = parseInt(dateStr.split('-')[2], 10);
   return Math.min(Math.ceil(day / 7), 5);
 }
 
@@ -74,7 +74,7 @@ export default async function SchedulePage({
   for (const job of jobs) {
     const week = getWeekOfMonth(job.jobDate);
     const key = `W${week}`;
-    if (job.status === "paid") {
+    if (job.status === 'paid') {
       weekMap[key].paid += job.payAmount;
     } else {
       weekMap[key].pending += job.payAmount;
@@ -96,8 +96,8 @@ export default async function SchedulePage({
   const yearLabel = String(year);
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="font-display text-2xl font-bold text-primary mb-4">
+    <div className="mx-auto max-w-4xl px-4 py-8">
+      <h1 className="mb-4 font-display text-2xl font-bold text-primary">
         Schedule
       </h1>
 

@@ -1,4 +1,4 @@
-import { CalendarDays } from "lucide-react";
+import { CalendarDays } from 'lucide-react';
 
 export function ScheduleEmpty() {
   return (
@@ -7,7 +7,7 @@ export function ScheduleEmpty() {
       <h3 className="font-display text-xl font-bold text-primary">
         No jobs yet
       </h3>
-      <p className="text-sm font-body text-secondary">
+      <p className="font-body text-sm text-secondary">
         Tap a date to add your first job.
       </p>
     </div>

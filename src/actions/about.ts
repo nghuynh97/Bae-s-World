@@ -1,18 +1,15 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { aboutContent, images, imageVariants } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
-import { getPublicImageUrl } from "@/lib/supabase/storage";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { aboutContent, images, imageVariants } from '@/lib/db/schema';
+import { eq } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { getPublicImageUrl } from '@/lib/supabase/storage';
 
 export async function getAboutContent() {
-  const results = await db
-    .select()
-    .from(aboutContent)
-    .limit(1);
+  const results = await db.select().from(aboutContent).limit(1);
 
   if (results.length === 0) return null;
 
@@ -42,7 +39,7 @@ export async function getAboutContent() {
           storagePath: v.storagePath,
           width: v.width,
           height: v.height,
-          url: getPublicImageUrl("public-images", v.storagePath),
+          url: getPublicImageUrl('public-images', v.storagePath),
         })),
       };
     }
@@ -61,11 +58,11 @@ export async function getAboutContent() {
 }
 
 const updateAboutContentSchema = z.object({
-  bio: z.string().max(2000, "Bio too long").optional(),
-  email: z.string().email("Invalid email").optional().nullable(),
-  instagramUrl: z.string().url("Invalid URL").optional().nullable(),
-  tiktokUrl: z.string().url("Invalid URL").optional().nullable(),
-  profileImageId: z.string().uuid("Invalid image").optional().nullable(),
+  bio: z.string().max(2000, 'Bio too long').optional(),
+  email: z.string().email('Invalid email').optional().nullable(),
+  instagramUrl: z.string().url('Invalid URL').optional().nullable(),
+  tiktokUrl: z.string().url('Invalid URL').optional().nullable(),
+  profileImageId: z.string().uuid('Invalid image').optional().nullable(),
 });
 
 export async function updateAboutContent(data: {
@@ -84,10 +81,13 @@ export async function updateAboutContent(data: {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Upsert pattern: check if row exists
-  const existing = await db.select({ id: aboutContent.id }).from(aboutContent).limit(1);
+  const existing = await db
+    .select({ id: aboutContent.id })
+    .from(aboutContent)
+    .limit(1);
 
   const updateData = {
     ...parsed.data,
@@ -99,7 +99,7 @@ export async function updateAboutContent(data: {
     const [created] = await db
       .insert(aboutContent)
       .values({
-        bio: parsed.data.bio ?? "",
+        bio: parsed.data.bio ?? '',
         email: parsed.data.email ?? null,
         instagramUrl: parsed.data.instagramUrl ?? null,
         tiktokUrl: parsed.data.tiktokUrl ?? null,
@@ -108,8 +108,8 @@ export async function updateAboutContent(data: {
       })
       .returning();
 
-    revalidatePath("/about");
-    revalidatePath("/admin/about");
+    revalidatePath('/about');
+    revalidatePath('/admin/about');
     return created;
   }
 
@@ -120,7 +120,7 @@ export async function updateAboutContent(data: {
     .where(eq(aboutContent.id, existing[0].id))
     .returning();
 
-  revalidatePath("/about");
-  revalidatePath("/admin/about");
+  revalidatePath('/about');
+  revalidatePath('/admin/about');
   return updated;
 }

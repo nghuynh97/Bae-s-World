@@ -15,15 +15,15 @@ created: 2026-03-19
 
 ## Design System
 
-| Property | Value |
-|----------|-------|
-| Tool | shadcn/ui (CLI v4) |
-| Preset | To be initialized with `npx shadcn@latest init` after project scaffolding |
-| Component library | Radix UI (via shadcn) |
-| Icon library | Lucide React (ships with shadcn) |
-| Heading font | Playfair Display (Google Fonts, via `next/font/google`) |
-| Body font | Inter (Google Fonts, via `next/font/google`) |
-| CSS framework | Tailwind CSS v4 with `@theme` directive for design tokens |
+| Property          | Value                                                                     |
+| ----------------- | ------------------------------------------------------------------------- |
+| Tool              | shadcn/ui (CLI v4)                                                        |
+| Preset            | To be initialized with `npx shadcn@latest init` after project scaffolding |
+| Component library | Radix UI (via shadcn)                                                     |
+| Icon library      | Lucide React (ships with shadcn)                                          |
+| Heading font      | Playfair Display (Google Fonts, via `next/font/google`)                   |
+| Body font         | Inter (Google Fonts, via `next/font/google`)                              |
+| CSS framework     | Tailwind CSS v4 with `@theme` directive for design tokens                 |
 
 ### Font Rationale
 
@@ -36,17 +36,18 @@ created: 2026-03-19
 
 Declared values (all multiples of 4):
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| xs | 4px | Icon gaps, inline element padding, badge padding |
-| sm | 8px | Compact element spacing, input padding-y, gap between label and input |
-| md | 16px | Default element spacing, card padding, button padding-x |
-| lg | 24px | Section padding, form field vertical gaps, card content padding |
-| xl | 32px | Layout gaps between major sections, nav bar padding |
-| 2xl | 48px | Major section vertical breaks, page section margins |
-| 3xl | 64px | Page-level top/bottom padding, hero section spacing |
+| Token | Value | Usage                                                                 |
+| ----- | ----- | --------------------------------------------------------------------- |
+| xs    | 4px   | Icon gaps, inline element padding, badge padding                      |
+| sm    | 8px   | Compact element spacing, input padding-y, gap between label and input |
+| md    | 16px  | Default element spacing, card padding, button padding-x               |
+| lg    | 24px  | Section padding, form field vertical gaps, card content padding       |
+| xl    | 32px  | Layout gaps between major sections, nav bar padding                   |
+| 2xl   | 48px  | Major section vertical breaks, page section margins                   |
+| 3xl   | 64px  | Page-level top/bottom padding, hero section spacing                   |
 
 Exceptions:
+
 - Mobile bottom tab bar height: 56px (14 x 4, accommodates icons + labels with comfortable touch targets)
 - Desktop top nav height: 64px (matches 3xl token)
 - Touch targets: minimum 44px (11 x 4, per WCAG 2.5.5)
@@ -55,12 +56,12 @@ Exceptions:
 
 ## Typography
 
-| Role | Size | Weight | Line Height | Font |
-|------|------|--------|-------------|------|
-| Body | 16px | 400 (regular) | 1.5 | Inter |
-| Label / Caption | 14px | 400 (regular) | 1.4 | Inter |
-| Heading | 24px | 700 (bold) | 1.2 | Playfair Display |
-| Display | 36px | 700 (bold) | 1.1 | Playfair Display |
+| Role            | Size | Weight        | Line Height | Font             |
+| --------------- | ---- | ------------- | ----------- | ---------------- |
+| Body            | 16px | 400 (regular) | 1.5         | Inter            |
+| Label / Caption | 14px | 400 (regular) | 1.4         | Inter            |
+| Heading         | 24px | 700 (bold)    | 1.2         | Playfair Display |
+| Display         | 36px | 700 (bold)    | 1.1         | Playfair Display |
 
 ### Additional Typography Rules
 
@@ -75,28 +76,29 @@ Exceptions:
 
 ## Color
 
-| Role | Value | Usage |
-|------|-------|-------|
-| Dominant (60%) | #F8F6FF | Page background, form backgrounds, empty space |
-| Secondary (30%) | #FFFFFF | Cards, nav bar, input fields, modal surfaces |
-| Accent (10%) | #E8B4B8 | See reserved list below |
-| Destructive | #DC2626 | Delete buttons, error borders, error text |
+| Role            | Value   | Usage                                          |
+| --------------- | ------- | ---------------------------------------------- |
+| Dominant (60%)  | #F8F6FF | Page background, form backgrounds, empty space |
+| Secondary (30%) | #FFFFFF | Cards, nav bar, input fields, modal surfaces   |
+| Accent (10%)    | #E8B4B8 | See reserved list below                        |
+| Destructive     | #DC2626 | Delete buttons, error borders, error text      |
 
 ### Extended Palette
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| text-primary | #2D2235 | Headings, body text, primary labels |
-| text-secondary | #6B5F76 | Helper text, secondary labels, timestamps, placeholders |
-| border-default | #E8E4EE | Input borders, card borders, dividers |
-| border-accent | #E8B4B8 | Focused input border, active nav item underline |
-| shadow-color | rgba(232, 180, 184, 0.12) | All box shadows use blush-tinted shadow |
-| bg-hover | #F0ECF5 | Hover state for interactive surfaces (cards, nav items) |
-| success | #059669 | Upload complete indicator, success toast |
+| Token          | Value                     | Usage                                                   |
+| -------------- | ------------------------- | ------------------------------------------------------- |
+| text-primary   | #2D2235                   | Headings, body text, primary labels                     |
+| text-secondary | #6B5F76                   | Helper text, secondary labels, timestamps, placeholders |
+| border-default | #E8E4EE                   | Input borders, card borders, dividers                   |
+| border-accent  | #E8B4B8                   | Focused input border, active nav item underline         |
+| shadow-color   | rgba(232, 180, 184, 0.12) | All box shadows use blush-tinted shadow                 |
+| bg-hover       | #F0ECF5                   | Hover state for interactive surfaces (cards, nav items) |
+| success        | #059669                   | Upload complete indicator, success toast                |
 
 ### Accent Reserved For
 
 The accent color #E8B4B8 is reserved exclusively for:
+
 1. "Funnghy's World" logo text
 2. Primary CTA buttons (background)
 3. Active/selected navigation indicator (bottom tab bar dot, top nav underline)
@@ -108,21 +110,21 @@ Accent is NOT used for: card backgrounds, section backgrounds, all links, or dec
 
 ### Shadow Definitions
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| shadow-sm | 0 1px 3px rgba(232, 180, 184, 0.08) | Buttons at rest, small interactive elements |
-| shadow-md | 0 4px 12px rgba(232, 180, 184, 0.12) | Cards, elevated surfaces |
-| shadow-lg | 0 8px 24px rgba(232, 180, 184, 0.16) | Modals, dropdowns, popover |
+| Token     | Value                                | Usage                                       |
+| --------- | ------------------------------------ | ------------------------------------------- |
+| shadow-sm | 0 1px 3px rgba(232, 180, 184, 0.08)  | Buttons at rest, small interactive elements |
+| shadow-md | 0 4px 12px rgba(232, 180, 184, 0.12) | Cards, elevated surfaces                    |
+| shadow-lg | 0 8px 24px rgba(232, 180, 184, 0.16) | Modals, dropdowns, popover                  |
 
 ---
 
 ## Border Radius
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| radius-sm | 6px | Badges, small chips, tags |
-| radius-md | 10px | Buttons, inputs, small cards |
-| radius-lg | 16px | Cards, modals, image containers |
+| Token     | Value | Usage                           |
+| --------- | ----- | ------------------------------- |
+| radius-sm | 6px   | Badges, small chips, tags       |
+| radius-md | 10px  | Buttons, inputs, small cards    |
+| radius-lg | 16px  | Cards, modals, image containers |
 
 Rationale: "Gently rounded" as specified -- not pill-shaped (which would be full radius), not sharp (0). The 10px default for interactive elements feels soft without being juvenile.
 
@@ -132,30 +134,30 @@ Rationale: "Gently rounded" as specified -- not pill-shaped (which would be full
 
 Components needed for this phase. All built with shadcn/ui primitives and customized to design tokens.
 
-| Component | shadcn Base | Phase 1 Usage |
-|-----------|-------------|---------------|
-| Button | button | Login form submit, invite code submit, upload trigger |
-| Input | input | Email field, password field, invite code field |
-| Label | label | Form field labels |
-| Card | card | Dashboard quick-access cards, upload zone container |
-| Navigation Menu | navigation-menu | Desktop top nav bar |
-| Tabs | tabs | (reserved for dashboard sections if needed) |
-| Dialog | dialog | Confirm destructive actions (logout confirmation) |
-| Sonner (Toast) | sonner | Upload success/failure, login error, session expired |
-| Skeleton | skeleton | Loading placeholders for dashboard cards, nav |
-| Separator | separator | Section dividers |
-| Dropdown Menu | dropdown-menu | User menu (avatar dropdown with logout) |
-| Progress | progress | Per-file upload progress bars |
+| Component       | shadcn Base     | Phase 1 Usage                                         |
+| --------------- | --------------- | ----------------------------------------------------- |
+| Button          | button          | Login form submit, invite code submit, upload trigger |
+| Input           | input           | Email field, password field, invite code field        |
+| Label           | label           | Form field labels                                     |
+| Card            | card            | Dashboard quick-access cards, upload zone container   |
+| Navigation Menu | navigation-menu | Desktop top nav bar                                   |
+| Tabs            | tabs            | (reserved for dashboard sections if needed)           |
+| Dialog          | dialog          | Confirm destructive actions (logout confirmation)     |
+| Sonner (Toast)  | sonner          | Upload success/failure, login error, session expired  |
+| Skeleton        | skeleton        | Loading placeholders for dashboard cards, nav         |
+| Separator       | separator       | Section dividers                                      |
+| Dropdown Menu   | dropdown-menu   | User menu (avatar dropdown with logout)               |
+| Progress        | progress        | Per-file upload progress bars                         |
 
 ### Custom Components (not from shadcn)
 
-| Component | Description |
-|-----------|-------------|
-| BottomTabBar | Mobile fixed bottom navigation with 4-5 tabs, icons + labels |
-| ImageUploader | Drag-and-drop zone with click-to-browse, batch upload, per-file progress |
-| LogoText | "Funnghy's World" in Playfair Display 700 with accent color |
-| InviteCodeInput | 6-character alphanumeric code input with auto-uppercase |
-| DashboardCard | Quick-access card with preview thumbnail, title, and subtitle |
+| Component       | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| BottomTabBar    | Mobile fixed bottom navigation with 4-5 tabs, icons + labels             |
+| ImageUploader   | Drag-and-drop zone with click-to-browse, batch upload, per-file progress |
+| LogoText        | "Funnghy's World" in Playfair Display 700 with accent color              |
+| InviteCodeInput | 6-character alphanumeric code input with auto-uppercase                  |
+| DashboardCard   | Quick-access card with preview thumbnail, title, and subtitle            |
 
 ---
 
@@ -226,31 +228,31 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 
 ## Copywriting Contract
 
-| Element | Copy |
-|---------|------|
-| Primary CTA (login) | "Sign In" |
-| Primary CTA (invite setup) | "Create My Account" |
-| Primary CTA (upload) | "Upload Photos" |
-| Login empty state heading | "Welcome to Funnghy's World" |
-| Login empty state body | "Sign in with your email and password to continue." |
-| Invite code prompt | "First time? Enter your invite code" |
-| Invite code placeholder | "Enter code" |
-| Invite code error | "That code doesn't look right. Check the code you received and try again." |
-| Login error (wrong credentials) | "Email or password is incorrect. Please try again." |
-| Login error (generic) | "Something went wrong. Please try again in a moment." |
-| Session expired toast | "Your session has expired. Please sign in again." |
-| Dashboard heading | "Welcome back, {name}" |
-| Dashboard card: Portfolio | Title: "Portfolio" / Subtitle: "Your public gallery" |
-| Dashboard card: Beauty | Title: "Beauty Tracker" / Subtitle: "Products and routines" |
-| Dashboard card: Journal | Title: "Photo Journal" / Subtitle: "Daily memories" |
-| Dashboard empty (no content yet) | "Nothing here yet. Start by uploading your first photos." |
-| Upload zone label | "Drag photos here or click to browse" |
-| Upload zone hint | "JPEG, PNG, WebP accepted" |
-| Upload success toast | "{count} photo(s) uploaded successfully" |
-| Upload error toast | "Upload failed for {filename}. Please try again." |
-| Logout confirmation | "Sign Out": "Are you sure you want to sign out?" |
-| Logout confirm button | "Sign Out" |
-| Logout cancel button | "Stay Signed In" |
+| Element                          | Copy                                                                       |
+| -------------------------------- | -------------------------------------------------------------------------- |
+| Primary CTA (login)              | "Sign In"                                                                  |
+| Primary CTA (invite setup)       | "Create My Account"                                                        |
+| Primary CTA (upload)             | "Upload Photos"                                                            |
+| Login empty state heading        | "Welcome to Funnghy's World"                                               |
+| Login empty state body           | "Sign in with your email and password to continue."                        |
+| Invite code prompt               | "First time? Enter your invite code"                                       |
+| Invite code placeholder          | "Enter code"                                                               |
+| Invite code error                | "That code doesn't look right. Check the code you received and try again." |
+| Login error (wrong credentials)  | "Email or password is incorrect. Please try again."                        |
+| Login error (generic)            | "Something went wrong. Please try again in a moment."                      |
+| Session expired toast            | "Your session has expired. Please sign in again."                          |
+| Dashboard heading                | "Welcome back, {name}"                                                     |
+| Dashboard card: Portfolio        | Title: "Portfolio" / Subtitle: "Your public gallery"                       |
+| Dashboard card: Beauty           | Title: "Beauty Tracker" / Subtitle: "Products and routines"                |
+| Dashboard card: Journal          | Title: "Photo Journal" / Subtitle: "Daily memories"                        |
+| Dashboard empty (no content yet) | "Nothing here yet. Start by uploading your first photos."                  |
+| Upload zone label                | "Drag photos here or click to browse"                                      |
+| Upload zone hint                 | "JPEG, PNG, WebP accepted"                                                 |
+| Upload success toast             | "{count} photo(s) uploaded successfully"                                   |
+| Upload error toast               | "Upload failed for {filename}. Please try again."                          |
+| Logout confirmation              | "Sign Out": "Are you sure you want to sign out?"                           |
+| Logout confirm button            | "Sign Out"                                                                 |
+| Logout cancel button             | "Stay Signed In"                                                           |
 
 ---
 
@@ -278,10 +280,10 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 
 ## Responsive Breakpoints
 
-| Breakpoint | Value | Layout Changes |
-|------------|-------|----------------|
-| Mobile | < 768px | Bottom tab bar, single-column layout, full-width cards |
-| Desktop | >= 768px | Top nav bar, 2-column dashboard grid, contained max-width |
+| Breakpoint | Value    | Layout Changes                                            |
+| ---------- | -------- | --------------------------------------------------------- |
+| Mobile     | < 768px  | Bottom tab bar, single-column layout, full-width cards    |
+| Desktop    | >= 768px | Top nav bar, 2-column dashboard grid, contained max-width |
 
 ### Mobile-Specific Rules
 
@@ -336,10 +338,10 @@ Components needed for this phase. All built with shadcn/ui primitives and custom
 
 ## Registry Safety
 
-| Registry | Blocks Used | Safety Gate |
-|----------|-------------|-------------|
-| shadcn official | button, input, label, card, navigation-menu, tabs, dialog, sonner, skeleton, separator, dropdown-menu, progress | not required |
-| Third-party | none | not applicable |
+| Registry        | Blocks Used                                                                                                     | Safety Gate    |
+| --------------- | --------------------------------------------------------------------------------------------------------------- | -------------- |
+| shadcn official | button, input, label, card, navigation-menu, tabs, dialog, sonner, skeleton, separator, dropdown-menu, progress | not required   |
+| Third-party     | none                                                                                                            | not applicable |
 
 ---
 
@@ -365,18 +367,18 @@ Due to contrast requirements, accent-background buttons (#E8B4B8) must use dark 
 ```css
 /* globals.css -- @theme block for Tailwind v4 */
 @theme {
-  --color-dominant: #F8F6FF;
-  --color-surface: #FFFFFF;
-  --color-accent: #E8B4B8;
-  --color-accent-hover: #D4A0A5;
-  --color-destructive: #DC2626;
+  --color-dominant: #f8f6ff;
+  --color-surface: #ffffff;
+  --color-accent: #e8b4b8;
+  --color-accent-hover: #d4a0a5;
+  --color-destructive: #dc2626;
   --color-success: #059669;
 
-  --color-text-primary: #2D2235;
-  --color-text-secondary: #6B5F76;
-  --color-border: #E8E4EE;
-  --color-border-accent: #E8B4B8;
-  --color-bg-hover: #F0ECF5;
+  --color-text-primary: #2d2235;
+  --color-text-secondary: #6b5f76;
+  --color-border: #e8e4ee;
+  --color-border-accent: #e8b4b8;
+  --color-bg-hover: #f0ecf5;
   --color-shadow: rgba(232, 180, 184, 0.12);
 
   --font-display: 'Playfair Display', serif;

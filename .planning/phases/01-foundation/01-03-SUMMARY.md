@@ -2,7 +2,16 @@
 phase: 01-foundation
 plan: 03
 subsystem: images
-tags: [sharp, supabase-storage, react-dropzone, webp, signed-urls, server-actions, drag-and-drop]
+tags:
+  [
+    sharp,
+    supabase-storage,
+    react-dropzone,
+    webp,
+    signed-urls,
+    server-actions,
+    drag-and-drop,
+  ]
 
 # Dependency graph
 requires:
@@ -20,7 +29,13 @@ affects: [02-portfolio, 03-beauty, 04-journal]
 # Tech tracking
 tech-stack:
   added: [sharp, react-dropzone, sonner]
-  patterns: [sharp-webp-variant-generation, supabase-signed-urls, batch-concurrent-upload, server-action-formdata]
+  patterns:
+    [
+      sharp-webp-variant-generation,
+      supabase-signed-urls,
+      batch-concurrent-upload,
+      server-action-formdata,
+    ]
 
 key-files:
   created:
@@ -35,16 +50,16 @@ key-files:
     - src/lib/db/schema.ts
 
 key-decisions:
-  - "Four WebP size variants (400w thumb, 800w medium, 1200w large, 1920w full) with withoutEnlargement to avoid upscaling"
-  - "Magic byte validation via sharp metadata instead of file extension checking"
-  - "Max 3 concurrent uploads to balance throughput and server load"
-  - "Image dimensions stored at upload time for CLS-free rendering"
+  - 'Four WebP size variants (400w thumb, 800w medium, 1200w large, 1920w full) with withoutEnlargement to avoid upscaling'
+  - 'Magic byte validation via sharp metadata instead of file extension checking'
+  - 'Max 3 concurrent uploads to balance throughput and server load'
+  - 'Image dimensions stored at upload time for CLS-free rendering'
 
 patterns-established:
-  - "Server Action with FormData for file uploads"
-  - "Sharp pipeline: buffer -> metadata validation -> resize -> webp -> upload to Supabase Storage"
-  - "Signed URL pattern for private bucket images with configurable expiration"
-  - "Batch upload with concurrent limit and per-file progress tracking"
+  - 'Server Action with FormData for file uploads'
+  - 'Sharp pipeline: buffer -> metadata validation -> resize -> webp -> upload to Supabase Storage'
+  - 'Signed URL pattern for private bucket images with configurable expiration'
+  - 'Batch upload with concurrent limit and per-file progress tracking'
 
 requirements-completed: [IMG-01, IMG-02, IMG-03, IMG-04]
 
@@ -66,6 +81,7 @@ completed: 2026-03-20
 - **Files modified:** 8
 
 ## Accomplishments
+
 - Server Action processes uploaded images through sharp to generate 4 WebP size variants (400w, 800w, 1200w, 1920w) with magic byte validation
 - Signed URL helpers serve private bucket images with time-limited access; public images get direct URLs
 - Drag-and-drop upload component with react-dropzone supports batch selection, max 3 concurrent uploads, per-file progress bars with status indicators
@@ -81,6 +97,7 @@ Each task was committed atomically:
 3. **Task 3: Verify complete Phase 1 foundation** - checkpoint approved, no commit needed
 
 ## Files Created/Modified
+
 - `src/lib/db/schema.ts` - Added images and imageVariants tables to existing Drizzle schema
 - `src/actions/upload.ts` - Server Action: auth check, sharp metadata validation, 4 WebP variants, Supabase Storage upload, DB insert
 - `src/lib/supabase/storage.ts` - getSignedImageUrl, getSignedImageUrls (private), getPublicImageUrl (public)
@@ -91,6 +108,7 @@ Each task was committed atomically:
 - `src/__tests__/upload/signed-urls.test.ts` - Source code verification tests for signed URL helpers
 
 ## Decisions Made
+
 - Four WebP size variants (400w, 800w, 1200w, 1920w) with `withoutEnlargement: true` to avoid upscaling smaller images
 - Magic byte validation via `sharp(buffer).metadata()` instead of relying on file extension
 - Max 3 concurrent uploads to balance upload throughput against server load
@@ -101,13 +119,16 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 None.
 
 ## User Setup Required
+
 - Supabase Storage buckets must be created: `public-images` (public) and `private-images` (private)
 - Sharp requires native binaries -- `npm install` handles this automatically on most platforms
 
 ## Next Phase Readiness
+
 - Complete Phase 1 foundation delivered: design system, auth, and image pipeline
 - All subsequent phases (Portfolio, Beauty Tracker, Photo Journal) can use the image upload pipeline
 - Signed URL pattern ready for private image access in Phases 3 and 4
@@ -118,5 +139,6 @@ None.
 All 8 key files verified present. Both task commits (9fcd8f7, 04f57d9) confirmed in git history.
 
 ---
-*Phase: 01-foundation*
-*Completed: 2026-03-20*
+
+_Phase: 01-foundation_
+_Completed: 2026-03-20_

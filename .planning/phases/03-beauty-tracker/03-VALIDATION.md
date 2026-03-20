@@ -15,13 +15,13 @@ created: 2026-03-20
 
 ## Test Infrastructure
 
-| Property | Value |
-|----------|-------|
-| **Framework** | vitest 4.1 |
-| **Config file** | vitest.config.ts |
-| **Quick run command** | `npx vitest run --reporter=verbose` |
+| Property               | Value                               |
+| ---------------------- | ----------------------------------- |
+| **Framework**          | vitest 4.1                          |
+| **Config file**        | vitest.config.ts                    |
+| **Quick run command**  | `npx vitest run --reporter=verbose` |
 | **Full suite command** | `npx vitest run --reporter=verbose` |
-| **Estimated runtime** | ~5 seconds |
+| **Estimated runtime**  | ~5 seconds                          |
 
 ---
 
@@ -36,11 +36,11 @@ created: 2026-03-20
 
 ## Per-Task Verification Map
 
-*Populated by planner during plan creation.*
+_Populated by planner during plan creation._
 
-| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| TBD | TBD | TBD | BEAU-01–07 | unit/source | `npx vitest run` | TBD | ⬜ pending |
+| Task ID | Plan | Wave | Requirement | Test Type   | Automated Command | File Exists | Status     |
+| ------- | ---- | ---- | ----------- | ----------- | ----------------- | ----------- | ---------- |
+| TBD     | TBD  | TBD  | BEAU-01–07  | unit/source | `npx vitest run`  | TBD         | ⬜ pending |
 
 ---
 
@@ -49,17 +49,17 @@ created: 2026-03-20
 - [ ] `src/__tests__/beauty/` — test stub directory for beauty tracker tests
 - [ ] Test stubs for BEAU-01 through BEAU-07
 
-*Planner will determine if a Wave 0 test stub plan is needed.*
+_Planner will determine if a Wave 0 test stub plan is needed._
 
 ---
 
 ## Manual-Only Verifications
 
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| Drag-and-drop routine reorder | BEAU-06 | Touch/pointer interaction requires browser | Drag a step up/down in routine, verify order persists |
-| Product photo upload with private bucket | BEAU-01, BEAU-07 | Requires live Supabase Storage | Upload product photo, verify signed URL works |
-| Bottom sheet slide-up interaction | BEAU-01 | CSS animation + touch behavior | Tap product, verify sheet slides up smoothly |
+| Behavior                                 | Requirement      | Why Manual                                 | Test Instructions                                     |
+| ---------------------------------------- | ---------------- | ------------------------------------------ | ----------------------------------------------------- |
+| Drag-and-drop routine reorder            | BEAU-06          | Touch/pointer interaction requires browser | Drag a step up/down in routine, verify order persists |
+| Product photo upload with private bucket | BEAU-01, BEAU-07 | Requires live Supabase Storage             | Upload product photo, verify signed URL works         |
+| Bottom sheet slide-up interaction        | BEAU-01          | CSS animation + touch behavior             | Tap product, verify sheet slides up smoothly          |
 
 ---
 

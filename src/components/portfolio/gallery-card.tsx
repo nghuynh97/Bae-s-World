@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 interface GalleryCardProps {
   title: string;
@@ -20,18 +20,18 @@ export function GalleryCard({
   return (
     <button
       onClick={onClick}
-      className="group relative w-full overflow-hidden rounded-lg cursor-pointer"
+      className="group relative w-full cursor-pointer overflow-hidden rounded-lg"
       style={{ aspectRatio: `${width}/${height}` }}
     >
       <img
         src={imageUrl}
         alt={title}
         loading="lazy"
-        className="w-full h-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.02]"
+        className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.02]"
       />
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-end p-4">
-        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white">
+      <div className="absolute inset-0 flex items-end bg-black/0 p-4 transition-colors duration-300 group-hover:bg-black/30">
+        <div className="text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <p className="text-sm font-bold">{title}</p>
           <p className="text-xs opacity-80">{category}</p>
         </div>

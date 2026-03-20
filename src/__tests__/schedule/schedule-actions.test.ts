@@ -1,14 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock supabase/server
 const mockGetUser = vi.fn();
-vi.mock("@/lib/supabase/server", () => ({
+vi.mock('@/lib/supabase/server', () => ({
   createClient: vi.fn(() =>
     Promise.resolve({
       auth: {
         getUser: mockGetUser,
       },
-    })
+    }),
   ),
 }));
 
@@ -26,7 +26,7 @@ const mockOrderBy = vi.fn();
 const mockSet = vi.fn();
 const mockLimit = vi.fn();
 
-vi.mock("@/lib/db", () => ({
+vi.mock('@/lib/db', () => ({
   db: {
     insert: (...args: unknown[]) => {
       mockInsert(...args);
@@ -89,29 +89,29 @@ vi.mock("@/lib/db", () => ({
 
 // Import after mocks
 const { createJob, updateJob, deleteJob, getJobsForMonth, getIncomeStats } =
-  await import("@/actions/schedule");
+  await import('@/actions/schedule');
 
 beforeEach(() => {
   vi.clearAllMocks();
 });
 
-describe("createJob", () => {
+describe('createJob', () => {
   const validJobData = {
-    jobDate: "2026-03-20",
-    clientName: "Test Client",
-    location: "Studio A",
-    startTime: "09:00",
-    endTime: "17:00",
+    jobDate: '2026-03-20',
+    clientName: 'Test Client',
+    location: 'Studio A',
+    startTime: '09:00',
+    endTime: '17:00',
     payAmount: 5000000,
-    status: "pending" as const,
+    status: 'pending' as const,
     notes: null,
   };
 
-  it("creates a job when authenticated and returns it", async () => {
+  it('creates a job when authenticated and returns it', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
-    const mockJob = { id: "job-1", ...validJobData };
+    const mockJob = { id: 'job-1', ...validJobData };
     mockReturning.mockResolvedValue([mockJob]);
 
     const result = await createJob(validJobData);
@@ -121,43 +121,43 @@ describe("createJob", () => {
     expect(mockValues).toHaveBeenCalled();
   });
 
-  it("throws Unauthorized when not authenticated", async () => {
+  it('throws Unauthorized when not authenticated', async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
-    await expect(createJob(validJobData)).rejects.toThrow("Unauthorized");
+    await expect(createJob(validJobData)).rejects.toThrow('Unauthorized');
   });
 
-  it("throws validation error for empty clientName", async () => {
+  it('throws validation error for empty clientName', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
 
     await expect(
-      createJob({ ...validJobData, clientName: "" })
+      createJob({ ...validJobData, clientName: '' }),
     ).rejects.toThrow();
   });
 
-  it("throws validation error for invalid date format", async () => {
+  it('throws validation error for invalid date format', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
 
     await expect(
-      createJob({ ...validJobData, jobDate: "20-03-2026" })
+      createJob({ ...validJobData, jobDate: '20-03-2026' }),
     ).rejects.toThrow();
   });
 });
 
-describe("getJobsForMonth", () => {
-  it("throws Unauthorized when not authenticated", async () => {
+describe('getJobsForMonth', () => {
+  it('throws Unauthorized when not authenticated', async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
-    await expect(getJobsForMonth(2026, 3)).rejects.toThrow("Unauthorized");
+    await expect(getJobsForMonth(2026, 3)).rejects.toThrow('Unauthorized');
   });
 
-  it("queries for jobs in the given month", async () => {
+  it('queries for jobs in the given month', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
 
     await getJobsForMonth(2026, 3);
@@ -168,76 +168,75 @@ describe("getJobsForMonth", () => {
   });
 });
 
-describe("updateJob", () => {
-  it("throws Unauthorized when not authenticated", async () => {
+describe('updateJob', () => {
+  it('throws Unauthorized when not authenticated', async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
     await expect(
-      updateJob("550e8400-e29b-41d4-a716-446655440000", {
-        clientName: "Updated",
-      })
-    ).rejects.toThrow("Unauthorized");
+      updateJob('550e8400-e29b-41d4-a716-446655440000', {
+        clientName: 'Updated',
+      }),
+    ).rejects.toThrow('Unauthorized');
   });
 
-  it("updates job fields when authenticated", async () => {
+  it('updates job fields when authenticated', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
-    const mockUpdated = { id: "job-1", clientName: "Updated" };
+    const mockUpdated = { id: 'job-1', clientName: 'Updated' };
     mockReturning.mockResolvedValue([mockUpdated]);
 
-    const result = await updateJob(
-      "550e8400-e29b-41d4-a716-446655440000",
-      { clientName: "Updated" }
-    );
+    const result = await updateJob('550e8400-e29b-41d4-a716-446655440000', {
+      clientName: 'Updated',
+    });
 
     expect(result).toEqual(mockUpdated);
     expect(mockUpdate).toHaveBeenCalled();
     expect(mockSet).toHaveBeenCalled();
   });
 
-  it("throws for invalid UUID", async () => {
+  it('throws for invalid UUID', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
 
     await expect(
-      updateJob("not-a-uuid", { clientName: "Updated" })
+      updateJob('not-a-uuid', { clientName: 'Updated' }),
     ).rejects.toThrow();
   });
 });
 
-describe("deleteJob", () => {
-  it("throws Unauthorized when not authenticated", async () => {
+describe('deleteJob', () => {
+  it('throws Unauthorized when not authenticated', async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
     await expect(
-      deleteJob("550e8400-e29b-41d4-a716-446655440000")
-    ).rejects.toThrow("Unauthorized");
+      deleteJob('550e8400-e29b-41d4-a716-446655440000'),
+    ).rejects.toThrow('Unauthorized');
   });
 
-  it("deletes job when authenticated", async () => {
+  it('deletes job when authenticated', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
 
-    const result = await deleteJob("550e8400-e29b-41d4-a716-446655440000");
+    const result = await deleteJob('550e8400-e29b-41d4-a716-446655440000');
 
     expect(result).toEqual({ success: true });
     expect(mockDelete).toHaveBeenCalled();
   });
 });
 
-describe("getIncomeStats", () => {
-  it("throws Unauthorized when not authenticated", async () => {
+describe('getIncomeStats', () => {
+  it('throws Unauthorized when not authenticated', async () => {
     mockGetUser.mockResolvedValue({ data: { user: null } });
 
-    await expect(getIncomeStats(2026, 3)).rejects.toThrow("Unauthorized");
+    await expect(getIncomeStats(2026, 3)).rejects.toThrow('Unauthorized');
   });
 
-  it("returns zeros for empty months", async () => {
+  it('returns zeros for empty months', async () => {
     mockGetUser.mockResolvedValue({
-      data: { user: { id: "user-123" } },
+      data: { user: { id: 'user-123' } },
     });
     // mockWhere returns empty array by default via orderBy chain
 

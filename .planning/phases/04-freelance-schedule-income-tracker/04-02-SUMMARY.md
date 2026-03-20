@@ -20,7 +20,13 @@ affects: [05-03-stats-income-chart]
 
 tech-stack:
   added: []
-  patterns: [server-component-page-with-client-grid, sheet-form-crud, url-param-navigation, tdd-component-tests]
+  patterns:
+    [
+      server-component-page-with-client-grid,
+      sheet-form-crud,
+      url-param-navigation,
+      tdd-component-tests,
+    ]
 
 key-files:
   created:
@@ -37,14 +43,14 @@ key-files:
   modified: []
 
 key-decisions:
-  - "Used URL search params for month/year navigation (bookmarkable calendar state)"
-  - "Job grouping by date as Record<string, Job[]> for O(1) day lookup in calendar grid"
-  - "Tapping empty day opens add form, tapping day with jobs shows detail panel"
+  - 'Used URL search params for month/year navigation (bookmarkable calendar state)'
+  - 'Job grouping by date as Record<string, Job[]> for O(1) day lookup in calendar grid'
+  - 'Tapping empty day opens add form, tapping day with jobs shows detail panel'
 
 patterns-established:
-  - "Server page fetches data, passes to client grid component via props"
-  - "Sheet-based form for mobile-first CRUD with zod validation"
-  - "Segmented toggle for status selection (Pending/Paid) with semantic colors"
+  - 'Server page fetches data, passes to client grid component via props'
+  - 'Sheet-based form for mobile-first CRUD with zod validation'
+  - 'Segmented toggle for status selection (Pending/Paid) with semantic colors'
 
 requirements-completed: [SCHED-02, SCHED-06, SCHED-01]
 
@@ -65,6 +71,7 @@ completed: 2026-03-20
 - **Files modified:** 10
 
 ## Accomplishments
+
 - Calendar month grid renders 7 columns starting Monday with day cells showing colored dots and compact VND income
 - Day detail panel shows below calendar with job cards featuring status stripe, time, client, location, pay
 - Job form sheet slides up with all fields, zod validation, create/edit/delete, toast feedback
@@ -79,6 +86,7 @@ Each task was committed atomically:
 2. **Task 2: Day detail panel, job cards, and job form sheet** - `af2f3f0` (feat)
 
 ## Files Created/Modified
+
 - `src/app/(private)/schedule/page.tsx` - Server component with getJobsForMonth, searchParams navigation
 - `src/app/(private)/schedule/loading.tsx` - Skeleton loading state with stat cards and 7x5 grid
 - `src/components/schedule/calendar-header.tsx` - Month/year display with chevron nav and Today button
@@ -91,6 +99,7 @@ Each task was committed atomically:
 - `src/__tests__/schedule/calendar-grid.test.tsx` - 4 tests: grid columns, weekday headers, today highlight, job dots
 
 ## Decisions Made
+
 - Used URL search params for month/year navigation (bookmarkable calendar state)
 - Job grouping by date as Record<string, Job[]> for O(1) day lookup in calendar grid
 - Tapping empty day opens add form, tapping day with jobs shows detail panel
@@ -100,6 +109,7 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 - Test for weekday headers failed initially due to "Mon" text appearing in both header and day abbreviations -- fixed by using getAllByText instead of getByText
 
 ## User Setup Required
@@ -107,6 +117,7 @@ None - plan executed exactly as written.
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Calendar UI complete, ready for Plan 03 (stats header + income chart)
 - Stats header placeholder div already in schedule page for Plan 03 integration
 
@@ -115,5 +126,6 @@ None - no external service configuration required.
 All 10 files found. Both task commits verified.
 
 ---
-*Phase: 05-freelance-schedule-income-tracker*
-*Completed: 2026-03-20*
+
+_Phase: 05-freelance-schedule-income-tracker_
+_Completed: 2026-03-20_

@@ -2,7 +2,17 @@
 phase: 02-public-portfolio
 plan: 02
 subsystem: ui
-tags: [masonry, infinite-scroll, lightbox, gallery, about-page, react, base-ui, intersection-observer]
+tags:
+  [
+    masonry,
+    infinite-scroll,
+    lightbox,
+    gallery,
+    about-page,
+    react,
+    base-ui,
+    intersection-observer,
+  ]
 
 # Dependency graph
 requires:
@@ -20,7 +30,13 @@ affects: [03-admin-management, 05-polish]
 # Tech tracking
 tech-stack:
   added: [react-intersection-observer]
-  patterns: [round-robin masonry distribution, cursor-based infinite scroll with useTransition, base-ui Dialog lightbox, responsive columns via matchMedia]
+  patterns:
+    [
+      round-robin masonry distribution,
+      cursor-based infinite scroll with useTransition,
+      base-ui Dialog lightbox,
+      responsive columns via matchMedia,
+    ]
 
 key-files:
   created:
@@ -36,14 +52,14 @@ key-files:
     - src/app/(public)/about/page.tsx
 
 key-decisions:
-  - "Used base-ui DialogPrimitive directly for lightbox (not shadcn wrapper) for full-screen custom layout"
-  - "Round-robin column distribution for masonry to preserve L-to-R reading order"
-  - "Responsive columns via matchMedia hook (2 mobile, 3 desktop) instead of CSS-only approach"
+  - 'Used base-ui DialogPrimitive directly for lightbox (not shadcn wrapper) for full-screen custom layout'
+  - 'Round-robin column distribution for masonry to preserve L-to-R reading order'
+  - 'Responsive columns via matchMedia hook (2 mobile, 3 desktop) instead of CSS-only approach'
 
 patterns-established:
-  - "Pattern: Round-robin masonry with flex columns for reading order"
-  - "Pattern: Infinite scroll with useTransition guard against double-fetching"
-  - "Pattern: Server-rendered initial data with client-side pagination via Server Actions"
+  - 'Pattern: Round-robin masonry with flex columns for reading order'
+  - 'Pattern: Infinite scroll with useTransition guard against double-fetching'
+  - 'Pattern: Server-rendered initial data with client-side pagination via Server Actions'
 
 requirements-completed: [PORT-01, PORT-02, PORT-03, PORT-04, PORT-06]
 
@@ -65,6 +81,7 @@ completed: 2026-03-19
 - **Files modified:** 9
 
 ## Accomplishments
+
 - Masonry grid gallery with round-robin column distribution preserving left-to-right reading order
 - Full-screen lightbox with blurred backdrop, keyboard arrows, swipe on mobile, and close via escape/backdrop/button
 - Category filter pills with rose gold active state, ARIA roles, and smooth category switching with opacity transitions
@@ -81,6 +98,7 @@ Each task was committed atomically:
 **Plan metadata:** pending (docs: complete plan)
 
 ## Files Created/Modified
+
 - `src/components/portfolio/masonry-grid.tsx` - CSS flex columns with JS round-robin distribution
 - `src/components/portfolio/gallery-card.tsx` - Photo card with hover overlay showing title and category
 - `src/components/portfolio/category-filter.tsx` - Pill/chip filter row with rose gold active state
@@ -92,6 +110,7 @@ Each task was committed atomically:
 - `src/app/(public)/about/page.tsx` - About page with bio, contact, and photo strip
 
 ## Decisions Made
+
 - Used base-ui DialogPrimitive directly for lightbox instead of shadcn Dialog wrapper, since lightbox needs full-screen custom layout
 - Round-robin column distribution for masonry grid preserves left-to-right reading order (unlike CSS column-count which flows top-to-bottom)
 - Responsive columns via matchMedia hook instead of CSS-only approach to maintain correct item ordering at both breakpoints
@@ -109,6 +128,7 @@ Pre-existing TypeScript error in `src/app/(private)/admin/categories/page.tsx` (
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - All public-facing portfolio UI components complete
 - Gallery page server-renders with default category, client-side enhances with infinite scroll
 - Lightbox fully integrated into gallery with all navigation modes
@@ -116,5 +136,6 @@ None - no external service configuration required.
 - Ready for admin content management pages (Phase 2, Plan 3)
 
 ---
-*Phase: 02-public-portfolio*
-*Completed: 2026-03-19*
+
+_Phase: 02-public-portfolio_
+_Completed: 2026-03-19_

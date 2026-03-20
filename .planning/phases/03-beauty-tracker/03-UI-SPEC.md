@@ -15,14 +15,14 @@ created: 2026-03-20
 
 ## Design System
 
-| Property | Value |
-|----------|-------|
-| Tool | shadcn (base-nova style) |
-| Preset | base-nova, baseColor neutral, cssVariables true |
-| Component library | @base-ui/react 1.3.0 |
-| Icon library | lucide-react 0.577.0 |
-| Font (display) | Playfair Display (400, 700) |
-| Font (body) | Inter (400, 700) |
+| Property          | Value                                           |
+| ----------------- | ----------------------------------------------- |
+| Tool              | shadcn (base-nova style)                        |
+| Preset            | base-nova, baseColor neutral, cssVariables true |
+| Component library | @base-ui/react 1.3.0                            |
+| Icon library      | lucide-react 0.577.0                            |
+| Font (display)    | Playfair Display (400, 700)                     |
+| Font (body)       | Inter (400, 700)                                |
 
 **Existing shadcn components available:** button, input, label, card, sonner, skeleton, separator, dropdown-menu, progress, dialog.
 
@@ -34,15 +34,15 @@ created: 2026-03-20
 
 Declared values (multiples of 4):
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| xs | 4px | Icon gaps, heart overlay offset from edge |
-| sm | 8px | Grid gap between product thumbnails, inline padding |
-| md | 16px | Default element spacing, filter pill padding, form field gaps |
-| lg | 24px | Section padding, bottom sheet internal padding |
-| xl | 32px | Page horizontal padding on desktop |
-| 2xl | 48px | Major section breaks between Products/Routines tabs and content |
-| 3xl | 64px | Page top padding below nav |
+| Token | Value | Usage                                                           |
+| ----- | ----- | --------------------------------------------------------------- |
+| xs    | 4px   | Icon gaps, heart overlay offset from edge                       |
+| sm    | 8px   | Grid gap between product thumbnails, inline padding             |
+| md    | 16px  | Default element spacing, filter pill padding, form field gaps   |
+| lg    | 24px  | Section padding, bottom sheet internal padding                  |
+| xl    | 32px  | Page horizontal padding on desktop                              |
+| 2xl   | 48px  | Major section breaks between Products/Routines tabs and content |
+| 3xl   | 64px  | Page top padding below nav                                      |
 
 Exceptions: Touch target minimum 44px for heart overlay button and drag handles (accessibility).
 
@@ -50,25 +50,26 @@ Exceptions: Touch target minimum 44px for heart overlay button and drag handles 
 
 ## Typography
 
-| Role | Size | Weight | Line Height | Font | Usage |
-|------|------|--------|-------------|------|-------|
-| Body | 14px | 400 (regular) | 1.5 | Inter | Product notes, routine step names, form labels |
-| Label | 12px | 400 (regular) | 1.4 | Inter | Brand names, category pill text, meta text |
-| Heading | 20px | 700 (bold) | 1.2 | Playfair Display | Page title "Beauty", section headings "Morning", "Evening" |
-| Display | 28px | 700 (bold) | 1.2 | Playfair Display | Not used in this phase (reserved for landing pages) |
+| Role    | Size | Weight        | Line Height | Font             | Usage                                                      |
+| ------- | ---- | ------------- | ----------- | ---------------- | ---------------------------------------------------------- |
+| Body    | 14px | 400 (regular) | 1.5         | Inter            | Product notes, routine step names, form labels             |
+| Label   | 12px | 400 (regular) | 1.4         | Inter            | Brand names, category pill text, meta text                 |
+| Heading | 20px | 700 (bold)    | 1.2         | Playfair Display | Page title "Beauty", section headings "Morning", "Evening" |
+| Display | 28px | 700 (bold)    | 1.2         | Playfair Display | Not used in this phase (reserved for landing pages)        |
 
 ---
 
 ## Color
 
-| Role | Value | Usage |
-|------|-------|-------|
-| Dominant (60%) | #F8F6FF (`--color-dominant`) | Page background, content area |
-| Secondary (30%) | #FFFFFF (`--color-surface`) | Product bottom sheet, routine cards, form backgrounds |
-| Accent (10%) | #E8B4B8 (`--color-accent`) | See reserved list below |
-| Destructive | #DC2626 (`--color-destructive`) | Delete product, delete category, remove routine step |
+| Role            | Value                           | Usage                                                 |
+| --------------- | ------------------------------- | ----------------------------------------------------- |
+| Dominant (60%)  | #F8F6FF (`--color-dominant`)    | Page background, content area                         |
+| Secondary (30%) | #FFFFFF (`--color-surface`)     | Product bottom sheet, routine cards, form backgrounds |
+| Accent (10%)    | #E8B4B8 (`--color-accent`)      | See reserved list below                               |
+| Destructive     | #DC2626 (`--color-destructive`) | Delete product, delete category, remove routine step  |
 
 Accent reserved for:
+
 - Active category filter pill background
 - Filled heart icon on favorited products
 - Filled star icons in rating component
@@ -90,12 +91,14 @@ Supporting colors:
 ## Component Inventory
 
 ### Product Grid (product-grid.tsx)
+
 - **Layout:** CSS Grid, 3 columns on mobile (`grid-cols-3`), 4 columns on tablet (`md:grid-cols-4`), 5 columns on desktop (`lg:grid-cols-5`)
 - **Gap:** 8px (`gap-2`)
 - **Items:** Square aspect ratio (`aspect-square`), rounded corners (`rounded-md` = 10px), `overflow-hidden`
 - **Image:** Fill container, `object-cover`, loaded via signed URL from private bucket
 
 ### Product Card (product-card.tsx)
+
 - **Thumbnail:** Square image, no text overlay
 - **Heart overlay:** Positioned top-right with 4px offset from edges (`top-1 right-1`), 44px touch target
 - **Heart icon states:** Filled (`fill-accent text-accent`) when favorited, outline (`fill-none text-white drop-shadow`) when not
@@ -104,6 +107,7 @@ Supporting colors:
 - **Heart button:** Semi-transparent background circle (`bg-black/20 rounded-full p-1.5`) for contrast against any photo
 
 ### Product Bottom Sheet (product-bottom-sheet.tsx)
+
 - **Component:** shadcn Sheet with `side="bottom"`
 - **Max height:** 85vh (`max-h-[85vh]`)
 - **Top corners:** Rounded 16px (`rounded-t-2xl`)
@@ -120,6 +124,7 @@ Supporting colors:
 - **Spacing between sections:** 16px
 
 ### Star Rating (star-rating.tsx)
+
 - **Icon:** lucide `Star`, 20px (`h-5 w-5`) for display, 24px (`h-6 w-6`) for form input
 - **Filled state:** `fill-accent text-accent` (rose gold filled)
 - **Empty state:** `fill-none text-muted-foreground` (outline gray)
@@ -129,6 +134,7 @@ Supporting colors:
 - **Accessibility:** `role="radiogroup"`, each star `role="radio"` with `aria-checked` and `aria-label`
 
 ### Category Filter Pills (reuse existing category-filter.tsx)
+
 - **Pattern:** Identical to portfolio category-filter.tsx
 - **Additions:** Prepend "Favorites" tab after "All" (with lucide Heart icon, 16px, inline before text)
 - **Active state:** `bg-accent text-white`
@@ -138,6 +144,7 @@ Supporting colors:
 - **Accessibility:** `role="tablist"`, each pill `role="tab"` with `aria-selected`
 
 ### Beauty Tabs (beauty-tabs.tsx)
+
 - **Two tabs:** "Products" and "Routines"
 - **Style:** Underline tab pattern, not pill. Text centered, 16px Inter bold when active, 16px Inter regular when inactive.
 - **Active indicator:** 2px bottom border in accent color (`border-b-2 border-accent`)
@@ -146,6 +153,7 @@ Supporting colors:
 - **Spacing:** 48px below tab bar before content
 
 ### Product Form (product-form.tsx)
+
 - **Used in:** Dialog for add/edit
 - **Fields (top to bottom):**
   1. Photo upload: Reuse `image-uploader.tsx` (drag-and-drop), square preview
@@ -160,6 +168,7 @@ Supporting colors:
 - **Validation:** zod + react-hook-form, inline error messages below fields in destructive color
 
 ### Routine List (routine-list.tsx)
+
 - **Two sections:** "Morning" and "Evening", each as a card
 - **Card:** White background, `rounded-lg`, `shadow-sm`, 24px padding
 - **Card header:** Routine name in 20px Playfair Display bold + step count badge (muted pill)
@@ -167,6 +176,7 @@ Supporting colors:
 - **Add step:** Search input at bottom of each routine card
 
 ### Routine Step (routine-step.tsx)
+
 - **Layout:** Horizontal row: drag handle | step number | product thumbnail | product name | remove button
 - **Drag handle:** lucide `GripVertical`, 20px, `text-muted-foreground`, `cursor-grab`, left side, 44px touch target
 - **Step number:** 24px wide, 14px Inter semibold (note: use 700 weight since only 400 and 700 loaded), `text-secondary`
@@ -178,6 +188,7 @@ Supporting colors:
 - **Dragging state:** `shadow-md`, `bg-surface`, slight opacity on other items
 
 ### Routine Step Search (routine-step-search.tsx)
+
 - **Input:** Text input with lucide `Search` icon (16px) on left inside input, placeholder "Search products to add..."
 - **Dropdown results:** Absolute positioned below input, white background, `shadow-md`, `rounded-md`, max-height 200px, `overflow-y-auto`
 - **Result row:** 40px product thumbnail + product name + brand, 12px vertical padding
@@ -187,6 +198,7 @@ Supporting colors:
 - **Selection:** Tap a result to add product as next step; clear search input after adding
 
 ### Empty State (products)
+
 - **Icon:** lucide `Sparkles`, 48px, `text-accent`, centered
 - **Heading:** "Start your beauty collection", 20px Playfair Display bold, `text-primary`
 - **Body:** "Add your favorite products and build your daily routines.", 14px Inter regular, `text-secondary`
@@ -194,10 +206,12 @@ Supporting colors:
 - **Vertical spacing:** 16px between each element, centered vertically and horizontally in content area
 
 ### Empty State (routines)
+
 - **Shown per-routine card when no steps**
 - **Text:** "No steps yet. Search for products to add." in `text-secondary`, 14px, centered
 
 ### Loading Skeleton (loading.tsx)
+
 - **Tab bar:** Two skeleton rectangles at 50% width each
 - **Filter pills:** 4-5 skeleton pills (80px wide, 36px tall, rounded-full)
 - **Product grid:** 9-12 skeleton squares matching grid layout (3x3 on mobile), `animate-pulse`
@@ -207,47 +221,50 @@ Supporting colors:
 
 ## Copywriting Contract
 
-| Element | Copy |
-|---------|------|
-| Primary CTA | "Add Product" |
-| Secondary CTA (routines) | "Search products to add..." (placeholder) |
-| Empty state heading (products) | "Start your beauty collection" |
-| Empty state body (products) | "Add your favorite products and build your daily routines." |
-| Empty state body (routines) | "No steps yet. Search for products to add." |
-| Error state (form validation) | "Please fill in the required fields." (inline per-field errors) |
-| Error state (server action) | "Something went wrong. Please try again." (toast via sonner) |
-| Error state (image upload) | "Upload failed. Check your file and try again." (toast) |
-| Destructive: Delete product | Confirm dialog: "Delete [product name]?" / "This product will be removed from your collection and any routines. This cannot be undone." / Buttons: "Cancel" and "Delete" |
-| Destructive: Delete category | Confirm dialog: "Delete [category name]?" / "Products in this category will need to be recategorized." / Buttons: "Cancel" and "Delete" |
-| Destructive: Remove routine step | No confirmation -- immediate removal with undo toast: "[Product name] removed from [Routine name]" with "Undo" action |
-| Success: Product added | Toast: "Product added to your collection" |
-| Success: Product updated | Toast: "Product updated" |
-| Success: Product deleted | Toast: "Product deleted" |
-| Success: Favorite toggled | No toast (instant visual feedback via heart icon) |
-| Success: Step reordered | No toast (instant visual feedback via position change) |
-| Tab labels | "Products" and "Routines" |
-| Page title | "Beauty" |
-| Routine names | "Morning" and "Evening" |
-| Category names (pre-seeded) | "Skincare", "Makeup", "Haircare", "Body Care" |
-| Filter: All | "All" |
-| Filter: Favorites | "Favorites" (with heart icon) |
+| Element                          | Copy                                                                                                                                                                     |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Primary CTA                      | "Add Product"                                                                                                                                                            |
+| Secondary CTA (routines)         | "Search products to add..." (placeholder)                                                                                                                                |
+| Empty state heading (products)   | "Start your beauty collection"                                                                                                                                           |
+| Empty state body (products)      | "Add your favorite products and build your daily routines."                                                                                                              |
+| Empty state body (routines)      | "No steps yet. Search for products to add."                                                                                                                              |
+| Error state (form validation)    | "Please fill in the required fields." (inline per-field errors)                                                                                                          |
+| Error state (server action)      | "Something went wrong. Please try again." (toast via sonner)                                                                                                             |
+| Error state (image upload)       | "Upload failed. Check your file and try again." (toast)                                                                                                                  |
+| Destructive: Delete product      | Confirm dialog: "Delete [product name]?" / "This product will be removed from your collection and any routines. This cannot be undone." / Buttons: "Cancel" and "Delete" |
+| Destructive: Delete category     | Confirm dialog: "Delete [category name]?" / "Products in this category will need to be recategorized." / Buttons: "Cancel" and "Delete"                                  |
+| Destructive: Remove routine step | No confirmation -- immediate removal with undo toast: "[Product name] removed from [Routine name]" with "Undo" action                                                    |
+| Success: Product added           | Toast: "Product added to your collection"                                                                                                                                |
+| Success: Product updated         | Toast: "Product updated"                                                                                                                                                 |
+| Success: Product deleted         | Toast: "Product deleted"                                                                                                                                                 |
+| Success: Favorite toggled        | No toast (instant visual feedback via heart icon)                                                                                                                        |
+| Success: Step reordered          | No toast (instant visual feedback via position change)                                                                                                                   |
+| Tab labels                       | "Products" and "Routines"                                                                                                                                                |
+| Page title                       | "Beauty"                                                                                                                                                                 |
+| Routine names                    | "Morning" and "Evening"                                                                                                                                                  |
+| Category names (pre-seeded)      | "Skincare", "Makeup", "Haircare", "Body Care"                                                                                                                            |
+| Filter: All                      | "All"                                                                                                                                                                    |
+| Filter: Favorites                | "Favorites" (with heart icon)                                                                                                                                            |
 
 ---
 
 ## Interaction Contracts
 
 ### Favorite Toggle
+
 - Tap heart icon on product thumbnail
 - Optimistic UI: Immediately toggle filled/outline state
 - Server Action: `toggleFavorite(productId)`
 - Error: Revert heart state, show error toast
 
 ### Product Bottom Sheet Open/Close
+
 - Open: Tap product thumbnail (not heart icon)
 - Close: Tap backdrop, swipe down (if Sheet supports), tap X button in top-right
 - Animation: Slide up from bottom, 200ms ease-out
 
 ### Drag-and-Drop Reorder
+
 - Library: @dnd-kit/core + @dnd-kit/sortable (stable, not beta @dnd-kit/react)
 - Activation: PointerSensor with distance constraint (8px) to distinguish tap from drag
 - Axis: Vertical only (restrict to vertical axis)
@@ -256,18 +273,21 @@ Supporting colors:
 - Error: Revert to previous order, show error toast
 
 ### Tab Switching
+
 - Tap "Products" or "Routines" tab
 - Content swaps immediately (no page navigation, client-side tab state)
 - URL does not change (single page at `/beauty`)
 - Active tab state persists during session
 
 ### Category Filter
+
 - Tap a category pill to filter products
 - "All" shows all products (default on page load)
 - "Favorites" filters to `isFavorite === 1` products only
 - Filter is client-side if all products loaded, or server-side fetch if paginated
 
 ### Search-to-Add Step
+
 - Type in search input (minimum 2 characters)
 - Debounce 300ms, then query products by name (client-side filter or Server Action)
 - Display matching products in dropdown
@@ -279,9 +299,9 @@ Supporting colors:
 
 ## Registry Safety
 
-| Registry | Blocks Used | Safety Gate |
-|----------|-------------|-------------|
-| shadcn official | sheet | not required |
+| Registry        | Blocks Used | Safety Gate  |
+| --------------- | ----------- | ------------ |
+| shadcn official | sheet       | not required |
 
 No third-party registries declared. All components are either existing shadcn official components or custom-built.
 

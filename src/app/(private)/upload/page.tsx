@@ -1,15 +1,13 @@
-import { ImageUploader } from "@/components/upload/image-uploader";
+import { ImageUploader } from '@/components/upload/image-uploader';
 
 export default function UploadPage() {
   return (
-    <div className="py-8 space-y-8">
+    <div className="space-y-8 py-8">
       <div>
         <h1 className="font-display text-2xl font-bold text-text-primary">
           Upload Photos
         </h1>
-        <p className="text-text-secondary mt-1">
-          Test the upload pipeline
-        </p>
+        <p className="mt-1 text-text-secondary">Test the upload pipeline</p>
       </div>
 
       <section className="space-y-4">

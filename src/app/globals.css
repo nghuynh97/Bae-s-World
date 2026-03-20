@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -51,20 +51,20 @@
   /* Design System Tokens -- Funnghy's World */
 
   /* Colors */
-  --color-dominant: #F8F6FF;
-  --color-surface: #FFFFFF;
-  --color-accent: #E8B4B8;
-  --color-accent-hover: #D4A0A5;
-  --color-destructive: #DC2626;
+  --color-dominant: #f8f6ff;
+  --color-surface: #ffffff;
+  --color-accent: #e8b4b8;
+  --color-accent-hover: #d4a0a5;
+  --color-destructive: #dc2626;
   --color-success: #059669;
   --color-paid: #059669;
-  --color-pending: #D97706;
+  --color-pending: #d97706;
 
-  --color-text-primary: #2D2235;
-  --color-text-secondary: #6B5F76;
-  --color-border: #E8E4EE;
-  --color-border-accent: #E8B4B8;
-  --color-bg-hover: #F0ECF5;
+  --color-text-primary: #2d2235;
+  --color-text-secondary: #6b5f76;
+  --color-border: #e8e4ee;
+  --color-border-accent: #e8b4b8;
+  --color-bg-hover: #f0ecf5;
   --color-shadow: rgba(232, 180, 184, 0.12);
 
   /* Typography */
@@ -83,38 +83,38 @@
 }
 
 :root {
-  --background: #F8F6FF;
-  --foreground: #2D2235;
-  --card: #FFFFFF;
-  --card-foreground: #2D2235;
-  --popover: #FFFFFF;
-  --popover-foreground: #2D2235;
-  --primary: #2D2235;
-  --primary-foreground: #F8F6FF;
-  --secondary: #F0ECF5;
-  --secondary-foreground: #2D2235;
-  --muted: #F0ECF5;
-  --muted-foreground: #6B5F76;
-  --accent: #E8B4B8;
-  --accent-foreground: #2D2235;
-  --destructive: #DC2626;
-  --border: #E8E4EE;
-  --input: #E8E4EE;
-  --ring: #E8B4B8;
+  --background: #f8f6ff;
+  --foreground: #2d2235;
+  --card: #ffffff;
+  --card-foreground: #2d2235;
+  --popover: #ffffff;
+  --popover-foreground: #2d2235;
+  --primary: #2d2235;
+  --primary-foreground: #f8f6ff;
+  --secondary: #f0ecf5;
+  --secondary-foreground: #2d2235;
+  --muted: #f0ecf5;
+  --muted-foreground: #6b5f76;
+  --accent: #e8b4b8;
+  --accent-foreground: #2d2235;
+  --destructive: #dc2626;
+  --border: #e8e4ee;
+  --input: #e8e4ee;
+  --ring: #e8b4b8;
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
   --chart-4: oklch(0.488 0.243 264.376);
   --chart-5: oklch(0.424 0.199 265.638);
   --radius: 0.625rem;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #2D2235;
-  --sidebar-primary: #2D2235;
-  --sidebar-primary-foreground: #F8F6FF;
-  --sidebar-accent: #F0ECF5;
-  --sidebar-accent-foreground: #2D2235;
-  --sidebar-border: #E8E4EE;
-  --sidebar-ring: #E8B4B8;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #2d2235;
+  --sidebar-primary: #2d2235;
+  --sidebar-primary-foreground: #f8f6ff;
+  --sidebar-accent: #f0ecf5;
+  --sidebar-accent-foreground: #2d2235;
+  --sidebar-border: #e8e4ee;
+  --sidebar-ring: #e8b4b8;
 }
 
 @layer base {
@@ -138,6 +138,10 @@
 }
 
 @keyframes page-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

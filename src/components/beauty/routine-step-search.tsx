@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useRef, useCallback } from "react";
-import { Search } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { searchBeautyProducts } from "@/actions/beauty-products";
-import { addRoutineStep } from "@/actions/routines";
+import { useState, useRef, useCallback } from 'react';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { searchBeautyProducts } from '@/actions/beauty-products';
+import { addRoutineStep } from '@/actions/routines';
 
 interface RoutineStepSearchProps {
   routineId: string;
@@ -15,7 +15,7 @@ export function RoutineStepSearch({
   routineId,
   onStepAdded,
 }: RoutineStepSearchProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [results, setResults] = useState<
     { id: string; name: string; brand: string | null; imageId: string }[]
   >([]);
@@ -50,7 +50,7 @@ export function RoutineStepSearch({
         }
       }, 300);
     },
-    []
+    [],
   );
 
   const handleSelect = useCallback(
@@ -59,7 +59,7 @@ export function RoutineStepSearch({
       setIsAdding(true);
       try {
         await addRoutineStep(routineId, productId);
-        setQuery("");
+        setQuery('');
         setResults([]);
         setIsOpen(false);
         onStepAdded();
@@ -69,7 +69,7 @@ export function RoutineStepSearch({
         setIsAdding(false);
       }
     },
-    [routineId, onStepAdded, isAdding]
+    [routineId, onStepAdded, isAdding],
   );
 
   const handleBlur = useCallback(() => {
@@ -87,19 +87,16 @@ export function RoutineStepSearch({
     }
   }, [results.length, query.length]);
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    },
-    []
-  );
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+    }
+  }, []);
 
   return (
     <div className="relative">
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           type="text"
           value={query}
@@ -113,9 +110,9 @@ export function RoutineStepSearch({
       </div>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1 bg-white shadow-md rounded-md max-h-[200px] overflow-y-auto z-20">
+        <div className="absolute top-full right-0 left-0 z-20 mt-1 max-h-[200px] overflow-y-auto rounded-md bg-white shadow-md">
           {results.length === 0 ? (
-            <p className="text-sm text-text-secondary text-center py-3 px-3">
+            <p className="px-3 py-3 text-center text-sm text-text-secondary">
               No products found
             </p>
           ) : (
@@ -124,9 +121,9 @@ export function RoutineStepSearch({
                 key={product.id}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => handleSelect(product.id)}
-                className="w-full flex items-center gap-3 py-3 px-3 hover:bg-hover cursor-pointer text-left"
+                className="hover:bg-hover flex w-full cursor-pointer items-center gap-3 px-3 py-3 text-left"
               >
-                <span className="text-sm font-body text-primary">
+                <span className="font-body text-sm text-primary">
                   {product.name}
                 </span>
                 {product.brand && (

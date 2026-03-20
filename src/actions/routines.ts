@@ -1,18 +1,18 @@
-"use server";
+'use server';
 
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
 import {
   routines,
   routineSteps,
   beautyProducts,
   images,
   imageVariants,
-} from "@/lib/db/schema";
-import { eq, asc, inArray, and, max } from "drizzle-orm";
-import { z } from "zod";
-import { revalidatePath } from "next/cache";
-import { getSignedImageUrls } from "@/lib/supabase/storage";
+} from '@/lib/db/schema';
+import { eq, asc, inArray, and, max } from 'drizzle-orm';
+import { z } from 'zod';
+import { revalidatePath } from 'next/cache';
+import { getSignedImageUrls } from '@/lib/supabase/storage';
 
 const uuidSchema = z.string().uuid();
 
@@ -37,7 +37,7 @@ export async function getRoutinesWithSteps(): Promise<RoutineWithSteps[]> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Fetch all routines ordered by displayOrder
   const allRoutines = await db
@@ -75,8 +75,8 @@ export async function getRoutinesWithSteps(): Promise<RoutineWithSteps[]> {
       .where(
         and(
           inArray(imageVariants.imageId, imageIds),
-          eq(imageVariants.variantName, "thumb")
-        )
+          eq(imageVariants.variantName, 'thumb'),
+        ),
       );
 
     if (thumbVariants.length > 0) {
@@ -85,7 +85,7 @@ export async function getRoutinesWithSteps(): Promise<RoutineWithSteps[]> {
 
       for (let i = 0; i < thumbVariants.length; i++) {
         thumbUrlByImageId[thumbVariants[i].imageId] =
-          signedUrls[i]?.signedUrl ?? "";
+          signedUrls[i]?.signedUrl ?? '';
       }
     }
   }
@@ -104,7 +104,7 @@ export async function getRoutinesWithSteps(): Promise<RoutineWithSteps[]> {
           id: s.productId,
           name: s.productName,
           brand: s.productBrand,
-          thumbnailUrl: thumbUrlByImageId[s.imageId] ?? "",
+          thumbnailUrl: thumbUrlByImageId[s.imageId] ?? '',
         },
       })),
   }));
@@ -115,13 +115,13 @@ export async function addRoutineStep(routineId: string, productId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const routineIdParsed = uuidSchema.safeParse(routineId);
-  if (!routineIdParsed.success) throw new Error("Invalid routine ID");
+  if (!routineIdParsed.success) throw new Error('Invalid routine ID');
 
   const productIdParsed = uuidSchema.safeParse(productId);
-  if (!productIdParsed.success) throw new Error("Invalid product ID");
+  if (!productIdParsed.success) throw new Error('Invalid product ID');
 
   // Calculate next stepOrder
   const [maxResult] = await db
@@ -140,7 +140,7 @@ export async function addRoutineStep(routineId: string, productId: string) {
     })
     .returning();
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return created;
 }
 
@@ -149,14 +149,14 @@ export async function removeRoutineStep(stepId: string) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const parsed = uuidSchema.safeParse(stepId);
-  if (!parsed.success) throw new Error("Invalid step ID");
+  if (!parsed.success) throw new Error('Invalid step ID');
 
   await db.delete(routineSteps).where(eq(routineSteps.id, stepId));
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return { success: true };
 }
 
@@ -167,16 +167,16 @@ const reorderSchema = z.object({
 
 export async function reorderRoutineSteps(
   routineId: string,
-  stepIds: string[]
+  stepIds: string[],
 ) {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   const parsed = reorderSchema.safeParse({ routineId, stepIds });
-  if (!parsed.success) throw new Error("Invalid input");
+  if (!parsed.success) throw new Error('Invalid input');
 
   for (let i = 0; i < stepIds.length; i++) {
     await db
@@ -185,11 +185,11 @@ export async function reorderRoutineSteps(
       .where(
         and(
           eq(routineSteps.id, stepIds[i]),
-          eq(routineSteps.routineId, routineId)
-        )
+          eq(routineSteps.routineId, routineId),
+        ),
       );
   }
 
-  revalidatePath("/beauty");
+  revalidatePath('/beauty');
   return { success: true };
 }

@@ -15,13 +15,13 @@ created: 2026-03-20
 
 ## Test Infrastructure
 
-| Property | Value |
-|----------|-------|
-| **Framework** | vitest 4.1 |
-| **Config file** | vitest.config.ts |
-| **Quick run command** | `npx vitest run --reporter=verbose` |
+| Property               | Value                               |
+| ---------------------- | ----------------------------------- |
+| **Framework**          | vitest 4.1                          |
+| **Config file**        | vitest.config.ts                    |
+| **Quick run command**  | `npx vitest run --reporter=verbose` |
 | **Full suite command** | `npx vitest run --reporter=verbose` |
-| **Estimated runtime** | ~5 seconds |
+| **Estimated runtime**  | ~5 seconds                          |
 
 ---
 
@@ -36,13 +36,13 @@ created: 2026-03-20
 
 ## Per-Task Verification Map
 
-| Task ID | Plan | Wave | Requirement | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|-----------|-------------------|-------------|--------|
-| 05-00-T1 | 05-00 | 0 | POLISH-01..05 | scaffold | `ls src/__tests__/polish/*.test.tsx \| wc -l` | Wave 0 creates | pending |
-| 05-01-T1 | 05-01 | 1 | POLISH-01, POLISH-02, POLISH-04 | unit+grep | `npx vitest run src/__tests__/polish/page-fade.test.tsx src/__tests__/polish/button-spinner.test.tsx src/__tests__/polish/toast-config.test.tsx --reporter=verbose` | Wave 0 | pending |
-| 05-01-T2 | 05-01 | 1 | POLISH-02 | grep+suite | `grep -c "motion-safe:hover:shadow-md" src/app/\(private\)/dashboard/page.tsx src/components/schedule/job-card.tsx src/components/schedule/stats-header.tsx src/components/beauty/product-grid.tsx; npx vitest run --reporter=verbose 2>&1 \| tail -5` | N/A (CSS classes) | pending |
-| 05-02-T1 | 05-02 | 2 | POLISH-03 | unit+grep | `npx vitest run src/__tests__/polish/loading-skeletons.test.tsx --reporter=verbose` | Wave 0 | pending |
-| 05-02-T2 | 05-02 | 2 | POLISH-05 | grep+suite | `grep -rl "ButtonSpinner" src/components/auth/ src/components/schedule/ src/components/beauty/ src/app/\(private\)/admin/ src/components/layout/ \| wc -l; npx vitest run --reporter=verbose 2>&1 \| tail -5` | N/A (import check) | pending |
+| Task ID  | Plan  | Wave | Requirement                     | Test Type  | Automated Command                                                                                                                                                                                                                                      | File Exists        | Status  |
+| -------- | ----- | ---- | ------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------ | ------- |
+| 05-00-T1 | 05-00 | 0    | POLISH-01..05                   | scaffold   | `ls src/__tests__/polish/*.test.tsx \| wc -l`                                                                                                                                                                                                          | Wave 0 creates     | pending |
+| 05-01-T1 | 05-01 | 1    | POLISH-01, POLISH-02, POLISH-04 | unit+grep  | `npx vitest run src/__tests__/polish/page-fade.test.tsx src/__tests__/polish/button-spinner.test.tsx src/__tests__/polish/toast-config.test.tsx --reporter=verbose`                                                                                    | Wave 0             | pending |
+| 05-01-T2 | 05-01 | 1    | POLISH-02                       | grep+suite | `grep -c "motion-safe:hover:shadow-md" src/app/\(private\)/dashboard/page.tsx src/components/schedule/job-card.tsx src/components/schedule/stats-header.tsx src/components/beauty/product-grid.tsx; npx vitest run --reporter=verbose 2>&1 \| tail -5` | N/A (CSS classes)  | pending |
+| 05-02-T1 | 05-02 | 2    | POLISH-03                       | unit+grep  | `npx vitest run src/__tests__/polish/loading-skeletons.test.tsx --reporter=verbose`                                                                                                                                                                    | Wave 0             | pending |
+| 05-02-T2 | 05-02 | 2    | POLISH-05                       | grep+suite | `grep -rl "ButtonSpinner" src/components/auth/ src/components/schedule/ src/components/beauty/ src/app/\(private\)/admin/ src/components/layout/ \| wc -l; npx vitest run --reporter=verbose 2>&1 \| tail -5`                                          | N/A (import check) | pending |
 
 ---
 
@@ -59,13 +59,13 @@ Wave 0 plan `05-00-PLAN.md` creates 4 test stub files:
 
 ## Manual-Only Verifications
 
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| Page fade transitions | DESG-04 | CSS animation requires browser | Navigate between pages, verify smooth fade |
-| Hover effects on cards | DESG-04 | CSS hover requires browser | Hover over portfolio/beauty/schedule cards |
-| Button press scale | DESG-04 | Touch interaction | Tap buttons on mobile, verify 0.97x scale |
-| Loading skeletons | DESG-04 | Visual rendering | Refresh pages, verify skeleton pulse appears |
-| Toast animations | DESG-04 | Animation timing | Trigger success/error, verify top-center + fade |
+| Behavior               | Requirement | Why Manual                     | Test Instructions                               |
+| ---------------------- | ----------- | ------------------------------ | ----------------------------------------------- |
+| Page fade transitions  | DESG-04     | CSS animation requires browser | Navigate between pages, verify smooth fade      |
+| Hover effects on cards | DESG-04     | CSS hover requires browser     | Hover over portfolio/beauty/schedule cards      |
+| Button press scale     | DESG-04     | Touch interaction              | Tap buttons on mobile, verify 0.97x scale       |
+| Loading skeletons      | DESG-04     | Visual rendering               | Refresh pages, verify skeleton pulse appears    |
+| Toast animations       | DESG-04     | Animation timing               | Trigger success/error, verify top-center + fade |
 
 ---
 

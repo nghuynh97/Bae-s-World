@@ -1,5 +1,5 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
@@ -14,15 +14,15 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
+            request.cookies.set(name, value),
           );
           supabaseResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options),
           );
         },
       },
-    }
+    },
   );
 
   // IMPORTANT: Use getUser() -- it sends a request to the Supabase Auth
@@ -36,22 +36,22 @@ export async function updateSession(request: NextRequest) {
   // Protect private routes -- redirect unauthenticated users to /login
   if (
     !user &&
-    (pathname.startsWith("/dashboard") ||
-      pathname.startsWith("/beauty") ||
-      pathname.startsWith("/schedule") ||
-      pathname.startsWith("/journal") ||
-      pathname.startsWith("/upload") ||
-      pathname.startsWith("/admin"))
+    (pathname.startsWith('/dashboard') ||
+      pathname.startsWith('/beauty') ||
+      pathname.startsWith('/schedule') ||
+      pathname.startsWith('/journal') ||
+      pathname.startsWith('/upload') ||
+      pathname.startsWith('/admin'))
   ) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = '/login';
     return NextResponse.redirect(url);
   }
 
   // Redirect authenticated users away from auth pages
-  if (user && (pathname === "/login" || pathname === "/setup")) {
+  if (user && (pathname === '/login' || pathname === '/setup')) {
     const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
+    url.pathname = '/dashboard';
     return NextResponse.redirect(url);
   }
 

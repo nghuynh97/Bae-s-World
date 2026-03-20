@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Trash2 } from "lucide-react";
-import { toast } from "sonner";
+import { useState, useEffect, useRef } from 'react';
+import { Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   getBeautyCategories,
   createBeautyCategory,
   updateBeautyCategory,
   deleteBeautyCategory,
-} from "@/actions/beauty-categories";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from '@/actions/beauty-categories';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogClose,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 interface BeautyCategory {
   id: string;
@@ -41,9 +41,9 @@ export function BeautyCategoryManager({
   onCategoriesChanged,
 }: BeautyCategoryManagerProps) {
   const [categories, setCategories] = useState<BeautyCategory[]>([]);
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editName, setEditName] = useState("");
+  const [editName, setEditName] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -71,13 +71,13 @@ export function BeautyCategoryManager({
     setIsAdding(true);
     try {
       await createBeautyCategory({ name: newName.trim() });
-      setNewName("");
-      toast.success("Category created");
+      setNewName('');
+      toast.success('Category created');
       await loadCategories();
       onCategoriesChanged();
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to create category"
+        err instanceof Error ? err.message : 'Failed to create category',
       );
     } finally {
       setIsAdding(false);
@@ -91,12 +91,12 @@ export function BeautyCategoryManager({
     }
     try {
       await updateBeautyCategory(categoryId, { name: editName.trim() });
-      toast.success("Category updated");
+      toast.success('Category updated');
       await loadCategories();
       onCategoriesChanged();
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to update category"
+        err instanceof Error ? err.message : 'Failed to update category',
       );
     }
     setEditingId(null);
@@ -107,13 +107,13 @@ export function BeautyCategoryManager({
     setIsDeleting(true);
     try {
       await deleteBeautyCategory(deleteId);
-      toast.success("Category deleted");
+      toast.success('Category deleted');
       setDeleteId(null);
       await loadCategories();
       onCategoriesChanged();
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to delete category"
+        err instanceof Error ? err.message : 'Failed to delete category',
       );
     } finally {
       setIsDeleting(false);
@@ -137,10 +137,10 @@ export function BeautyCategoryManager({
             {categories.map((cat) => (
               <div
                 key={cat.id}
-                className="flex items-center justify-between py-3 border-b border-border"
+                className="flex items-center justify-between border-b border-border py-3"
               >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <span className="text-sm text-text-secondary w-6 text-center">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
+                  <span className="w-6 text-center text-sm text-text-secondary">
                     {cat.displayOrder}
                   </span>
                   {editingId === cat.id ? (
@@ -150,19 +150,19 @@ export function BeautyCategoryManager({
                       onChange={(e) => setEditName(e.target.value)}
                       onBlur={() => handleEditSave(cat.id)}
                       onKeyDown={(e) => {
-                        if (e.key === "Enter") handleEditSave(cat.id);
-                        if (e.key === "Escape") setEditingId(null);
+                        if (e.key === 'Enter') handleEditSave(cat.id);
+                        if (e.key === 'Escape') setEditingId(null);
                       }}
                       className="max-w-[200px]"
                     />
                   ) : (
                     <button
                       onClick={() => startEditing(cat)}
-                      className="text-sm text-text-primary hover:text-accent cursor-pointer text-left truncate"
+                      className="cursor-pointer truncate text-left text-sm text-text-primary hover:text-accent"
                     >
                       {cat.name}
                       {cat.isDefault === 1 && (
-                        <span className="ml-2 text-text-secondary text-xs">
+                        <span className="ml-2 text-xs text-text-secondary">
                           (default)
                         </span>
                       )}
@@ -181,22 +181,22 @@ export function BeautyCategoryManager({
             ))}
           </div>
 
-          <div className="flex items-center gap-3 mt-4">
+          <div className="mt-4 flex items-center gap-3">
             <Input
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               placeholder="New category name"
               maxLength={50}
               onKeyDown={(e) => {
-                if (e.key === "Enter") handleAdd();
+                if (e.key === 'Enter') handleAdd();
               }}
             />
             <Button
-              className="bg-accent text-white hover:bg-accent-hover shrink-0"
+              className="shrink-0 bg-accent text-white hover:bg-accent-hover"
               onClick={handleAdd}
               disabled={isAdding || !newName.trim()}
             >
-              {isAdding ? "Adding..." : "Add Category"}
+              {isAdding ? 'Adding...' : 'Add Category'}
             </Button>
           </div>
         </DialogContent>
@@ -226,7 +226,7 @@ export function BeautyCategoryManager({
               onClick={handleDelete}
               disabled={isDeleting}
             >
-              {isDeleting ? "Deleting..." : "Delete Category"}
+              {isDeleting ? 'Deleting...' : 'Delete Category'}
             </Button>
           </DialogFooter>
         </DialogContent>

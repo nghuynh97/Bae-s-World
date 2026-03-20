@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
-import { JobCard } from "./job-card";
+import { format } from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { JobCard } from './job-card';
 
 interface Job {
   id: string;
@@ -27,16 +27,16 @@ interface DayDetailProps {
 
 export function DayDetail({ date, jobs, onAddJob, onEditJob }: DayDetailProps) {
   const jobCount = jobs.length;
-  const jobLabel = jobCount === 1 ? "1 job" : `${jobCount} jobs`;
+  const jobLabel = jobCount === 1 ? '1 job' : `${jobCount} jobs`;
 
   return (
-    <div className="mt-4 p-4 animate-in slide-in-from-top-2 duration-200">
+    <div className="mt-4 animate-in p-4 duration-200 slide-in-from-top-2">
       {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <h3 className="text-sm font-bold font-body text-primary">
-          {format(date, "EEEE, MMMM d, yyyy")}
+      <div className="mb-4 flex items-center gap-2">
+        <h3 className="font-body text-sm font-bold text-primary">
+          {format(date, 'EEEE, MMMM d, yyyy')}
         </h3>
-        <span className="bg-muted rounded-full px-2 py-0.5 text-xs font-body text-secondary">
+        <span className="rounded-full bg-muted px-2 py-0.5 font-body text-xs text-secondary">
           {jobLabel}
         </span>
       </div>
@@ -49,7 +49,7 @@ export function DayDetail({ date, jobs, onAddJob, onEditJob }: DayDetailProps) {
           ))}
         </div>
       ) : (
-        <p className="text-sm font-body text-secondary text-center py-4">
+        <p className="py-4 text-center font-body text-sm text-secondary">
           No jobs on this day. Tap + to add one.
         </p>
       )}
@@ -57,7 +57,7 @@ export function DayDetail({ date, jobs, onAddJob, onEditJob }: DayDetailProps) {
       {/* Add Job button */}
       <Button
         onClick={onAddJob}
-        className="w-full mt-4 bg-accent text-white hover:bg-accent-hover"
+        className="mt-4 w-full bg-accent text-white hover:bg-accent-hover"
       >
         Add Job
       </Button>

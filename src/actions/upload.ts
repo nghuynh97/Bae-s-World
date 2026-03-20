@@ -1,34 +1,34 @@
-"use server";
+'use server';
 
-import { randomUUID } from "crypto";
-import sharp from "sharp";
-import { createClient } from "@/lib/supabase/server";
-import { db } from "@/lib/db";
-import { images, imageVariants } from "@/lib/db/schema";
+import { randomUUID } from 'crypto';
+import sharp from 'sharp';
+import { createClient } from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { images, imageVariants } from '@/lib/db/schema';
 
 const SIZE_VARIANTS = [
-  { name: "thumb", width: 400 },
-  { name: "medium", width: 800 },
-  { name: "large", width: 1200 },
-  { name: "full", width: 1920 },
+  { name: 'thumb', width: 400 },
+  { name: 'medium', width: 800 },
+  { name: 'large', width: 1200 },
+  { name: 'full', width: 1920 },
 ] as const;
 
-const ALLOWED_FORMATS = ["jpeg", "png", "webp"];
+const ALLOWED_FORMATS = ['jpeg', 'png', 'webp'];
 
 export async function uploadImage(
   formData: FormData,
-  options: { bucket: "public-images" | "private-images"; folder: string }
+  options: { bucket: 'public-images' | 'private-images'; folder: string },
 ) {
   // Auth check
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+  if (!user) throw new Error('Unauthorized');
 
   // Extract file
-  const file = formData.get("file") as File;
-  if (!file) throw new Error("No file provided");
+  const file = formData.get('file') as File;
+  if (!file) throw new Error('No file provided');
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
@@ -36,7 +36,7 @@ export async function uploadImage(
   const metadata = await sharp(buffer).metadata();
   if (!metadata.format || !ALLOWED_FORMATS.includes(metadata.format)) {
     throw new Error(
-      `Invalid file type: ${metadata.format || "unknown"}. Allowed: ${ALLOWED_FORMATS.join(", ")}`
+      `Invalid file type: ${metadata.format || 'unknown'}. Allowed: ${ALLOWED_FORMATS.join(', ')}`,
     );
   }
 
@@ -55,7 +55,7 @@ export async function uploadImage(
 
   for (const variant of SIZE_VARIANTS) {
     // Skip if variant width >= original width AND variant is not "full"
-    if (variant.width >= originalWidth && variant.name !== "full") {
+    if (variant.width >= originalWidth && variant.name !== 'full') {
       continue;
     }
 
@@ -71,7 +71,7 @@ export async function uploadImage(
     const { error: uploadError } = await supabase.storage
       .from(options.bucket)
       .upload(storagePath, processed, {
-        contentType: "image/webp",
+        contentType: 'image/webp',
         upsert: false,
       });
 

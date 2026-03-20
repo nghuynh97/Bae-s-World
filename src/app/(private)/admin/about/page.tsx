@@ -1,35 +1,23 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { getAboutContent, updateAboutContent } from "@/actions/about";
-import { ImageUploader } from "@/components/upload/image-uploader";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { getAboutContent, updateAboutContent } from '@/actions/about';
+import { ImageUploader } from '@/components/upload/image-uploader';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 const aboutSchema = z.object({
-  bio: z.string().max(2000, "Bio too long").optional(),
-  email: z
-    .string()
-    .email("Invalid email")
-    .optional()
-    .or(z.literal("")),
-  instagramUrl: z
-    .string()
-    .url("Invalid URL")
-    .optional()
-    .or(z.literal("")),
-  tiktokUrl: z
-    .string()
-    .url("Invalid URL")
-    .optional()
-    .or(z.literal("")),
+  bio: z.string().max(2000, 'Bio too long').optional(),
+  email: z.string().email('Invalid email').optional().or(z.literal('')),
+  instagramUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
+  tiktokUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
 });
 
 type AboutFormData = z.infer<typeof aboutSchema>;
@@ -64,10 +52,10 @@ export default function AboutEditorPage() {
     getAboutContent().then((content) => {
       if (content) {
         reset({
-          bio: content.bio ?? "",
-          email: content.email ?? "",
-          instagramUrl: content.instagramUrl ?? "",
-          tiktokUrl: content.tiktokUrl ?? "",
+          bio: content.bio ?? '',
+          email: content.email ?? '',
+          instagramUrl: content.instagramUrl ?? '',
+          tiktokUrl: content.tiktokUrl ?? '',
         });
         if (content.profileImageId) {
           setProfileImageId(content.profileImageId);
@@ -90,9 +78,9 @@ export default function AboutEditorPage() {
         tiktokUrl: data.tiktokUrl || null,
         profileImageId: profileImageId || null,
       });
-      toast.success("About page saved");
+      toast.success('About page saved');
     } catch {
-      toast.error("Changes could not be saved. Please try again.");
+      toast.error('Changes could not be saved. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -100,8 +88,8 @@ export default function AboutEditorPage() {
 
   if (isLoading) {
     return (
-      <div className="py-8 md:py-12 max-w-xl mx-auto">
-        <h1 className="font-display text-xl font-bold text-text-primary mb-6">
+      <div className="mx-auto max-w-xl py-8 md:py-12">
+        <h1 className="mb-6 font-display text-xl font-bold text-text-primary">
           About Page
         </h1>
         <p className="text-text-secondary">Loading...</p>
@@ -110,12 +98,12 @@ export default function AboutEditorPage() {
   }
 
   const profileThumb = existingProfileImage?.variants.find(
-    (v) => v.variantName === "thumb"
+    (v) => v.variantName === 'thumb',
   );
 
   return (
-    <div className="py-8 md:py-12 max-w-xl mx-auto">
-      <h1 className="font-display text-xl font-bold text-text-primary mb-6">
+    <div className="mx-auto max-w-xl py-8 md:py-12">
+      <h1 className="mb-6 font-display text-xl font-bold text-text-primary">
         About Page
       </h1>
 
@@ -125,11 +113,11 @@ export default function AboutEditorPage() {
           <Textarea
             id="bio"
             maxLength={2000}
-            {...register("bio")}
+            {...register('bio')}
             className="min-h-[200px] resize-y"
           />
           {errors.bio && (
-            <p className="text-sm text-destructive mt-1">
+            <p className="mt-1 text-sm text-destructive">
               {errors.bio.message}
             </p>
           )}
@@ -140,11 +128,11 @@ export default function AboutEditorPage() {
           <Input
             id="email"
             type="email"
-            {...register("email")}
+            {...register('email')}
             aria-invalid={!!errors.email}
           />
           {errors.email && (
-            <p className="text-sm text-destructive mt-1">
+            <p className="mt-1 text-sm text-destructive">
               {errors.email.message}
             </p>
           )}
@@ -156,11 +144,11 @@ export default function AboutEditorPage() {
             id="instagramUrl"
             type="url"
             placeholder="https://instagram.com/..."
-            {...register("instagramUrl")}
+            {...register('instagramUrl')}
             aria-invalid={!!errors.instagramUrl}
           />
           {errors.instagramUrl && (
-            <p className="text-sm text-destructive mt-1">
+            <p className="mt-1 text-sm text-destructive">
               {errors.instagramUrl.message}
             </p>
           )}
@@ -172,11 +160,11 @@ export default function AboutEditorPage() {
             id="tiktokUrl"
             type="url"
             placeholder="https://tiktok.com/@..."
-            {...register("tiktokUrl")}
+            {...register('tiktokUrl')}
             aria-invalid={!!errors.tiktokUrl}
           />
           {errors.tiktokUrl && (
-            <p className="text-sm text-destructive mt-1">
+            <p className="mt-1 text-sm text-destructive">
               {errors.tiktokUrl.message}
             </p>
           )}
@@ -189,7 +177,7 @@ export default function AboutEditorPage() {
               <img
                 src={profileThumb.url}
                 alt="Current profile photo"
-                className="w-20 h-20 rounded-lg object-cover"
+                className="h-20 w-20 rounded-lg object-cover"
               />
             </div>
           )}
@@ -203,12 +191,12 @@ export default function AboutEditorPage() {
         <div className="pt-2">
           <Button
             type="submit"
-            className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
+            className="bg-accent text-white transition-all duration-100 hover:bg-accent-hover active:scale-[0.97]"
             disabled={isSubmitting}
           >
             <span className="inline-flex items-center gap-2">
               {isSubmitting && <ButtonSpinner />}
-              {isSubmitting ? "Saving..." : "Save About Page"}
+              {isSubmitting ? 'Saving...' : 'Save About Page'}
             </span>
           </Button>
         </div>

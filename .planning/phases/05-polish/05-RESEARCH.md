@@ -17,6 +17,7 @@ The key technical challenge is page transitions in the App Router. Next.js 16 ha
 ## User Constraints (from CONTEXT.md)
 
 ### Locked Decisions
+
 - Subtle fade transition (200-300ms) on all route changes, applied globally
 - Very subtle hover effects -- barely visible lift/shadow change on cards and interactive elements
 - Buttons: scale down to 0.97x on press/tap for tactile feedback on mobile
@@ -29,6 +30,7 @@ The key technical challenge is page transitions in the App Router. Next.js 16 ha
 - Consistent spinner across all forms (login, job form, product form, about editor, etc.)
 
 ### Claude's Discretion
+
 - Exact fade timing and easing curve
 - Shadow values for hover lift effect
 - Skeleton layout specifics per page
@@ -36,6 +38,7 @@ The key technical challenge is page transitions in the App Router. Next.js 16 ha
 - Whether to add motion-reduce media query support
 
 ### Deferred Ideas (OUT OF SCOPE)
+
 - Seasonal theme variations (PERS-01) -- v2 feature
 - Customizable accent color (PERS-02) -- v2 feature
 
@@ -45,8 +48,8 @@ The key technical challenge is page transitions in the App Router. Next.js 16 ha
 
 ## Phase Requirements
 
-| ID | Description | Research Support |
-|----|-------------|-----------------|
+| ID      | Description                                                                                           | Research Support                                                                                                                                                                                              |
+| ------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DESG-04 | UI includes subtle micro-animations and transitions (hover effects, page transitions, loading states) | All research sections below directly enable this -- page fade via template.tsx, hover effects via Tailwind transitions, loading skeletons via shadcn Skeleton + loading.tsx, button spinners via Loader2 icon |
 
 </phase_requirements>
@@ -55,21 +58,21 @@ The key technical challenge is page transitions in the App Router. Next.js 16 ha
 
 ### Core (Already Installed -- No New Dependencies)
 
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| Tailwind CSS | 4.x | Transition/animation utilities, motion-safe/motion-reduce variants | Already in project, provides all needed animation utilities |
-| shadcn Skeleton | (bundled) | Loading skeleton pulse animation | Already in project at `src/components/ui/skeleton.tsx` |
-| sonner | 2.0.7 | Toast notifications with slide-up animation | Already installed and configured in root layout |
-| lucide-react | 0.577.0 | Loader2 spinner icon for button loading states | Already installed, Loader2 is the standard spinner icon |
-| tw-animate-css | 1.4.0 | CSS animation utilities for Tailwind | Already installed, provides `animate-in`, `fade-in`, keyframe utilities |
+| Library         | Version   | Purpose                                                            | Why Standard                                                            |
+| --------------- | --------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| Tailwind CSS    | 4.x       | Transition/animation utilities, motion-safe/motion-reduce variants | Already in project, provides all needed animation utilities             |
+| shadcn Skeleton | (bundled) | Loading skeleton pulse animation                                   | Already in project at `src/components/ui/skeleton.tsx`                  |
+| sonner          | 2.0.7     | Toast notifications with slide-up animation                        | Already installed and configured in root layout                         |
+| lucide-react    | 0.577.0   | Loader2 spinner icon for button loading states                     | Already installed, Loader2 is the standard spinner icon                 |
+| tw-animate-css  | 1.4.0     | CSS animation utilities for Tailwind                               | Already installed, provides `animate-in`, `fade-in`, keyframe utilities |
 
 ### Alternatives Considered
 
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| CSS keyframes | framer-motion | Adds 30KB+ bundle for animations achievable with CSS; overkill for subtle fades |
+| Instead of           | Could Use                   | Tradeoff                                                                                   |
+| -------------------- | --------------------------- | ------------------------------------------------------------------------------------------ |
+| CSS keyframes        | framer-motion               | Adds 30KB+ bundle for animations achievable with CSS; overkill for subtle fades            |
 | template.tsx fade-in | experimental viewTransition | viewTransition is experimental in Next.js 16, not production-ready; template.tsx is stable |
-| CSS active:scale | framer-motion whileTap | CSS is zero-JS, works identically for 0.97x scale on press |
+| CSS active:scale     | framer-motion whileTap      | CSS is zero-JS, works identically for 0.97x scale on press                                 |
 
 **Installation:** None required. All dependencies already present.
 
@@ -109,22 +112,23 @@ src/
 **Why template.tsx:** Next.js App Router re-creates template instances on navigation. A CSS `animation` on mount creates the fade-in effect automatically without any JavaScript state management.
 
 **Example:**
+
 ```tsx
 // src/app/(public)/template.tsx
 export default function Template({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="motion-safe:animate-fade-in">
-      {children}
-    </div>
-  );
+  return <div className="motion-safe:animate-fade-in">{children}</div>;
 }
 ```
 
 ```css
 /* In globals.css */
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .animate-fade-in {
@@ -141,9 +145,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
 **When to use:** All interactive card-like elements (dashboard cards, beauty product cards, schedule items).
 
 **Example:**
+
 ```tsx
 // Hover pattern for cards
-<Card className="transition-all duration-200 ease-out hover:shadow-lg hover:-translate-y-0.5">
+<Card className="transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg">
   {/* content */}
 </Card>
 ```
@@ -155,6 +160,7 @@ The existing design tokens provide `--shadow-sm`, `--shadow-md`, `--shadow-lg` w
 **What:** Buttons and tappable elements scale to 0.97x on active/press for tactile feedback.
 
 **Example:**
+
 ```tsx
 <button className="transition-transform duration-100 active:scale-[0.97]">
   Save
@@ -168,9 +174,10 @@ This is especially important for mobile where hover states don't exist. The `act
 **What:** A reusable component that shows a spinning Loader2 icon inside a button when a form is submitting.
 
 **Example:**
+
 ```tsx
 // src/components/ui/button-spinner.tsx
-import { Loader2 } from "lucide-react";
+import { Loader2 } from 'lucide-react';
 
 export function ButtonSpinner() {
   return <Loader2 className="size-4 animate-spin" />;
@@ -179,8 +186,8 @@ export function ButtonSpinner() {
 // Usage in forms:
 <Button type="submit" disabled={isPending}>
   {isPending && <ButtonSpinner />}
-  {isPending ? "Saving..." : "Save Changes"}
-</Button>
+  {isPending ? 'Saving...' : 'Save Changes'}
+</Button>;
 ```
 
 ### Pattern 5: Loading Skeleton Matching Content Layout
@@ -188,15 +195,16 @@ export function ButtonSpinner() {
 **What:** Each `loading.tsx` file renders Skeleton components that match the shape of the actual loaded content -- same grid columns, same card aspect ratios, same spacing.
 
 **Example for dashboard:**
+
 ```tsx
 // src/app/(private)/dashboard/loading.tsx
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardLoading() {
   return (
     <div className="py-8 md:py-12">
-      <Skeleton className="h-8 w-64 mb-6 md:mb-8" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <Skeleton className="mb-6 h-8 w-64 md:mb-8" />
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
         {Array.from({ length: 3 }).map((_, i) => (
           <Skeleton key={i} className="h-52 rounded-[16px]" />
         ))}
@@ -216,47 +224,53 @@ export default function DashboardLoading() {
 
 ## Don't Hand-Roll
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Page transition system | Custom router interceptor with animation state | `template.tsx` + CSS keyframes | template.tsx is the App Router's built-in solution for per-navigation re-render |
-| Toast animations | Custom toast animation system | sonner's built-in slide animation | sonner already handles enter/exit/swipe animations; just configure position and duration |
-| Skeleton pulse animation | Custom CSS shimmer/pulse | shadcn `Skeleton` component | Already installed, uses `animate-pulse`, matches design system |
-| Reduced motion handling | Custom JS `matchMedia` listener | Tailwind `motion-safe:` / `motion-reduce:` variants | Built into Tailwind, zero JS, works with CSS animations |
-| Spinner animation | Custom SVG spinner | Lucide `Loader2` + `animate-spin` | Already used in sonner config, consistent with icon set |
+| Problem                  | Don't Build                                    | Use Instead                                         | Why                                                                                      |
+| ------------------------ | ---------------------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Page transition system   | Custom router interceptor with animation state | `template.tsx` + CSS keyframes                      | template.tsx is the App Router's built-in solution for per-navigation re-render          |
+| Toast animations         | Custom toast animation system                  | sonner's built-in slide animation                   | sonner already handles enter/exit/swipe animations; just configure position and duration |
+| Skeleton pulse animation | Custom CSS shimmer/pulse                       | shadcn `Skeleton` component                         | Already installed, uses `animate-pulse`, matches design system                           |
+| Reduced motion handling  | Custom JS `matchMedia` listener                | Tailwind `motion-safe:` / `motion-reduce:` variants | Built into Tailwind, zero JS, works with CSS animations                                  |
+| Spinner animation        | Custom SVG spinner                             | Lucide `Loader2` + `animate-spin`                   | Already used in sonner config, consistent with icon set                                  |
 
 ## Common Pitfalls
 
 ### Pitfall 1: template.tsx vs layout.tsx Confusion
+
 **What goes wrong:** Placing animation wrapper in `layout.tsx` -- animations only play on first load, never again on navigation.
 **Why it happens:** `layout.tsx` persists across navigations and does not re-mount.
 **How to avoid:** Always use `template.tsx` for animations that should replay on every route change.
 **Warning signs:** Animation works on hard refresh but not on client-side navigation.
 
 ### Pitfall 2: Forgetting motion-safe Prefix
+
 **What goes wrong:** Users with "reduce motion" OS setting still see all animations.
 **Why it happens:** Animations applied without the `motion-safe:` variant.
 **How to avoid:** Prefix all animation/transition classes with `motion-safe:`. The project already uses this pattern on gallery cards.
 **Warning signs:** Accessibility audit flags motion issues.
 
 ### Pitfall 3: Skeleton Layout Mismatch Causing Layout Shift
+
 **What goes wrong:** Page content "jumps" when it replaces the skeleton because skeleton dimensions don't match.
 **Why it happens:** Skeleton uses different grid columns or padding than actual content.
 **How to avoid:** Copy the exact same grid/spacing classes from the page component into the loading.tsx skeleton.
 **Warning signs:** Visible layout shift (CLS) when content loads.
 
 ### Pitfall 4: Button Spinner Without disabled State
+
 **What goes wrong:** User double-submits a form while the first submission is still in progress.
 **Why it happens:** Button shows spinner but isn't disabled.
 **How to avoid:** Always pair spinner display with `disabled={isPending}` on the button.
 **Warning signs:** Duplicate entries created, toast errors about concurrent submissions.
 
 ### Pitfall 5: Animating Non-Composited Properties
+
 **What goes wrong:** Janky, stuttery animations on lower-powered mobile devices.
 **Why it happens:** Animating `margin`, `padding`, `width`, `height` triggers CPU layout recalculation every frame.
 **How to avoid:** Only animate `opacity` and `transform` (translate, scale, rotate). These are GPU-composited.
 **Warning signs:** Animations stutter on mobile, Chrome DevTools shows layout thrashing.
 
 ### Pitfall 6: Sonner Position Conflicting with Bottom Tab Bar
+
 **What goes wrong:** Toast appears behind or overlapping with the bottom tab bar on mobile.
 **Why it happens:** Sonner defaults to bottom-right, mobile layout has a fixed bottom tab bar.
 **How to avoid:** Use `position="top-center"` or add bottom offset. Check the existing `BottomTabBar` height (h-14 = 56px) and add appropriate offset.
@@ -269,8 +283,12 @@ export default function DashboardLoading() {
 ```css
 /* Page transition fade-in */
 @keyframes page-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Utility class -- apply in template.tsx */
@@ -287,11 +305,7 @@ export default function DashboardLoading() {
 // src/app/(auth)/template.tsx
 
 export default function Template({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="motion-safe:animate-page-fade-in">
-      {children}
-    </div>
-  );
+  return <div className="motion-safe:animate-page-fade-in">{children}</div>;
 }
 ```
 
@@ -312,13 +326,13 @@ Note: `top-center` avoids bottom tab bar conflict on mobile. The slide-down anim
 
 ```tsx
 // src/components/ui/button-spinner.tsx
-import { Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function ButtonSpinner({ className }: { className?: string }) {
   return (
     <Loader2
-      className={cn("size-4 animate-spin", className)}
+      className={cn('size-4 animate-spin', className)}
       aria-hidden="true"
     />
   );
@@ -356,14 +370,15 @@ export function ButtonSpinner({ className }: { className?: string }) {
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| Framer Motion `AnimatePresence` for page transitions | CSS keyframes in `template.tsx` | Next.js 13+ App Router | No JS bundle cost, works with streaming/Suspense |
-| `pages/_app.tsx` transition wrapper | `app/**/template.tsx` per route group | Next.js 13+ | template.tsx re-mounts on navigation by design |
-| Custom shimmer CSS | shadcn `Skeleton` with `animate-pulse` | shadcn adoption | Consistent with design system, zero config |
-| Experimental `viewTransition` config | Still experimental in Next.js 16.2 | Ongoing | Not production-ready; use template.tsx instead |
+| Old Approach                                         | Current Approach                       | When Changed           | Impact                                           |
+| ---------------------------------------------------- | -------------------------------------- | ---------------------- | ------------------------------------------------ |
+| Framer Motion `AnimatePresence` for page transitions | CSS keyframes in `template.tsx`        | Next.js 13+ App Router | No JS bundle cost, works with streaming/Suspense |
+| `pages/_app.tsx` transition wrapper                  | `app/**/template.tsx` per route group  | Next.js 13+            | template.tsx re-mounts on navigation by design   |
+| Custom shimmer CSS                                   | shadcn `Skeleton` with `animate-pulse` | shadcn adoption        | Consistent with design system, zero config       |
+| Experimental `viewTransition` config                 | Still experimental in Next.js 16.2     | Ongoing                | Not production-ready; use template.tsx instead   |
 
 **Deprecated/outdated:**
+
 - `next-page-transitions` library: Designed for Pages Router, does not work with App Router
 - `viewTransition` experimental flag: Available but explicitly marked "not recommended for production" in Next.js 16.2 docs
 
@@ -383,22 +398,22 @@ export function ButtonSpinner({ className }: { className?: string }) {
 
 ### Test Framework
 
-| Property | Value |
-|----------|-------|
-| Framework | vitest 4.1.0 + @testing-library/react 16.3.2 |
-| Config file | `vitest.config.ts` |
-| Quick run command | `npx vitest run --reporter=verbose` |
-| Full suite command | `npx vitest run --reporter=verbose` |
+| Property           | Value                                        |
+| ------------------ | -------------------------------------------- |
+| Framework          | vitest 4.1.0 + @testing-library/react 16.3.2 |
+| Config file        | `vitest.config.ts`                           |
+| Quick run command  | `npx vitest run --reporter=verbose`          |
+| Full suite command | `npx vitest run --reporter=verbose`          |
 
 ### Phase Requirements -> Test Map
 
-| Req ID | Behavior | Test Type | Automated Command | File Exists? |
-|--------|----------|-----------|-------------------|-------------|
-| DESG-04a | Page fade animation renders via template.tsx | unit | `npx vitest run src/__tests__/polish/page-fade.test.tsx -x` | Wave 0 |
-| DESG-04b | ButtonSpinner component renders spinner when isPending | unit | `npx vitest run src/__tests__/polish/button-spinner.test.tsx -x` | Wave 0 |
-| DESG-04c | Loading skeletons exist for all 4 main pages | unit | `npx vitest run src/__tests__/polish/loading-skeletons.test.tsx -x` | Wave 0 |
-| DESG-04d | Hover effects use motion-safe prefix | manual-only | Visual inspection | N/A |
-| DESG-04e | Toast configuration has correct position and duration | unit | `npx vitest run src/__tests__/polish/toast-config.test.tsx -x` | Wave 0 |
+| Req ID   | Behavior                                               | Test Type   | Automated Command                                                   | File Exists? |
+| -------- | ------------------------------------------------------ | ----------- | ------------------------------------------------------------------- | ------------ |
+| DESG-04a | Page fade animation renders via template.tsx           | unit        | `npx vitest run src/__tests__/polish/page-fade.test.tsx -x`         | Wave 0       |
+| DESG-04b | ButtonSpinner component renders spinner when isPending | unit        | `npx vitest run src/__tests__/polish/button-spinner.test.tsx -x`    | Wave 0       |
+| DESG-04c | Loading skeletons exist for all 4 main pages           | unit        | `npx vitest run src/__tests__/polish/loading-skeletons.test.tsx -x` | Wave 0       |
+| DESG-04d | Hover effects use motion-safe prefix                   | manual-only | Visual inspection                                                   | N/A          |
+| DESG-04e | Toast configuration has correct position and duration  | unit        | `npx vitest run src/__tests__/polish/toast-config.test.tsx -x`      | Wave 0       |
 
 ### Sampling Rate
 
@@ -416,23 +431,27 @@ export function ButtonSpinner({ className }: { className?: string }) {
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [Next.js viewTransition docs](https://nextjs.org/docs/app/api-reference/config/next-config-js/viewTransition) -- confirmed experimental status, not production-ready
 - Existing codebase analysis -- `template.tsx`, `loading.tsx`, `skeleton.tsx`, `sonner.tsx`, `gallery-card.tsx` patterns
 - [Sonner official site](https://sonner.emilkowal.ski/) -- position prop, duration prop, built-in animations
 - package.json -- verified all dependency versions (sonner 2.0.7, next 16.2.0, lucide-react 0.577.0)
 
 ### Secondary (MEDIUM confidence)
+
 - [Next.js GitHub Discussion #42658](https://github.com/vercel/next.js/discussions/42658) -- community consensus on template.tsx approach
 - [Next.js GitHub Discussion #59723](https://github.com/vercel/next.js/discussions/59723) -- fade transition patterns with App Router
 - [Epic Web Dev - Motion Safe/Reduce](https://www.epicweb.dev/tips/motion-safe-and-motion-reduce-modifiers) -- Tailwind motion-safe/motion-reduce usage
 - [MDN prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) -- accessibility standard
 
 ### Tertiary (LOW confidence)
+
 - None -- all findings verified with primary or secondary sources
 
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH -- all libraries already installed, no new dependencies
 - Architecture: HIGH -- template.tsx pattern well-documented, loading.tsx is Next.js convention, CSS animations are standard
 - Pitfalls: HIGH -- based on direct codebase analysis (bottom tab bar conflict, existing patterns)

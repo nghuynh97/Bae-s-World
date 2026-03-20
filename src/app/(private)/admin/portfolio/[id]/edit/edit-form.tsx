@@ -1,24 +1,30 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { updatePortfolioItem } from "@/actions/portfolio";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { updatePortfolioItem } from '@/actions/portfolio';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 const editSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Title too long"),
-  description: z.string().max(500, "Description too long").optional(),
-  categoryId: z.string().min(1, "Category is required"),
+  title: z.string().min(1, 'Title is required').max(100, 'Title too long'),
+  description: z.string().max(500, 'Description too long').optional(),
+  categoryId: z.string().min(1, 'Category is required'),
 });
 
 type EditFormData = z.infer<typeof editSchema>;
@@ -59,10 +65,10 @@ export function EditPortfolioForm({
         description: data.description || undefined,
         categoryId: data.categoryId,
       });
-      toast.success("Changes saved");
-      router.push("/admin/portfolio");
+      toast.success('Changes saved');
+      router.push('/admin/portfolio');
     } catch {
-      toast.error("Changes could not be saved. Please try again.");
+      toast.error('Changes could not be saved. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -75,11 +81,11 @@ export function EditPortfolioForm({
         <Input
           id="title"
           maxLength={100}
-          {...register("title")}
+          {...register('title')}
           aria-invalid={!!errors.title}
         />
         {errors.title && (
-          <p className="text-sm text-destructive mt-1">
+          <p className="mt-1 text-sm text-destructive">
             {errors.title.message}
           </p>
         )}
@@ -90,11 +96,11 @@ export function EditPortfolioForm({
         <Textarea
           id="description"
           maxLength={500}
-          {...register("description")}
+          {...register('description')}
           className="min-h-[100px] resize-y"
         />
         {errors.description && (
-          <p className="text-sm text-destructive mt-1">
+          <p className="mt-1 text-sm text-destructive">
             {errors.description.message}
           </p>
         )}
@@ -107,7 +113,10 @@ export function EditPortfolioForm({
           name="categoryId"
           render={({ field }) => (
             <Select value={field.value} onValueChange={field.onChange}>
-              <SelectTrigger className="w-full" aria-invalid={!!errors.categoryId}>
+              <SelectTrigger
+                className="w-full"
+                aria-invalid={!!errors.categoryId}
+              >
                 <SelectValue placeholder="Select a category" />
               </SelectTrigger>
               <SelectContent>
@@ -121,7 +130,7 @@ export function EditPortfolioForm({
           )}
         />
         {errors.categoryId && (
-          <p className="text-sm text-destructive mt-1">
+          <p className="mt-1 text-sm text-destructive">
             {errors.categoryId.message}
           </p>
         )}
@@ -130,16 +139,20 @@ export function EditPortfolioForm({
       <div className="flex items-center gap-3 pt-2">
         <Button
           type="submit"
-          className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
+          className="bg-accent text-white transition-all duration-100 hover:bg-accent-hover active:scale-[0.97]"
           disabled={isSubmitting}
         >
           <span className="inline-flex items-center gap-2">
             {isSubmitting && <ButtonSpinner />}
-            {isSubmitting ? "Saving..." : "Save Changes"}
+            {isSubmitting ? 'Saving...' : 'Save Changes'}
           </span>
         </Button>
         <Link href="/admin/portfolio">
-          <Button type="button" variant="outline" className="text-text-secondary">
+          <Button
+            type="button"
+            variant="outline"
+            className="text-text-secondary"
+          >
             Discard Changes
           </Button>
         </Link>

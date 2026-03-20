@@ -6,13 +6,13 @@ export function PhotoStrip({ items }: PhotoStripProps) {
   if (items.length === 0) return null;
 
   return (
-    <div className="flex gap-2 mt-8">
+    <div className="mt-8 flex gap-2">
       {items.slice(0, 4).map((item, index) => (
         <a key={index} href="/">
           <img
             src={item.imageUrl}
-            alt={item.title || ""}
-            className="w-20 h-20 object-cover rounded-md"
+            alt={item.title || ''}
+            className="h-20 w-20 rounded-md object-cover"
           />
         </a>
       ))}

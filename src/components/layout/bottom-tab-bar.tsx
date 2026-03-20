@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   Image,
   Info,
@@ -11,7 +11,7 @@ import {
   CalendarDays,
   User,
   Settings,
-} from "lucide-react";
+} from 'lucide-react';
 
 interface BottomTabBarProps {
   isAuthenticated?: boolean;
@@ -27,29 +27,29 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
   const pathname = usePathname();
 
   const publicTabs: Tab[] = [
-    { href: "/", label: "Portfolio", icon: Image },
-    { href: "/about", label: "About", icon: Info },
-    { href: "/login", label: "Sign In", icon: LogIn },
+    { href: '/', label: 'Portfolio', icon: Image },
+    { href: '/about', label: 'About', icon: Info },
+    { href: '/login', label: 'Sign In', icon: LogIn },
   ];
 
   const authTabs: Tab[] = [
-    { href: "/", label: "Portfolio", icon: Image },
-    { href: "/beauty", label: "Beauty", icon: Sparkles },
-    { href: "/schedule", label: "Schedule", icon: CalendarDays },
-    { href: "/journal", label: "Journal", icon: BookOpen },
-    { href: "/admin/portfolio", label: "Admin", icon: Settings },
-    { href: "/dashboard", label: "Profile", icon: User },
+    { href: '/', label: 'Portfolio', icon: Image },
+    { href: '/beauty', label: 'Beauty', icon: Sparkles },
+    { href: '/schedule', label: 'Schedule', icon: CalendarDays },
+    { href: '/journal', label: 'Journal', icon: BookOpen },
+    { href: '/admin/portfolio', label: 'Admin', icon: Settings },
+    { href: '/dashboard', label: 'Profile', icon: User },
   ];
 
   const tabs = isAuthenticated ? authTabs : publicTabs;
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 h-14 bg-surface shadow-[0_-8px_24px_rgba(232,180,184,0.16)] z-50 md:hidden"
+      className="fixed right-0 bottom-0 left-0 z-50 h-14 bg-surface shadow-[0_-8px_24px_rgba(232,180,184,0.16)] md:hidden"
       role="navigation"
       aria-label="Mobile navigation"
     >
-      <div className="flex items-center justify-around h-full">
+      <div className="flex h-full items-center justify-around">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
           const Icon = tab.icon;
@@ -63,17 +63,15 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
               <div className="relative flex flex-col items-center">
                 <Icon
                   size={24}
-                  className={
-                    isActive ? "text-accent" : "text-text-secondary"
-                  }
+                  className={isActive ? 'text-accent' : 'text-text-secondary'}
                 />
                 {isActive && (
-                  <span className="absolute -bottom-1 w-1 h-1 rounded-full bg-accent" />
+                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-accent" />
                 )}
               </div>
               <span
                 className={`text-sm font-normal ${
-                  isActive ? "text-accent" : "text-text-secondary"
+                  isActive ? 'text-accent' : 'text-text-secondary'
                 }`}
               >
                 {tab.label}

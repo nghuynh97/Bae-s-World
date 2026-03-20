@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { format } from "date-fns";
-import { toast } from "sonner";
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { toast } from 'sonner';
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
+} from '@/components/ui/sheet';
 import {
   Dialog,
   DialogContent,
@@ -19,14 +19,14 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
-import { createJob, updateJob, deleteJob } from "@/actions/schedule";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/lib/utils';
+import { createJob, updateJob, deleteJob } from '@/actions/schedule';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 interface Job {
   id: string;
@@ -43,12 +43,12 @@ interface Job {
 }
 
 const jobFormSchema = z.object({
-  clientName: z.string().min(1, "Client name is required").max(100),
-  location: z.string().min(1, "Location is required").max(200),
-  startTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time"),
-  endTime: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time"),
-  payAmount: z.number().int().min(0, "Pay amount must be non-negative"),
-  status: z.enum(["paid", "pending"]),
+  clientName: z.string().min(1, 'Client name is required').max(100),
+  location: z.string().min(1, 'Location is required').max(200),
+  startTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time'),
+  endTime: z.string().regex(/^\d{2}:\d{2}$/, 'Invalid time'),
+  payAmount: z.number().int().min(0, 'Pay amount must be non-negative'),
+  status: z.enum(['paid', 'pending']),
   notes: z.string().max(1000).optional().nullable(),
 });
 
@@ -66,7 +66,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [payDisplay, setPayDisplay] = useState(
-    job ? formatPayDisplay(job.payAmount) : ""
+    job ? formatPayDisplay(job.payAmount) : '',
   );
 
   const {
@@ -78,33 +78,33 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
   } = useForm<JobFormData>({
     resolver: zodResolver(jobFormSchema),
     defaultValues: {
-      clientName: job?.clientName ?? "",
-      location: job?.location ?? "",
-      startTime: job?.startTime ?? "09:00",
-      endTime: job?.endTime ?? "17:00",
+      clientName: job?.clientName ?? '',
+      location: job?.location ?? '',
+      startTime: job?.startTime ?? '09:00',
+      endTime: job?.endTime ?? '17:00',
       payAmount: job?.payAmount ?? 0,
-      status: (job?.status as "paid" | "pending") ?? "pending",
-      notes: job?.notes ?? "",
+      status: (job?.status as 'paid' | 'pending') ?? 'pending',
+      notes: job?.notes ?? '',
     },
   });
 
-  const currentStatus = watch("status");
+  const currentStatus = watch('status');
 
-  const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+  const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
   function formatPayDisplay(amount: number): string {
-    if (amount === 0) return "";
-    return new Intl.NumberFormat("vi-VN").format(amount);
+    if (amount === 0) return '';
+    return new Intl.NumberFormat('vi-VN').format(amount);
   }
 
   const handlePayFocus = () => {
-    const val = watch("payAmount");
-    setPayDisplay(val > 0 ? String(val) : "");
+    const val = watch('payAmount');
+    setPayDisplay(val > 0 ? String(val) : '');
   };
 
   const handlePayBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const raw = parseInt(e.target.value.replace(/\D/g, ""), 10) || 0;
-    setValue("payAmount", raw);
+    const raw = parseInt(e.target.value.replace(/\D/g, ''), 10) || 0;
+    setValue('payAmount', raw);
     setPayDisplay(formatPayDisplay(raw));
   };
 
@@ -121,18 +121,18 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
           jobDate: dateStr,
           notes: data.notes || null,
         });
-        toast.success("Job updated");
+        toast.success('Job updated');
       } else {
         await createJob({
           ...data,
           jobDate: dateStr,
           notes: data.notes || null,
         });
-        toast.success("Job added");
+        toast.success('Job added');
       }
       onOpenChange(false);
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -143,10 +143,10 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
     setIsSubmitting(true);
     try {
       await deleteJob(job.id);
-      toast.success("Job deleted");
+      toast.success('Job deleted');
       onOpenChange(false);
     } catch {
-      toast.error("Something went wrong. Please try again.");
+      toast.error('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
       setShowDeleteDialog(false);
@@ -158,20 +158,20 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent
           side="bottom"
-          className="max-h-[90vh] rounded-t-2xl overflow-y-auto"
+          className="max-h-[90vh] overflow-y-auto rounded-t-2xl"
           showCloseButton
         >
           {/* Drag indicator */}
-          <div className="flex justify-center mt-2 mb-2">
-            <div className="w-10 h-1 rounded-full bg-muted-foreground/30" />
+          <div className="mt-2 mb-2 flex justify-center">
+            <div className="h-1 w-10 rounded-full bg-muted-foreground/30" />
           </div>
 
           <SheetHeader className="px-6 pb-2">
             <SheetTitle className="font-display text-xl font-bold">
-              {isEditing ? "Edit Job" : "Add Job"}
+              {isEditing ? 'Edit Job' : 'Add Job'}
             </SheetTitle>
-            <p className="text-sm font-body text-secondary">
-              {format(date, "MMMM d, yyyy")}
+            <p className="font-body text-sm text-secondary">
+              {format(date, 'MMMM d, yyyy')}
             </p>
           </SheetHeader>
 
@@ -187,10 +187,10 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
               <Input
                 id="client-name"
                 placeholder="Client name"
-                {...register("clientName")}
+                {...register('clientName')}
               />
               {errors.clientName && (
-                <p className="text-xs text-destructive mt-1">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.clientName.message}
                 </p>
               )}
@@ -204,10 +204,10 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
               <Input
                 id="location"
                 placeholder="Location"
-                {...register("location")}
+                {...register('location')}
               />
               {errors.location && (
-                <p className="text-xs text-destructive mt-1">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.location.message}
                 </p>
               )}
@@ -219,25 +219,21 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
                 <Label htmlFor="start-time" className="mb-2">
                   Start Time
                 </Label>
-                <Input
-                  id="start-time"
-                  type="time"
-                  {...register("startTime")}
-                />
+                <Input id="start-time" type="time" {...register('startTime')} />
                 {errors.startTime && (
-                  <p className="text-xs text-destructive mt-1">
+                  <p className="mt-1 text-xs text-destructive">
                     {errors.startTime.message}
                   </p>
                 )}
               </div>
-              <span className="text-sm font-body text-secondary mt-6">to</span>
+              <span className="mt-6 font-body text-sm text-secondary">to</span>
               <div className="flex-1">
                 <Label htmlFor="end-time" className="mb-2">
                   End Time
                 </Label>
-                <Input id="end-time" type="time" {...register("endTime")} />
+                <Input id="end-time" type="time" {...register('endTime')} />
                 {errors.endTime && (
-                  <p className="text-xs text-destructive mt-1">
+                  <p className="mt-1 text-xs text-destructive">
                     {errors.endTime.message}
                   </p>
                 )}
@@ -260,12 +256,12 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
                   onFocus={handlePayFocus}
                   onBlur={handlePayBlur}
                 />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm font-body text-secondary">
+                <span className="absolute top-1/2 right-3 -translate-y-1/2 font-body text-sm text-secondary">
                   VND
                 </span>
               </div>
               {errors.payAmount && (
-                <p className="text-xs text-destructive mt-1">
+                <p className="mt-1 text-xs text-destructive">
                   {errors.payAmount.message}
                 </p>
               )}
@@ -277,24 +273,24 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
               <div className="flex gap-2">
                 <button
                   type="button"
-                  onClick={() => setValue("status", "pending")}
+                  onClick={() => setValue('status', 'pending')}
                   className={cn(
-                    "flex-1 py-2 rounded-lg text-sm font-body border transition-colors",
-                    currentStatus === "pending"
-                      ? "bg-[var(--color-pending)]/15 text-[var(--color-pending)] border-[var(--color-pending)]"
-                      : "bg-transparent text-secondary border-border"
+                    'flex-1 rounded-lg border py-2 font-body text-sm transition-colors',
+                    currentStatus === 'pending'
+                      ? 'border-[var(--color-pending)] bg-[var(--color-pending)]/15 text-[var(--color-pending)]'
+                      : 'border-border bg-transparent text-secondary',
                   )}
                 >
                   Pending
                 </button>
                 <button
                   type="button"
-                  onClick={() => setValue("status", "paid")}
+                  onClick={() => setValue('status', 'paid')}
                   className={cn(
-                    "flex-1 py-2 rounded-lg text-sm font-body border transition-colors",
-                    currentStatus === "paid"
-                      ? "bg-[var(--color-paid)]/15 text-[var(--color-paid)] border-[var(--color-paid)]"
-                      : "bg-transparent text-secondary border-border"
+                    'flex-1 rounded-lg border py-2 font-body text-sm transition-colors',
+                    currentStatus === 'paid'
+                      ? 'border-[var(--color-paid)] bg-[var(--color-paid)]/15 text-[var(--color-paid)]'
+                      : 'border-border bg-transparent text-secondary',
                   )}
                 >
                   Paid
@@ -309,7 +305,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
               </Label>
               <Textarea
                 id="job-notes"
-                {...register("notes")}
+                {...register('notes')}
                 placeholder="Notes about this job..."
                 rows={3}
                 className="resize-none"
@@ -321,15 +317,15 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
+              className="w-full bg-accent text-white transition-all duration-100 hover:bg-accent-hover active:scale-[0.97]"
             >
               <span className="inline-flex items-center gap-2">
                 {isSubmitting && <ButtonSpinner />}
                 {isSubmitting
-                  ? "Saving..."
+                  ? 'Saving...'
                   : isEditing
-                    ? "Save Changes"
-                    : "Add Job"}
+                    ? 'Save Changes'
+                    : 'Add Job'}
               </span>
             </Button>
 
@@ -339,7 +335,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
                 type="button"
                 variant="outline"
                 onClick={() => setShowDeleteDialog(true)}
-                className="w-full text-destructive border-destructive hover:bg-destructive/10"
+                className="w-full border-destructive text-destructive hover:bg-destructive/10"
               >
                 Delete Job
               </Button>
@@ -355,8 +351,8 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
             <DialogHeader>
               <DialogTitle>Delete this job?</DialogTitle>
               <DialogDescription>
-                This job for {job.clientName} on{" "}
-                {format(date, "MMMM d, yyyy")} will be permanently removed.
+                This job for {job.clientName} on {format(date, 'MMMM d, yyyy')}{' '}
+                will be permanently removed.
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
@@ -371,7 +367,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
                 onClick={handleDelete}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Deleting..." : "Delete"}
+                {isSubmitting ? 'Deleting...' : 'Delete'}
               </Button>
             </DialogFooter>
           </DialogContent>

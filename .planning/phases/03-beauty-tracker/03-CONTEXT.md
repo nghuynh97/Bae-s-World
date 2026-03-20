@@ -14,6 +14,7 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 ## Implementation Decisions
 
 ### Product shelf display
+
 - Photo-only grid layout (like Instagram profile grid) — no text overlay on thumbnails
 - 3 columns on mobile, 4-5 columns on desktop
 - Category filter pills at top (same pattern as portfolio gallery in Phase 2)
@@ -22,12 +23,14 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 - Empty state: friendly illustration/icon + "Start your beauty collection" with an Add button
 
 ### Rating & favorites
+
 - 5-star rating system (classic 1-5 stars)
 - Favorite toggle via heart icon on the product photo in the grid
 - Filled heart = favorited, outline heart = not favorited
 - "Favorites" tab in the category filter pills alongside Skincare, Makeup, etc.
 
 ### Routine builder
+
 - Beauty page has two tabs: "Products" (the photo grid) and "Routines" (morning/evening lists)
 - Search-to-add: type to search existing products by name, select from results to add as a step
 - Steps displayed as numbered vertical list with product photo + name per row
@@ -36,11 +39,13 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 - Two default routines: Morning and Evening
 
 ### Product categories
+
 - 4 pre-seeded categories: Skincare, Makeup, Haircare, Body care
 - Funnghy can create, edit, and delete custom categories (same pattern as portfolio categories)
 - Default view: "All" products selected when entering the beauty page
 
 ### Claude's Discretion
+
 - Slide-up panel animation and height
 - Star rating component styling (filled/empty star icons)
 - Drag-and-drop library choice for routine reorder
@@ -50,20 +55,24 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 </decisions>
 
 <canonical_refs>
+
 ## Canonical References
 
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Project context
+
 - `.planning/PROJECT.md` — Vision, constraints, two-user system, aesthetic requirements
 - `.planning/REQUIREMENTS.md` — BEAU-01 through BEAU-07 acceptance criteria
 - `.planning/ROADMAP.md` §Phase 3 — Goal, success criteria, dependency on Phase 1
 
 ### Prior phase patterns
+
 - `.planning/phases/01-foundation/01-CONTEXT.md` — Design system tokens, image upload pipeline, nav structure, DB connection fixes
 - `.planning/phases/02-public-portfolio/02-CONTEXT.md` — Category filter pills pattern, masonry grid, Server Action CRUD pattern
 
 ### Existing infrastructure
+
 - `src/lib/db/schema.ts` — Existing tables (images, imageVariants, categories, portfolioItems) as pattern reference
 - `src/actions/portfolio.ts` — CRUD Server Actions pattern with auth gates and pagination
 - `src/actions/categories.ts` — Category CRUD with slug generation and delete protection
@@ -74,9 +83,11 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 </canonical_refs>
 
 <code_context>
+
 ## Existing Code Insights
 
 ### Reusable Assets
+
 - `src/components/portfolio/category-filter.tsx` — Category filter pills with rose gold active state, reusable for beauty categories + Favorites tab
 - `src/components/upload/image-uploader.tsx` — Drag-and-drop upload for product photos (use private bucket)
 - `src/lib/supabase/storage.ts` — Signed URL generation for private images
@@ -84,6 +95,7 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 - `src/actions/categories.ts` — CRUD pattern for beauty categories (same structure, different table)
 
 ### Established Patterns
+
 - Server Actions with zod validation for all CRUD operations
 - Drizzle ORM with typed schema for database queries
 - Category filter pills with `role="tablist"`, `aria-selected` for accessibility
@@ -91,6 +103,7 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 - `node --env-file=.env.local` for all npm scripts on Windows
 
 ### Integration Points
+
 - `src/app/(private)/beauty/` — New route group for beauty tracker pages
 - Navigation already has "Beauty" link in authenticated nav (top-nav.tsx and bottom-tab-bar.tsx)
 - Auth middleware already protects `/beauty` routes
@@ -120,5 +133,5 @@ Private beauty product collection and routine builder. Funnghy can add, edit, de
 
 ---
 
-*Phase: 03-beauty-tracker*
-*Context gathered: 2026-03-20*
+_Phase: 03-beauty-tracker_
+_Context gathered: 2026-03-20_

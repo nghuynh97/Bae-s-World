@@ -1,22 +1,8 @@
-"use client";
+'use client';
 
-import { useState, useTransition } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { logout } from "@/actions/auth";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useState, useTransition } from 'react';
+import { logout } from '@/actions/auth';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 interface UserMenuProps {
   userName: string;
@@ -35,49 +21,47 @@ export function UserMenu({ userName }: UserMenuProps) {
   const initial = userName.charAt(0).toUpperCase();
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger
-          className="w-9 h-9 rounded-full bg-accent text-text-primary font-bold text-sm flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
-          aria-label="User menu"
-        >
-          {initial}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onSelect={() => setShowConfirm(true)}>
-            Sign Out
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <div className="relative">
+      <button
+        onClick={() => setShowConfirm(true)}
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-text-primary focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:outline-none"
+        aria-label="Sign out"
+      >
+        {initial}
+      </button>
 
-      <Dialog open={showConfirm} onOpenChange={setShowConfirm}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Sign Out</DialogTitle>
-            <DialogDescription>
+      {showConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className="absolute inset-0 bg-black/10 backdrop-blur-xs"
+            onClick={() => setShowConfirm(false)}
+          />
+          <div className="relative z-50 mx-4 w-full max-w-sm rounded-xl bg-background p-4 shadow-lg ring-1 ring-foreground/10">
+            <h2 className="text-base font-medium">Sign Out</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
               Are you sure you want to sign out?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter className="gap-2 sm:gap-0">
-            <button
-              onClick={() => setShowConfirm(false)}
-              className="px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors rounded-[10px] border border-border"
-            >
-              Stay Signed In
-            </button>
-            <button
-              onClick={handleLogout}
-              disabled={isPending}
-              className="px-4 py-2 text-sm font-bold text-text-primary bg-accent hover:bg-accent-hover transition-all duration-100 rounded-[10px] disabled:opacity-50 active:scale-[0.97]"
-            >
-              <span className="inline-flex items-center gap-2">
-                {isPending && <ButtonSpinner />}
-                {isPending ? "Signing out..." : "Sign Out"}
-              </span>
-            </button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+            </p>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                onClick={() => setShowConfirm(false)}
+                className="rounded-[10px] border border-border px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:text-text-primary"
+              >
+                Stay Signed In
+              </button>
+              <button
+                onClick={handleLogout}
+                disabled={isPending}
+                className="rounded-[10px] bg-accent px-4 py-2 text-sm font-bold text-text-primary transition-all duration-100 hover:bg-accent-hover active:scale-[0.97] disabled:opacity-50"
+              >
+                <span className="inline-flex items-center gap-2">
+                  {isPending && <ButtonSpinner />}
+                  {isPending ? 'Signing out...' : 'Sign Out'}
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

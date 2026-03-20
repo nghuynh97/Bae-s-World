@@ -51,6 +51,7 @@ completed: 2026-03-20
 - **Files modified:** 2
 
 ## Accomplishments
+
 - Added globalLogout Server Action calling auth.admin.signOut with global scope
 - Added "Sign Out All Devices" menu option with dedicated confirmation dialog
 - All 45 existing tests pass without modification
@@ -64,10 +65,12 @@ Each task was committed atomically:
 **Plan metadata:** (pending)
 
 ## Files Created/Modified
+
 - `src/actions/auth.ts` - Added globalLogout function using admin client for global session invalidation
 - `src/components/layout/user-menu.tsx` - Added second sign out option, separator, and confirmation dialog
 
 ## Decisions Made
+
 - Used try/catch around admin signOut so local cookie session is always cleared even if the admin API call fails (graceful degradation)
 
 ## Deviations from Plan
@@ -75,15 +78,19 @@ Each task was committed atomically:
 None - plan executed exactly as written.
 
 ## Issues Encountered
+
 None
 
 ## User Setup Required
+
 None - no external service configuration required.
 
 ## Next Phase Readiness
+
 - Auth gap closure complete, all foundation auth requirements satisfied
 - Ready for subsequent phases
 
 ---
-*Phase: 01-foundation*
-*Completed: 2026-03-20*
+
+_Phase: 01-foundation_
+_Completed: 2026-03-20_

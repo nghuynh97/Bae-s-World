@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useTransition } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { login } from "@/actions/auth";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useTransition } from 'react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { login } from '@/actions/auth';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  email: z.string().email('Please enter a valid email address'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -26,14 +26,14 @@ export function LoginForm() {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
-    mode: "onBlur",
+    mode: 'onBlur',
   });
 
   function onSubmit(data: LoginFormData) {
     startTransition(async () => {
       const result = await login(data.email, data.password);
       if (result?.error) {
-        setError("root", { message: result.error });
+        setError('root', { message: result.error });
       }
     });
   }
@@ -46,8 +46,8 @@ export function LoginForm() {
           id="email"
           type="email"
           placeholder="you@example.com"
-          className={`rounded-[10px] ${errors.email ? "border-destructive" : ""}`}
-          {...register("email")}
+          className={`rounded-[10px] ${errors.email ? 'border-destructive' : ''}`}
+          {...register('email')}
         />
         {errors.email && (
           <p className="text-sm text-destructive" aria-live="polite">
@@ -62,8 +62,8 @@ export function LoginForm() {
           id="password"
           type="password"
           placeholder="Enter your password"
-          className={`rounded-[10px] ${errors.password ? "border-destructive" : ""}`}
-          {...register("password")}
+          className={`rounded-[10px] ${errors.password ? 'border-destructive' : ''}`}
+          {...register('password')}
         />
         {errors.password && (
           <p className="text-sm text-destructive" aria-live="polite">
@@ -81,11 +81,11 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-all duration-100 disabled:opacity-50 active:scale-[0.97]"
+        className="w-full rounded-[10px] bg-accent py-3 text-sm font-bold tracking-wider text-text-primary uppercase transition-all duration-100 hover:bg-accent-hover active:scale-[0.97] disabled:opacity-50"
       >
         <span className="inline-flex items-center gap-2">
           {isPending && <ButtonSpinner />}
-          {isPending ? "Signing in..." : "Sign In"}
+          {isPending ? 'Signing in...' : 'Sign In'}
         </span>
       </button>
     </form>

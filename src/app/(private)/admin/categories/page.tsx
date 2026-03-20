@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import { Trash2 } from "lucide-react";
-import { toast } from "sonner";
+import { useState, useEffect, useRef } from 'react';
+import { Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   getCategories,
   createCategory,
   updateCategory,
   deleteCategory,
-} from "@/actions/categories";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+} from '@/actions/categories';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -19,7 +19,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogClose,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 interface Category {
   id: string;
@@ -31,9 +31,9 @@ interface Category {
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [newName, setNewName] = useState("");
+  const [newName, setNewName] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editName, setEditName] = useState("");
+  const [editName, setEditName] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -59,12 +59,12 @@ export default function CategoriesPage() {
     setIsAdding(true);
     try {
       await createCategory({ name: newName.trim() });
-      setNewName("");
-      toast.success("Category created");
+      setNewName('');
+      toast.success('Category created');
       await loadCategories();
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to create category"
+        err instanceof Error ? err.message : 'Failed to create category',
       );
     } finally {
       setIsAdding(false);
@@ -78,11 +78,11 @@ export default function CategoriesPage() {
     }
     try {
       await updateCategory(categoryId, { name: editName.trim() });
-      toast.success("Category updated");
+      toast.success('Category updated');
       await loadCategories();
     } catch (err) {
       toast.error(
-        err instanceof Error ? err.message : "Failed to update category"
+        err instanceof Error ? err.message : 'Failed to update category',
       );
     }
     setEditingId(null);
@@ -93,14 +93,12 @@ export default function CategoriesPage() {
     setIsDeleting(true);
     try {
       await deleteCategory(deleteId);
-      toast.success("Category deleted");
+      toast.success('Category deleted');
       setDeleteId(null);
       await loadCategories();
     } catch (err) {
       toast.error(
-        err instanceof Error
-          ? err.message
-          : "Failed to delete category"
+        err instanceof Error ? err.message : 'Failed to delete category',
       );
     } finally {
       setIsDeleting(false);
@@ -113,8 +111,8 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="py-8 md:py-12 max-w-xl mx-auto">
-      <h1 className="font-display text-xl font-bold text-text-primary mb-6">
+    <div className="mx-auto max-w-xl py-8 md:py-12">
+      <h1 className="mb-6 font-display text-xl font-bold text-text-primary">
         Categories
       </h1>
 
@@ -122,10 +120,10 @@ export default function CategoriesPage() {
         {categories.map((cat) => (
           <div
             key={cat.id}
-            className="flex items-center justify-between py-3 border-b border-border"
+            className="flex items-center justify-between border-b border-border py-3"
           >
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <span className="text-sm text-text-secondary w-6 text-center">
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <span className="w-6 text-center text-sm text-text-secondary">
                 {cat.displayOrder}
               </span>
               {editingId === cat.id ? (
@@ -135,19 +133,19 @@ export default function CategoriesPage() {
                   onChange={(e) => setEditName(e.target.value)}
                   onBlur={() => handleEditSave(cat.id)}
                   onKeyDown={(e) => {
-                    if (e.key === "Enter") handleEditSave(cat.id);
-                    if (e.key === "Escape") setEditingId(null);
+                    if (e.key === 'Enter') handleEditSave(cat.id);
+                    if (e.key === 'Escape') setEditingId(null);
                   }}
                   className="max-w-[200px]"
                 />
               ) : (
                 <button
                   onClick={() => startEditing(cat)}
-                  className="text-sm text-text-primary hover:text-accent cursor-pointer text-left truncate"
+                  className="cursor-pointer truncate text-left text-sm text-text-primary hover:text-accent"
                 >
                   {cat.name}
                   {cat.isDefault && (
-                    <span className="ml-2 text-text-secondary text-xs">
+                    <span className="ml-2 text-xs text-text-secondary">
                       (default)
                     </span>
                   )}
@@ -166,22 +164,22 @@ export default function CategoriesPage() {
         ))}
       </div>
 
-      <div className="flex items-center gap-3 mt-6">
+      <div className="mt-6 flex items-center gap-3">
         <Input
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="New category name"
           maxLength={50}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleAdd();
+            if (e.key === 'Enter') handleAdd();
           }}
         />
         <Button
-          className="bg-accent text-white hover:bg-accent-hover shrink-0"
+          className="shrink-0 bg-accent text-white hover:bg-accent-hover"
           onClick={handleAdd}
           disabled={isAdding || !newName.trim()}
         >
-          {isAdding ? "Adding..." : "Add Category"}
+          {isAdding ? 'Adding...' : 'Add Category'}
         </Button>
       </div>
 
@@ -208,7 +206,7 @@ export default function CategoriesPage() {
               onClick={handleDelete}
               disabled={isDeleting}
             >
-              {isDeleting ? "Deleting..." : "Delete Category"}
+              {isDeleting ? 'Deleting...' : 'Delete Category'}
             </Button>
           </DialogFooter>
         </DialogContent>

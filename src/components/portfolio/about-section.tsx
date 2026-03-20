@@ -1,4 +1,4 @@
-import { Mail, Instagram, Camera } from "lucide-react";
+import { Mail, Instagram, Camera } from 'lucide-react';
 
 interface AboutSectionProps {
   bio: string;
@@ -21,23 +21,23 @@ export function AboutSection({
         <h2 className="font-display text-xl font-bold text-text-primary">
           About page not set up yet
         </h2>
-        <p className="mt-2 text-text-secondary text-sm">Check back soon.</p>
+        <p className="mt-2 text-sm text-text-secondary">Check back soon.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[40%_1fr] gap-12">
+    <div className="grid grid-cols-1 gap-12 md:grid-cols-[40%_1fr]">
       {/* Profile photo */}
       <div>
         {profileImageUrl ? (
           <img
             src={profileImageUrl}
             alt="Funnghy"
-            className="w-full rounded-lg object-cover shadow-md max-h-[400px]"
+            className="max-h-[400px] w-full rounded-lg object-cover shadow-md"
           />
         ) : (
-          <div className="w-full rounded-lg bg-gradient-to-br from-accent/20 to-dominant flex items-center justify-center aspect-[3/4] max-h-[400px]">
+          <div className="flex aspect-[3/4] max-h-[400px] w-full items-center justify-center rounded-lg bg-gradient-to-br from-accent/20 to-dominant">
             <Camera size={48} className="text-text-secondary/40" />
           </div>
         )}
@@ -45,7 +45,7 @@ export function AboutSection({
 
       {/* Bio and contact */}
       <div>
-        <p className="text-base font-body leading-relaxed text-text-primary whitespace-pre-line">
+        <p className="font-body text-base leading-relaxed whitespace-pre-line text-text-primary">
           {bio}
         </p>
 
@@ -54,7 +54,7 @@ export function AboutSection({
           {email && (
             <a
               href={`mailto:${email}`}
-              className="flex items-center gap-2 text-text-secondary hover:text-accent transition-colors"
+              className="flex items-center gap-2 text-text-secondary transition-colors hover:text-accent"
             >
               <Mail size={24} />
               <span className="text-sm">{email}</span>
@@ -69,7 +69,7 @@ export function AboutSection({
               href={instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-secondary hover:text-accent transition-colors"
+              className="text-text-secondary transition-colors hover:text-accent"
               aria-label="Instagram"
             >
               <Instagram size={24} />
@@ -80,7 +80,7 @@ export function AboutSection({
               href={tiktokUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-secondary hover:text-accent transition-colors"
+              className="text-text-secondary transition-colors hover:text-accent"
               aria-label="TikTok"
             >
               {/* TikTok icon - lucide doesn't have one, use a simple SVG */}

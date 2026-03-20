@@ -14,27 +14,32 @@ Subtle micro-animations, transitions, hover effects, loading skeletons, and feed
 ## Implementation Decisions
 
 ### Page transitions
+
 - Subtle fade transition (200-300ms) on all route changes
 - Applied globally — every page gets the fade, not just main sections
 - Quick enough to feel smooth without slowing navigation
 
 ### Hover & interaction effects
+
 - Very subtle hover effects — barely visible lift/shadow change on cards and interactive elements
 - Elegant and minimal, like a gentle breath — not dramatic
 - Buttons: scale down to 0.97x on press/tap for tactile feedback on mobile
 - Existing portfolio card hover (1.02x scale from Phase 2) stays as-is
 
 ### Loading states & skeletons
+
 - Loading skeletons on all 4 main pages: portfolio gallery, beauty product grid, schedule calendar, dashboard
 - Gentle pulse animation (shadcn Skeleton default opacity pulse) — not shimmer sweep
 - Skeletons should match the layout structure of the loaded content (grid shapes, card shapes, etc.)
 
 ### Toast & feedback animations
+
 - Toasts appear from top-center (avoids bottom tab bar overlap on mobile), auto-dismiss after 3 seconds
 - Form submission buttons show a small spinner + disabled state while saving
 - Consistent across all forms (login, job form, product form, about editor, etc.)
 
 ### Claude's Discretion
+
 - Exact fade timing and easing curve
 - Shadow values for hover lift effect
 - Skeleton layout specifics per page
@@ -44,19 +49,23 @@ Subtle micro-animations, transitions, hover effects, loading skeletons, and feed
 </decisions>
 
 <canonical_refs>
+
 ## Canonical References
 
 **Downstream agents MUST read these before planning or implementing.**
 
 ### Project context
+
 - `.planning/PROJECT.md` — Aesthetic requirements, soft feminine feel
 - `.planning/REQUIREMENTS.md` — DESG-04: micro-animations and transitions
 
 ### Prior phase patterns
+
 - `.planning/phases/01-foundation/01-CONTEXT.md` — Design system tokens, component shape
 - `src/app/globals.css` — All design tokens, transition defaults
 
 ### Existing code to polish
+
 - `src/components/portfolio/gallery-card.tsx` — Existing hover effect (1.02x scale)
 - `src/app/(private)/beauty/loading.tsx` — Existing beauty loading skeleton
 - `src/components/ui/skeleton.tsx` — shadcn Skeleton component (pulse animation)
@@ -65,20 +74,24 @@ Subtle micro-animations, transitions, hover effects, loading skeletons, and feed
 </canonical_refs>
 
 <code_context>
+
 ## Existing Code Insights
 
 ### Reusable Assets
+
 - `src/components/ui/skeleton.tsx` — shadcn Skeleton with pulse animation, reuse for all loading states
 - `sonner` toaster — already configured in root layout, just needs animation customization
 - Tailwind `transition-*` utilities — use for hover effects consistently
 - `motion-safe:` Tailwind variant — already used on portfolio gallery cards
 
 ### Established Patterns
+
 - `loading.tsx` convention in Next.js for route-level loading states (beauty page already has one)
 - `useTransition` for form submission pending states (already used in auth forms)
 - `disabled:opacity-50` pattern on buttons during pending state
 
 ### Integration Points
+
 - Root layout (`src/app/layout.tsx`) — page transition wrapper goes here
 - Every `loading.tsx` file — add/update skeletons per section
 - All form submit buttons across the app — add spinner + disabled pattern
@@ -106,5 +119,5 @@ Subtle micro-animations, transitions, hover effects, loading skeletons, and feed
 
 ---
 
-*Phase: 05-polish*
-*Context gathered: 2026-03-20*
+_Phase: 05-polish_
+_Context gathered: 2026-03-20_

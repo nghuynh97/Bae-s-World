@@ -1,26 +1,32 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { useForm, Controller } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { createPortfolioItem } from "@/actions/portfolio";
-import { getCategories } from "@/actions/categories";
-import { ImageUploader } from "@/components/upload/image-uploader";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { ButtonSpinner } from "@/components/ui/button-spinner";
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { createPortfolioItem } from '@/actions/portfolio';
+import { getCategories } from '@/actions/categories';
+import { ImageUploader } from '@/components/upload/image-uploader';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { ButtonSpinner } from '@/components/ui/button-spinner';
 
 const uploadSchema = z.object({
-  title: z.string().min(1, "Title is required").max(100, "Title too long"),
-  description: z.string().max(500, "Description too long").optional(),
-  categoryId: z.string().min(1, "Category is required"),
+  title: z.string().min(1, 'Title is required').max(100, 'Title too long'),
+  description: z.string().max(500, 'Description too long').optional(),
+  categoryId: z.string().min(1, 'Category is required'),
 });
 
 type UploadFormData = z.infer<typeof uploadSchema>;
@@ -59,18 +65,18 @@ export default function NewPortfolioPage() {
         categoryId: data.categoryId,
         imageId,
       });
-      toast.success("Photo uploaded successfully");
-      router.push("/admin/portfolio");
+      toast.success('Photo uploaded successfully');
+      router.push('/admin/portfolio');
     } catch {
-      toast.error("Upload failed. Check your connection and try again.");
+      toast.error('Upload failed. Check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="py-8 md:py-12 max-w-xl mx-auto">
-      <h1 className="font-display text-xl font-bold text-text-primary mb-6">
+    <div className="mx-auto max-w-xl py-8 md:py-12">
+      <h1 className="mb-6 font-display text-xl font-bold text-text-primary">
         Upload Photo
       </h1>
 
@@ -89,11 +95,11 @@ export default function NewPortfolioPage() {
             <Input
               id="title"
               maxLength={100}
-              {...register("title")}
+              {...register('title')}
               aria-invalid={!!errors.title}
             />
             {errors.title && (
-              <p className="text-sm text-destructive mt-1">
+              <p className="mt-1 text-sm text-destructive">
                 {errors.title.message}
               </p>
             )}
@@ -104,11 +110,11 @@ export default function NewPortfolioPage() {
             <Textarea
               id="description"
               maxLength={500}
-              {...register("description")}
+              {...register('description')}
               className="min-h-[100px] resize-y"
             />
             {errors.description && (
-              <p className="text-sm text-destructive mt-1">
+              <p className="mt-1 text-sm text-destructive">
                 {errors.description.message}
               </p>
             )}
@@ -121,7 +127,10 @@ export default function NewPortfolioPage() {
               name="categoryId"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full" aria-invalid={!!errors.categoryId}>
+                  <SelectTrigger
+                    className="w-full"
+                    aria-invalid={!!errors.categoryId}
+                  >
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent>
@@ -135,7 +144,7 @@ export default function NewPortfolioPage() {
               )}
             />
             {errors.categoryId && (
-              <p className="text-sm text-destructive mt-1">
+              <p className="mt-1 text-sm text-destructive">
                 {errors.categoryId.message}
               </p>
             )}
@@ -144,16 +153,20 @@ export default function NewPortfolioPage() {
           <div className="flex items-center gap-3 pt-2">
             <Button
               type="submit"
-              className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
+              className="bg-accent text-white transition-all duration-100 hover:bg-accent-hover active:scale-[0.97]"
               disabled={isSubmitting}
             >
               <span className="inline-flex items-center gap-2">
                 {isSubmitting && <ButtonSpinner />}
-                {isSubmitting ? "Uploading..." : "Upload Photo"}
+                {isSubmitting ? 'Uploading...' : 'Upload Photo'}
               </span>
             </Button>
             <Link href="/admin/portfolio">
-              <Button type="button" variant="outline" className="text-text-secondary">
+              <Button
+                type="button"
+                variant="outline"
+                className="text-text-secondary"
+              >
                 Cancel Upload
               </Button>
             </Link>
