@@ -110,3 +110,13 @@ Plans:
 - [ ] 05-00-PLAN.md — Wave 0 test stubs for all polish requirements (page-fade, button-spinner, loading-skeletons, toast-config)
 - [ ] 05-01-PLAN.md — CSS keyframes, page fade template.tsx, ButtonSpinner component, toast config, card hover effects
 - [ ] 05-02-PLAN.md — Loading skeletons for portfolio and dashboard, form button spinners across all forms
+
+### Phase 6: Refactor & UI/UX Optimization
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 5
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 6 to break down)
