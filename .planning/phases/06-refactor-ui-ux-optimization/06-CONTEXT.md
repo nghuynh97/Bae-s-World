@@ -39,6 +39,19 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Use existing shadcn `Label` (already installed) for all labels
 - Keep hidden `<input>` from react-dropzone (file inputs are special — shadcn doesn't wrap these)
 
+### Fix stale UI after CRUD actions
+- After any create, edit, or delete action, the UI must update immediately — no manual F5 refresh
+- Use `router.refresh()` from `next/navigation` after every successful Server Action to revalidate server data
+- Applies to ALL CRUD flows across the app:
+  - Beauty products: create, edit, delete, toggle favorite
+  - Beauty categories: create, rename, delete
+  - Portfolio items: create, edit, delete
+  - Schedule jobs: create, edit, delete, mark paid/pending
+  - Routines: add step, remove step, reorder steps
+  - About page: update content
+- For forms that navigate away after submit (e.g., create product → back to list), use `router.push()` + `router.refresh()` or `revalidatePath()` in the Server Action
+- For inline actions (toggle favorite, delete from list, reorder), call `router.refresh()` after the action completes
+
 ### UX spacing & color fixes
 - Forms feel cramped — increase gap between fields, add more padding in form containers
 - Calendar looks plain — improve day cell visual treatment, better job dot styling, clearer income display
