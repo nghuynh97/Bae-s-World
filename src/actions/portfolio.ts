@@ -8,7 +8,7 @@ import {
   images,
   imageVariants,
 } from "@/lib/db/schema";
-import { eq, desc, lt, and } from "drizzle-orm";
+import { eq, desc, lt, and, inArray } from "drizzle-orm";
 import { z } from "zod";
 import { getPublicImageUrl } from "@/lib/supabase/storage";
 
@@ -60,21 +60,8 @@ export async function getPortfolioItems(
   const hasMore = results.length > PAGE_SIZE;
   const items = hasMore ? results.slice(0, PAGE_SIZE) : results;
 
-  // Fetch variants for all items
+  // Fetch variants for all items in this page
   const imageIds = items.map((item) => item.imageId);
-  const allVariants =
-    imageIds.length > 0
-      ? await db
-          .select()
-          .from(imageVariants)
-          .where(
-            imageIds.length === 1
-              ? eq(imageVariants.imageId, imageIds[0])
-              : eq(imageVariants.imageId, imageIds[0]) // fallback for single
-          )
-      : [];
-
-  // For multiple images, fetch all variants
   let variantsByImageId: Record<
     string,
     {
@@ -87,10 +74,10 @@ export async function getPortfolioItems(
   > = {};
 
   if (imageIds.length > 0) {
-    const allImageVariants = await db.select().from(imageVariants);
-    const relevantVariants = allImageVariants.filter((v) =>
-      imageIds.includes(v.imageId)
-    );
+    const relevantVariants = await db
+      .select()
+      .from(imageVariants)
+      .where(inArray(imageVariants.imageId, imageIds));
 
     for (const v of relevantVariants) {
       if (!variantsByImageId[v.imageId]) {
