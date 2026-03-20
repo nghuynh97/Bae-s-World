@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-04-PLAN.md
-last_updated: "2026-03-20T04:20:27.196Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-20T04:22:30.250Z"
 last_activity: 2026-03-20 -- Completed 03-04 Beauty Category Manager
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 13
-  completed_plans: 12
+  completed_plans: 13
   percent: 92
 ---
 
@@ -59,6 +59,7 @@ Progress: [█████████░] 92%
 | Phase 03 P01 | 3min | 2 tasks | 8 files |
 | Phase 03 P02 | 4min | 2 tasks | 10 files |
 | Phase 03 P04 | 2min | 1 tasks | 2 files |
+| Phase 03 P03 | 3min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -95,6 +96,9 @@ Recent decisions affecting current work:
 - [Phase 03]: Optimistic favorite toggle with server action and error revert for responsive UX
 - [03-04]: Replicated portfolio category page pattern as Dialog for beauty category management
 - [03-04]: Used isDefault === 1 strict comparison (number type) matching Drizzle integer column
+- [Phase 03-03]: Used @dnd-kit PointerSensor with 8px distance threshold to distinguish taps from drags
+- [Phase 03-03]: Optimistic UI for reorder and remove with server-side persistence and error revert
+- [Phase 03-03]: router.refresh() on step add to get fresh signed thumbnail URLs from server
 
 ### Pending Todos
 
@@ -107,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T04:20:00Z
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-03-20T04:22:30.246Z
+Stopped at: Completed 03-03-PLAN.md
 Resume file: None
