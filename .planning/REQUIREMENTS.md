@@ -53,10 +53,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Image Management
 
-- [ ] **IMG-01**: Users can upload images (JPEG, PNG, WebP) with automatic optimization
-- [ ] **IMG-02**: Uploaded images generate multiple size variants for responsive display
-- [ ] **IMG-03**: Private images (journal, beauty tracker) are only accessible to authenticated users
-- [ ] **IMG-04**: Image upload supports drag-and-drop and file picker
+- [x] **IMG-01**: Users can upload images (JPEG, PNG, WebP) with automatic optimization
+- [x] **IMG-02**: Uploaded images generate multiple size variants for responsive display
+- [x] **IMG-03**: Private images (journal, beauty tracker) are only accessible to authenticated users
+- [x] **IMG-04**: Image upload supports drag-and-drop and file picker
 
 ## v2 Requirements
 
@@ -112,10 +112,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DESG-01 | Phase 1 | Complete |
 | DESG-02 | Phase 1 | Complete |
 | DESG-03 | Phase 1 | Complete |
-| IMG-01 | Phase 1 | Pending |
-| IMG-02 | Phase 1 | Pending |
-| IMG-03 | Phase 1 | Pending |
-| IMG-04 | Phase 1 | Pending |
+| IMG-01 | Phase 1 | Complete |
+| IMG-02 | Phase 1 | Complete |
+| IMG-03 | Phase 1 | Complete |
+| IMG-04 | Phase 1 | Complete |
 | PORT-01 | Phase 2 | Complete |
 | PORT-02 | Phase 2 | Complete |
 | PORT-03 | Phase 2 | Complete |

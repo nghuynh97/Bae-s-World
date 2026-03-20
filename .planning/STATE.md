@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-03-19T10:59:50Z"
-last_activity: 2026-03-19 -- Completed 02-03 Admin Content Management
+stopped_at: Completed 01-03-PLAN.md
+last_updated: "2026-03-20T01:46:09.186Z"
+last_activity: 2026-03-20 -- Completed 01-03 Image Upload Pipeline
 progress:
   total_phases: 5
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
-  percent: 71
+  completed_plans: 7
+  percent: 86
 ---
 
 # Project State
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 Phase: 2 of 5 (Public Portfolio)
 Plan: 3 of 4 in current phase
 Status: Executing
-Last activity: 2026-03-19 -- Completed 02-03 Admin Content Management
+Last activity: 2026-03-20 -- Completed 01-03 Image Upload Pipeline
 
 Progress: [█████████░] 86%
 
@@ -53,6 +53,7 @@ Progress: [█████████░] 86%
 *Updated after each plan completion*
 | Phase 02 P02 | 3min | 2 tasks | 9 files |
 | Phase 02 P03 | 3min | 2 tasks | 9 files |
+| Phase 01 P03 | 5min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,8 @@ Recent decisions affecting current work:
 - [02-03]: Split portfolio list into Server Component + Client Component for delete dialog state
 - [02-03]: Category inline edit uses click-to-input pattern with blur/enter to save
 - [02-03]: isDefault typed as number matching Drizzle integer column
+- [Phase 01-03]: Four WebP size variants (400w, 800w, 1200w, 1920w) with withoutEnlargement to avoid upscaling
+- [Phase 01-03]: Magic byte validation via sharp metadata instead of file extension checking
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-19T10:59:50Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-03-20T01:46:09.183Z
+Stopped at: Completed 01-03-PLAN.md
 Resume file: None
