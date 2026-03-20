@@ -29,7 +29,7 @@ export function TopNav({
 
   const adminLinks = [
     { href: '/dashboard', label: 'Dashboard' },
-    { href: '/admin/portfolio', label: 'Manage' },
+    { href: '/admin', label: 'Manage' },
   ];
 
   const links = isAuthenticated ? mainLinks : publicLinks;

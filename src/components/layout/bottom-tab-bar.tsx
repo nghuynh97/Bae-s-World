@@ -37,7 +37,7 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
 
   const adminTabs: Tab[] = [
     { href: '/dashboard', label: 'Dashboard', icon: User },
-    { href: '/admin/portfolio', label: 'Manage', icon: Settings },
+    { href: '/admin', label: 'Manage', icon: Settings },
   ];
 
   const tabs = isAuthenticated ? mainTabs : publicTabs;

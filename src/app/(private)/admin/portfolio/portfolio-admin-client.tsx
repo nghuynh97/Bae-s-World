@@ -95,6 +95,11 @@ export function PortfolioAdminClient({
     formState: { errors },
   } = useForm<UploadFormData>({
     resolver: zodResolver(uploadSchema),
+    defaultValues: {
+      title: '',
+      description: '',
+      categoryId: '',
+    },
   });
 
   // --- Handlers ---
@@ -143,12 +148,9 @@ export function PortfolioAdminClient({
   };
 
   return (
-    <div className="py-8 md:py-12">
+    <div>
       {/* Header */}
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="font-display text-xl font-bold text-text-primary">
-          Portfolio Photos
-        </h1>
+      <div className="mb-6 flex items-center justify-end">
         <Button
           onClick={() => setShowUpload(true)}
           className="gap-2 active:scale-[0.97]"
@@ -295,7 +297,7 @@ export function PortfolioAdminClient({
                     name="categoryId"
                     render={({ field }) => (
                       <Select
-                        value={field.value}
+                        value={field.value || undefined}
                         onValueChange={field.onChange}
                       >
                         <SelectTrigger
