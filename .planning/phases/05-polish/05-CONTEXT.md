@@ -30,7 +30,7 @@ Subtle micro-animations, transitions, hover effects, loading skeletons, and feed
 - Skeletons should match the layout structure of the loaded content (grid shapes, card shapes, etc.)
 
 ### Toast & feedback animations
-- Toasts slide up from bottom, auto-dismiss with fade after 3 seconds
+- Toasts appear from top-center (avoids bottom tab bar overlap on mobile), auto-dismiss after 3 seconds
 - Form submission buttons show a small spinner + disabled state while saving
 - Consistent across all forms (login, job form, product form, about editor, etc.)
 
