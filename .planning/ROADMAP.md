@@ -157,10 +157,11 @@ Plans:
 
 ### Phase 8: Portfolio Redesign & Typography Enhancement
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** The portfolio page transforms into a modern creative portfolio with DM Sans typography, a quilted CSS Grid gallery, an integrated hero banner replacing the standalone About page, and an upgraded admin profile editor with tagline/height/weight fields
+**Requirements**: REDESIGN-01, REDESIGN-02, REDESIGN-03, REDESIGN-04, REDESIGN-05, REDESIGN-06
 **Depends on:** Phase 7
-**Plans:** 0 plans
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 8 to break down)
+- [ ] 08-01-PLAN.md — DM Sans font swap (layout + globals.css + tokens test) and aboutContent schema extension (tagline, height, weight)
+- [ ] 08-02-PLAN.md — Quilted grid component, hero banner, portfolio page wiring, About page removal, nav cleanup, admin editor upgrade
