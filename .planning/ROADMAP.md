@@ -16,6 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending) (completed 2004-03-20)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
 - [ ] **Phase 4: Polish** - Micro-animations, transitions, and cross-cutting refinements
+- [ ] **Phase 5: Freelance Schedule & Income Tracker** - Calendar schedule, job CRUD, income statistics with charts
 
 ## Phase Details
 
@@ -97,13 +98,24 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Public Portfolio | 5/5 | Complete   | 2004-03-20 |
 | 3. Beauty Tracker | 3/4 | In Progress|  |
 | 4. Polish | 0/1 | Not started | - |
+| 5. Freelance Schedule | 0/3 | Not started | - |
 
 ### Phase 5: Freelance Schedule & Income Tracker
 
-**Goal:** [To be planned]
-**Requirements**: TBD
-**Depends on:** Phase 4
-**Plans:** 0 plans
+**Goal:** Funnghy can manage her freelance modeling schedule with a month-view calendar, track job income in VND with paid/pending status, and view income statistics with charts -- all in a private section accessible to both users
+**Requirements**: SCHED-01, SCHED-02, SCHED-03, SCHED-04, SCHED-05, SCHED-06, SCHED-07
+**Depends on:** Phase 1
+**Success Criteria** (what must be TRUE):
+  1. Funnghy can add, edit, and delete jobs with client name, location, time, pay (VND), and status
+  2. A month-view calendar shows job dots and daily income totals on each day cell
+  3. Tapping a day shows job details below the calendar; tapping an empty day opens the add job form
+  4. Income statistics show paid vs pending breakdown for current month and year
+  5. Monthly and yearly income charts visualize earnings trends
+  6. The schedule is private -- only accessible when logged in
+  7. Both Funnghy and boyfriend can view and manage the schedule
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 5 to break down)
+- [ ] 05-01-PLAN.md — DB schema (scheduleJobs), Server Actions for job CRUD + income stats, VND formatter, date utilities, tests
+- [ ] 05-02-PLAN.md — Calendar month grid, day cells with job dots + income, day detail panel, job cards, job form sheet
+- [ ] 05-03-PLAN.md — Stats header cards, income bar charts with monthly/yearly toggle, nav links, middleware route protection
