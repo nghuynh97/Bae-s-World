@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-00-PLAN.md
-last_updated: "2026-03-20T06:59:00.585Z"
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-20T07:02:28.617Z"
 last_activity: 2026-03-20 -- Completed 05-00 Polish Test Stubs
 progress:
   total_phases: 5
   completed_phases: 4
   total_plans: 19
-  completed_plans: 17
+  completed_plans: 18
   percent: 89
 ---
 
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 5 of 5 (Polish)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase (plan 01 completed)
 Status: In Progress
-Last activity: 2026-03-20 -- Completed 05-00 Polish Test Stubs
+Last activity: 2026-03-20 -- Completed 05-01 Animations & Micro-Interactions
 
-Progress: [█████████░] 89%
+Progress: [██████████] 95%
 
 ## Performance Metrics
 
@@ -64,6 +64,7 @@ Progress: [█████████░] 89%
 | Phase 05 P02 | 5min | 2 tasks | 10 files |
 | Phase 05 P03 | 4min | 2 tasks | 10 files |
 | Phase 05-polish P00 | 1min | 1 tasks | 4 files |
+| Phase 05-polish P01 | 4min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,8 @@ Recent decisions affecting current work:
 - [Phase 05]: Used next/dynamic with ssr:false for Recharts to avoid SSR bundle bloat
 - [Phase 05]: Week-of-month grouping uses day/7 ceil for monthly chart data (W1-W5)
 - [Phase 05-polish]: Dynamic imports with try-catch for RED-phase test stubs so tests fail at assertion level
+- [Phase 05-polish]: Used motion-safe: prefix on all animations for reduced-motion accessibility
+- [Phase 05-polish]: Shadow-sm base with hover shadow-md for subtle card lift (not dramatic shadow-lg)
 
 ### Pending Todos
 
@@ -124,6 +127,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T06:59:00.581Z
-Stopped at: Completed 05-00-PLAN.md
+Last session: 2026-03-20T07:02:28.613Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
