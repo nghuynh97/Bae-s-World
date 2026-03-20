@@ -136,23 +136,3 @@ export async function logout() {
   redirect("/login");
 }
 
-export async function globalLogout() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect("/login");
-  }
-
-  try {
-    const adminClient = createAdminClient();
-    await adminClient.auth.admin.signOut(user.id, "global");
-  } catch {
-    // Even if admin signOut fails, clear the local session
-  }
-
-  await supabase.auth.signOut();
-  redirect("/login");
-}

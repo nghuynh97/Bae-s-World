@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "tsx scripts/seed-invite-codes.ts",
-    "db:seed:portfolio": "npx tsx scripts/seed-portfolio.ts"
+    "db:push": "node --env-file=.env.local node_modules/drizzle-kit/bin.cjs push",
+    "db:seed": "node --env-file=.env.local node_modules/tsx/dist/cli.mjs scripts/seed-invite-codes.ts",
+    "db:seed:portfolio": "node --env-file=.env.local node_modules/tsx/dist/cli.mjs scripts/seed-portfolio.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
