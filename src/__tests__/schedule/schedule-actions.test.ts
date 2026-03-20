@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+// Mock next/cache
+vi.mock('next/cache', () => ({
+  revalidatePath: vi.fn(),
+}));
+
 // Mock supabase/server
 const mockGetUser = vi.fn();
 vi.mock('@/lib/supabase/server', () => ({
