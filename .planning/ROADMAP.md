@@ -113,10 +113,18 @@ Plans:
 
 ### Phase 6: Refactor & UI/UX Optimization
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** All forms use shadcn components consistently, CRUD operations update the UI seamlessly via server-side revalidation, visual spacing and contrast are polished, and the entire codebase is Prettier-formatted with Tailwind class sorting
+**Requirements**: REFAC-01, REFAC-02, REFAC-03, REFAC-04, REFAC-05, REFAC-06, REFAC-07, REFAC-08, REFAC-09
 **Depends on:** Phase 5
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. All form dropdowns use shadcn Select (no native `<select>` elements remain)
+  2. All textareas use shadcn Textarea (no native `<textarea>` elements remain)
+  3. All CRUD actions update the UI without manual page refresh (revalidatePath in server actions)
+  4. Forms have generous spacing and cards have visible contrast against lavender background
+  5. The entire codebase passes `prettier --check .` with zero violations
+**Plans:** 3 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 6 to break down)
+- [ ] 06-01-PLAN.md — Replace native form elements with shadcn Select/Textarea + migrate router.refresh() to revalidatePath()
+- [ ] 06-02-PLAN.md — UX spacing, calendar visual treatment, and card contrast improvements
+- [ ] 06-03-PLAN.md — Prettier setup with Tailwind plugin and full codebase format
