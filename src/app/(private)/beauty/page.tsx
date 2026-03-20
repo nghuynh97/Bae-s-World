@@ -1,12 +1,15 @@
 import { getBeautyProducts } from "@/actions/beauty-products";
 import { getBeautyCategories } from "@/actions/beauty-categories";
+import { getRoutinesWithSteps } from "@/actions/routines";
 import { BeautyTabs } from "@/components/beauty/beauty-tabs";
 import { ProductGrid } from "@/components/beauty/product-grid";
+import { RoutineList } from "@/components/beauty/routine-list";
 
 export default async function BeautyPage() {
-  const [products, categories] = await Promise.all([
+  const [products, categories, routines] = await Promise.all([
     getBeautyProducts(),
     getBeautyCategories(),
+    getRoutinesWithSteps(),
   ]);
 
   return (
@@ -20,9 +23,7 @@ export default async function BeautyPage() {
           />
         }
         routinesContent={
-          <div className="text-center text-text-secondary text-sm py-12">
-            Routines coming soon...
-          </div>
+          <RoutineList initialRoutines={routines} />
         }
       />
     </div>
