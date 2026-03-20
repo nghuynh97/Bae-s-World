@@ -77,6 +77,52 @@ export const aboutContent = pgTable("about_content", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const beautyCategories = pgTable("beauty_categories", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull().unique(),
+  slug: text("slug").notNull().unique(),
+  displayOrder: integer("display_order").notNull().default(0),
+  isDefault: integer("is_default").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const beautyProducts = pgTable("beauty_products", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  brand: text("brand"),
+  categoryId: uuid("category_id")
+    .notNull()
+    .references(() => beautyCategories.id),
+  rating: integer("rating").notNull().default(0),
+  notes: text("notes"),
+  isFavorite: integer("is_favorite").notNull().default(0),
+  imageId: uuid("image_id")
+    .notNull()
+    .references(() => images.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const routines = pgTable("routines", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  displayOrder: integer("display_order").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const routineSteps = pgTable("routine_steps", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  routineId: uuid("routine_id")
+    .notNull()
+    .references(() => routines.id, { onDelete: "cascade" }),
+  productId: uuid("product_id")
+    .notNull()
+    .references(() => beautyProducts.id, { onDelete: "cascade" }),
+  stepOrder: integer("step_order").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // Relations
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
@@ -102,5 +148,41 @@ export const imageVariantsRelations = relations(imageVariants, ({ one }) => ({
   image: one(images, {
     fields: [imageVariants.imageId],
     references: [images.id],
+  }),
+}));
+
+export const beautyCategoriesRelations = relations(
+  beautyCategories,
+  ({ many }) => ({
+    products: many(beautyProducts),
+  })
+);
+
+export const beautyProductsRelations = relations(
+  beautyProducts,
+  ({ one }) => ({
+    category: one(beautyCategories, {
+      fields: [beautyProducts.categoryId],
+      references: [beautyCategories.id],
+    }),
+    image: one(images, {
+      fields: [beautyProducts.imageId],
+      references: [images.id],
+    }),
+  })
+);
+
+export const routinesRelations = relations(routines, ({ many }) => ({
+  steps: many(routineSteps),
+}));
+
+export const routineStepsRelations = relations(routineSteps, ({ one }) => ({
+  routine: one(routines, {
+    fields: [routineSteps.routineId],
+    references: [routines.id],
+  }),
+  product: one(beautyProducts, {
+    fields: [routineSteps.productId],
+    references: [beautyProducts.id],
   }),
 }));
