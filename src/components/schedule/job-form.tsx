@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { createJob, updateJob, deleteJob } from "@/actions/schedule";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 interface Job {
   id: string;
@@ -322,13 +323,16 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-accent text-white hover:bg-accent-hover"
+              className="w-full bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
             >
-              {isSubmitting
-                ? "Saving..."
-                : isEditing
-                  ? "Save Changes"
-                  : "Add Job"}
+              <span className="inline-flex items-center gap-2">
+                {isSubmitting && <ButtonSpinner />}
+                {isSubmitting
+                  ? "Saving..."
+                  : isEditing
+                    ? "Save Changes"
+                    : "Add Job"}
+              </span>
             </Button>
 
             {/* Delete (edit mode only) */}

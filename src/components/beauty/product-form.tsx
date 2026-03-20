@@ -19,6 +19,7 @@ import { Label } from "@/components/ui/label";
 import { ImageUploader } from "@/components/upload/image-uploader";
 import { StarRating } from "./star-rating";
 import { createBeautyProduct, updateBeautyProduct } from "@/actions/beauty-products";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const productFormSchema = z.object({
   name: z.string().min(1, "Name is required").max(100),
@@ -258,12 +259,15 @@ export function ProductForm({
             >
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting
-                ? "Saving..."
-                : isEditing
-                ? "Save Changes"
-                : "Add Product"}
+            <Button type="submit" disabled={isSubmitting} className="active:scale-[0.97] transition-all duration-100">
+              <span className="inline-flex items-center gap-2">
+                {isSubmitting && <ButtonSpinner />}
+                {isSubmitting
+                  ? "Saving..."
+                  : isEditing
+                  ? "Save Changes"
+                  : "Add Product"}
+              </span>
             </Button>
           </DialogFooter>
         </form>

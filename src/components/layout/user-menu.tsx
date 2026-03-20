@@ -16,6 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { logout } from "@/actions/auth";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 interface UserMenuProps {
   userName: string;
@@ -67,9 +68,12 @@ export function UserMenu({ userName }: UserMenuProps) {
             <button
               onClick={handleLogout}
               disabled={isPending}
-              className="px-4 py-2 text-sm font-bold text-text-primary bg-accent hover:bg-accent-hover transition-colors rounded-[10px] disabled:opacity-50"
+              className="px-4 py-2 text-sm font-bold text-text-primary bg-accent hover:bg-accent-hover transition-all duration-100 rounded-[10px] disabled:opacity-50 active:scale-[0.97]"
             >
-              {isPending ? "Signing out..." : "Sign Out"}
+              <span className="inline-flex items-center gap-2">
+                {isPending && <ButtonSpinner />}
+                {isPending ? "Signing out..." : "Sign Out"}
+              </span>
             </button>
           </DialogFooter>
         </DialogContent>

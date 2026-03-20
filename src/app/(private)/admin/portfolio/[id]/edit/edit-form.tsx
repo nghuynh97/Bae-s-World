@@ -11,6 +11,7 @@ import { updatePortfolioItem } from "@/actions/portfolio";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const editSchema = z.object({
   title: z.string().min(1, "Title is required").max(100, "Title too long"),
@@ -121,10 +122,13 @@ export function EditPortfolioForm({
       <div className="flex items-center gap-3 pt-2">
         <Button
           type="submit"
-          className="bg-accent text-white hover:bg-accent-hover"
+          className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Saving..." : "Save Changes"}
+          <span className="inline-flex items-center gap-2">
+            {isSubmitting && <ButtonSpinner />}
+            {isSubmitting ? "Saving..." : "Save Changes"}
+          </span>
         </Button>
         <Link href="/admin/portfolio">
           <Button type="button" variant="outline" className="text-text-secondary">

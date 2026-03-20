@@ -7,6 +7,7 @@ import { useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/actions/auth";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -80,9 +81,12 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-colors disabled:opacity-50"
+        className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-all duration-100 disabled:opacity-50 active:scale-[0.97]"
       >
-        {isPending ? "Signing in..." : "Sign In"}
+        <span className="inline-flex items-center gap-2">
+          {isPending && <ButtonSpinner />}
+          {isPending ? "Signing in..." : "Sign In"}
+        </span>
       </button>
     </form>
   );

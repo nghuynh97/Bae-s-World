@@ -7,6 +7,7 @@ import { useTransition } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { setupAccount } from "@/actions/auth";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const setupSchema = z
   .object({
@@ -111,9 +112,12 @@ export function SetupForm({ code, assignedName }: SetupFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-colors disabled:opacity-50"
+          className="w-full bg-accent text-text-primary text-sm font-bold uppercase tracking-wider py-3 rounded-[10px] hover:bg-accent-hover transition-all duration-100 disabled:opacity-50 active:scale-[0.97]"
         >
-          {isPending ? "Creating account..." : "Create My Account"}
+          <span className="inline-flex items-center gap-2">
+            {isPending && <ButtonSpinner />}
+            {isPending ? "Creating account..." : "Create My Account"}
+          </span>
         </button>
       </form>
     </div>

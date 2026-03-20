@@ -10,6 +10,7 @@ import { ImageUploader } from "@/components/upload/image-uploader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const aboutSchema = z.object({
   bio: z.string().max(2000, "Bio too long").optional(),
@@ -201,10 +202,13 @@ export default function AboutEditorPage() {
         <div className="pt-2">
           <Button
             type="submit"
-            className="bg-accent text-white hover:bg-accent-hover"
+            className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Saving..." : "Save About Page"}
+            <span className="inline-flex items-center gap-2">
+              {isSubmitting && <ButtonSpinner />}
+              {isSubmitting ? "Saving..." : "Save About Page"}
+            </span>
           </Button>
         </div>
       </form>

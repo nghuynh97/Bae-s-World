@@ -13,6 +13,7 @@ import { ImageUploader } from "@/components/upload/image-uploader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const uploadSchema = z.object({
   title: z.string().min(1, "Title is required").max(100, "Title too long"),
@@ -135,10 +136,13 @@ export default function NewPortfolioPage() {
           <div className="flex items-center gap-3 pt-2">
             <Button
               type="submit"
-              className="bg-accent text-white hover:bg-accent-hover"
+              className="bg-accent text-white hover:bg-accent-hover active:scale-[0.97] transition-all duration-100"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Uploading..." : "Upload Photo"}
+              <span className="inline-flex items-center gap-2">
+                {isSubmitting && <ButtonSpinner />}
+                {isSubmitting ? "Uploading..." : "Upload Photo"}
+              </span>
             </Button>
             <Link href="/admin/portfolio">
               <Button type="button" variant="outline" className="text-text-secondary">
