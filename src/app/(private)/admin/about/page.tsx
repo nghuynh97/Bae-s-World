@@ -10,6 +10,7 @@ import { ImageUploader } from "@/components/upload/image-uploader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const aboutSchema = z.object({
@@ -121,11 +122,11 @@ export default function AboutEditorPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <Label htmlFor="bio">Bio</Label>
-          <textarea
+          <Textarea
             id="bio"
             maxLength={2000}
             {...register("bio")}
-            className="h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm min-h-[200px] resize-y"
+            className="min-h-[200px] resize-y"
           />
           {errors.bio && (
             <p className="text-sm text-destructive mt-1">

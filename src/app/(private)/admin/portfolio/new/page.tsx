@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -13,6 +13,8 @@ import { ImageUploader } from "@/components/upload/image-uploader";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { ButtonSpinner } from "@/components/ui/button-spinner";
 
 const uploadSchema = z.object({
@@ -37,6 +39,7 @@ export default function NewPortfolioPage() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<UploadFormData>({
     resolver: zodResolver(uploadSchema),
@@ -98,11 +101,11 @@ export default function NewPortfolioPage() {
 
           <div>
             <Label htmlFor="description">Description</Label>
-            <textarea
+            <Textarea
               id="description"
               maxLength={500}
               {...register("description")}
-              className="h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm min-h-[100px] resize-y"
+              className="min-h-[100px] resize-y"
             />
             {errors.description && (
               <p className="text-sm text-destructive mt-1">
@@ -113,19 +116,24 @@ export default function NewPortfolioPage() {
 
           <div>
             <Label htmlFor="categoryId">Category</Label>
-            <select
-              id="categoryId"
-              {...register("categoryId")}
-              className="h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
-              aria-invalid={!!errors.categoryId}
-            >
-              <option value="">Select a category</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            <Controller
+              control={control}
+              name="categoryId"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full" aria-invalid={!!errors.categoryId}>
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
             {errors.categoryId && (
               <p className="text-sm text-destructive mt-1">
                 {errors.categoryId.message}

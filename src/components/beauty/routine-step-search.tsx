@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
 import { searchBeautyProducts } from "@/actions/beauty-products";
 import { addRoutineStep } from "@/actions/routines";
 
@@ -99,7 +100,7 @@ export function RoutineStepSearch({
     <div className="relative">
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <input
+        <Input
           type="text"
           value={query}
           onChange={handleInputChange}
@@ -107,7 +108,7 @@ export function RoutineStepSearch({
           onFocus={handleFocus}
           onKeyDown={handleKeyDown}
           placeholder="Search products to add..."
-          className="w-full pl-9 pr-3 py-2 text-sm border border-border rounded-md bg-surface text-primary placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
+          className="pl-9"
         />
       </div>
 

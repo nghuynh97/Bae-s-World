@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -16,6 +16,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { ImageUploader } from "@/components/upload/image-uploader";
 import { StarRating } from "./star-rating";
 import { createBeautyProduct, updateBeautyProduct } from "@/actions/beauty-products";
@@ -78,6 +80,7 @@ export function ProductForm({
     setValue,
     watch,
     reset,
+    control,
     formState: { errors },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productFormSchema),
@@ -209,18 +212,24 @@ export function ProductForm({
           {/* Category */}
           <div>
             <Label htmlFor="product-category" className="mb-1">Category</Label>
-            <select
-              id="product-category"
-              {...register("categoryId")}
-              className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
-            >
-              <option value="">Select a category</option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+            <Controller
+              control={control}
+              name="categoryId"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id}>
+                        {cat.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
             {errors.categoryId && (
               <p className="text-xs text-destructive mt-1">{errors.categoryId.message}</p>
             )}
@@ -239,12 +248,12 @@ export function ProductForm({
           {/* Notes */}
           <div>
             <Label htmlFor="product-notes" className="mb-1">Notes</Label>
-            <textarea
+            <Textarea
               id="product-notes"
               {...register("notes")}
               placeholder="Your thoughts on this product..."
               rows={4}
-              className="w-full rounded-lg border border-input bg-transparent px-2.5 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 resize-none md:text-sm"
+              className="resize-none"
             />
           </div>
 
