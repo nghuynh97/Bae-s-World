@@ -88,7 +88,7 @@ export function PortfolioListClient({ items }: PortfolioListClientProps) {
                     {item.categoryName}
                   </p>
                   <p className="text-sm text-text-secondary">
-                    {new Date(item.createdAt).toLocaleDateString()}
+                    {new Date(item.createdAt).toLocaleDateString('en-US')}
                   </p>
                 </div>
                 <DropdownMenu>
@@ -135,9 +135,9 @@ export function PortfolioListClient({ items }: PortfolioListClientProps) {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
+            <Button variant="outline" onClick={() => setDeleteItemId(null)}>
+              Cancel
+            </Button>
             <Button
               className="bg-destructive text-white hover:bg-destructive/90"
               onClick={handleDelete}
