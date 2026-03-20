@@ -122,7 +122,7 @@ Plans:
   3. All CRUD actions update the UI without manual page refresh (revalidatePath in server actions)
   4. Forms have generous spacing and cards have visible contrast against lavender background
   5. The entire codebase passes `prettier --check .` with zero violations
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 06-01-PLAN.md — Replace native form elements with shadcn Select/Textarea + migrate router.refresh() to revalidatePath()
