@@ -18,13 +18,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Beauty Tracker
 
-- [ ] **BEAU-01**: Funnghy can add beauty products with name, brand, category, rating, photo, and notes
-- [ ] **BEAU-02**: Funnghy can edit and delete her beauty products
-- [ ] **BEAU-03**: Funnghy can organize products by category (skincare, makeup, haircare, etc.)
-- [ ] **BEAU-04**: Funnghy can mark products as favorites and view them in a shelf/collection view
+- [x] **BEAU-01**: Funnghy can add beauty products with name, brand, category, rating, photo, and notes
+- [x] **BEAU-02**: Funnghy can edit and delete her beauty products
+- [x] **BEAU-03**: Funnghy can organize products by category (skincare, makeup, haircare, etc.)
+- [x] **BEAU-04**: Funnghy can mark products as favorites and view them in a shelf/collection view
 - [ ] **BEAU-05**: Funnghy can create morning and evening routines with ordered product steps
 - [ ] **BEAU-06**: Funnghy can reorder steps in a routine via drag-and-drop
-- [ ] **BEAU-07**: Beauty tracker is private — only accessible when logged in
+- [x] **BEAU-07**: Beauty tracker is private — only accessible when logged in
 
 ### Photo Journal
 
@@ -123,13 +123,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PORT-05 | Phase 2 | Complete |
 | PORT-06 | Phase 2 | Complete |
 | AUTH-06 | Phase 2 | Complete |
-| BEAU-01 | Phase 3 | Pending |
-| BEAU-02 | Phase 3 | Pending |
-| BEAU-03 | Phase 3 | Pending |
-| BEAU-04 | Phase 3 | Pending |
+| BEAU-01 | Phase 3 | Complete |
+| BEAU-02 | Phase 3 | Complete |
+| BEAU-03 | Phase 3 | Complete |
+| BEAU-04 | Phase 3 | Complete |
 | BEAU-05 | Phase 3 | Pending |
 | BEAU-06 | Phase 3 | Pending |
-| BEAU-07 | Phase 3 | Pending |
+| BEAU-07 | Phase 3 | Complete |
 | JOUR-01 | Phase 4 | Pending |
 | JOUR-02 | Phase 4 | Pending |
 | JOUR-03 | Phase 4 | Pending |
