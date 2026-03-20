@@ -160,7 +160,7 @@ Plans:
 **Goal:** The portfolio page transforms into a modern creative portfolio with DM Sans typography, a quilted CSS Grid gallery, an integrated hero banner replacing the standalone About page, and an upgraded admin profile editor with tagline/height/weight fields
 **Requirements**: REDESIGN-01, REDESIGN-02, REDESIGN-03, REDESIGN-04, REDESIGN-05, REDESIGN-06
 **Depends on:** Phase 7
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
 - [ ] 08-01-PLAN.md — DM Sans font swap (layout + globals.css + tokens test) and aboutContent schema extension (tagline, height, weight)
