@@ -25,6 +25,7 @@ export function TopNav({
   const authLinks = [
     { href: "/", label: "Portfolio" },
     { href: "/beauty", label: "Beauty" },
+    { href: "/schedule", label: "Schedule" },
     { href: "/journal", label: "Journal" },
     { href: "/about", label: "About" },
     { href: "/admin/portfolio", label: "Admin" },

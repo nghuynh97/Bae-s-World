@@ -8,6 +8,7 @@ import {
   LogIn,
   Sparkles,
   BookOpen,
+  CalendarDays,
   User,
   Settings,
 } from "lucide-react";
@@ -34,6 +35,7 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
   const authTabs: Tab[] = [
     { href: "/", label: "Portfolio", icon: Image },
     { href: "/beauty", label: "Beauty", icon: Sparkles },
+    { href: "/schedule", label: "Schedule", icon: CalendarDays },
     { href: "/journal", label: "Journal", icon: BookOpen },
     { href: "/admin/portfolio", label: "Admin", icon: Settings },
     { href: "/dashboard", label: "Profile", icon: User },

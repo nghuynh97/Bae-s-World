@@ -38,6 +38,7 @@ export async function updateSession(request: NextRequest) {
     !user &&
     (pathname.startsWith("/dashboard") ||
       pathname.startsWith("/beauty") ||
+      pathname.startsWith("/schedule") ||
       pathname.startsWith("/journal") ||
       pathname.startsWith("/upload") ||
       pathname.startsWith("/admin"))

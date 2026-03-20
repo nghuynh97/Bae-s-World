@@ -70,8 +70,8 @@ export default function IncomeChartInner({
             <XAxis dataKey="label" tick={{ fontSize: 12 }} />
             <YAxis tickFormatter={(v: number) => formatVNDCompact(v)} />
             <Tooltip
-              formatter={(value: number, name: string) => [
-                formatVND(value),
+              formatter={(value, name) => [
+                formatVND(Number(value)),
                 name === "paid" ? "Paid" : "Pending",
               ]}
             />

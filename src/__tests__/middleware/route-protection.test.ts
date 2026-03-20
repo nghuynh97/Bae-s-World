@@ -18,8 +18,16 @@ describe("Middleware route protection", () => {
     const content = readSrc("lib/supabase/middleware.ts");
     expect(content).toContain("/dashboard");
     expect(content).toContain("/beauty");
+    expect(content).toContain("/schedule");
     expect(content).toContain("/journal");
     expect(content).toContain("/upload");
+  });
+
+  it("redirects unauthenticated users from /schedule to /login", () => {
+    const content = readSrc("lib/supabase/middleware.ts");
+    // /schedule must appear in the protected routes block before the redirect to /login
+    expect(content).toMatch(/pathname\.startsWith\(["']\/schedule["']\)/);
+    expect(content).toContain("/login");
   });
 
   it("middleware.ts imports updateSession from the correct path", () => {
