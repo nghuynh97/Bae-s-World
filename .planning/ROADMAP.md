@@ -95,10 +95,17 @@ Plans:
 
 ### Phase 5: Polish
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** The app feels smooth and responsive with subtle micro-animations, page fade transitions, loading skeletons, hover effects, and consistent form feedback across all pages
+**Requirements**: POLISH-01, POLISH-02, POLISH-03, POLISH-04, POLISH-05
 **Depends on:** Phase 4
-**Plans:** 0 plans
+**Success Criteria** (what must be TRUE):
+  1. Every route change shows a subtle fade-in animation (200-300ms)
+  2. Cards show barely-visible lift/shadow change on hover; buttons scale to 0.97x on press
+  3. All 4 main pages (portfolio, dashboard, beauty, schedule) have layout-matching loading skeletons
+  4. Toasts appear from top-center and auto-dismiss after 3 seconds
+  5. Every form submit button shows a spinner icon while saving
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd:plan-phase 5 to break down)
+- [ ] 05-01-PLAN.md — CSS keyframes, page fade template.tsx, ButtonSpinner component, toast config, card hover effects
+- [ ] 05-02-PLAN.md — Loading skeletons for portfolio and dashboard, form button spinners across all forms
