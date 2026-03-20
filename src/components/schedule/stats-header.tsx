@@ -25,17 +25,17 @@ function StatCard({
   stats: StatGroup;
 }) {
   return (
-    <div className="bg-surface rounded-lg shadow-sm p-6 min-w-[260px] snap-start flex-shrink-0 sm:min-w-0 motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
-      <p className="text-xs font-body text-text-secondary">{title}</p>
-      <p className="text-xs font-body text-text-secondary">{subLabel}</p>
-      <p className="font-display text-[28px] font-bold text-primary mt-2">
+    <div className="bg-white rounded-lg shadow-sm ring-1 ring-black/5 p-4 min-w-[260px] snap-start flex-shrink-0 sm:min-w-0 motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
+      <p className="text-xs font-body text-muted-foreground">{title}</p>
+      <p className="text-xs font-body text-muted-foreground">{subLabel}</p>
+      <p className="font-display text-[28px] font-bold text-foreground mt-2">
         {formatVND(stats.total)}
       </p>
       <p className="text-xs font-body mt-1">
         <span className="text-[var(--color-paid)]">
           Paid: {formatVND(stats.totalPaid)}
         </span>
-        <span className="text-text-secondary"> | </span>
+        <span className="text-muted-foreground"> | </span>
         <span className="text-[var(--color-pending)]">
           Pending: {formatVND(stats.totalPending)}
         </span>

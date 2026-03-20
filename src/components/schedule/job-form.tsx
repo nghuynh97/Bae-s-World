@@ -177,11 +177,11 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
 
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-4 px-6 pb-6"
+            className="space-y-5 px-6 pb-6"
           >
             {/* Client Name */}
             <div>
-              <Label htmlFor="client-name" className="mb-1">
+              <Label htmlFor="client-name" className="mb-2">
                 Client Name
               </Label>
               <Input
@@ -198,7 +198,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
 
             {/* Location */}
             <div>
-              <Label htmlFor="location" className="mb-1">
+              <Label htmlFor="location" className="mb-2">
                 Location
               </Label>
               <Input
@@ -216,7 +216,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
             {/* Time range */}
             <div className="flex items-center gap-2">
               <div className="flex-1">
-                <Label htmlFor="start-time" className="mb-1">
+                <Label htmlFor="start-time" className="mb-2">
                   Start Time
                 </Label>
                 <Input
@@ -232,7 +232,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
               </div>
               <span className="text-sm font-body text-secondary mt-6">to</span>
               <div className="flex-1">
-                <Label htmlFor="end-time" className="mb-1">
+                <Label htmlFor="end-time" className="mb-2">
                   End Time
                 </Label>
                 <Input id="end-time" type="time" {...register("endTime")} />
@@ -246,7 +246,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
 
             {/* Pay Amount */}
             <div>
-              <Label htmlFor="pay-amount" className="mb-1">
+              <Label htmlFor="pay-amount" className="mb-2">
                 Pay Amount
               </Label>
               <div className="relative">
@@ -273,7 +273,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
 
             {/* Status toggle */}
             <div>
-              <Label className="mb-1">Status</Label>
+              <Label className="mb-2">Status</Label>
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -304,7 +304,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
 
             {/* Notes */}
             <div>
-              <Label htmlFor="job-notes" className="mb-1">
+              <Label htmlFor="job-notes" className="mb-2">
                 Notes
               </Label>
               <Textarea
@@ -317,6 +317,7 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
             </div>
 
             {/* Submit */}
+            <div className="pt-2" />
             <Button
               type="submit"
               disabled={isSubmitting}

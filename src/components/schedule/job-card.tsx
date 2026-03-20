@@ -30,7 +30,7 @@ export function JobCard({ job, onEdit }: JobCardProps) {
     <button
       type="button"
       onClick={() => onEdit(job.id)}
-      className="w-full flex bg-surface rounded-[10px] shadow-sm p-4 hover:bg-hover transition-colors text-left motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.97]"
+      className="w-full flex bg-white rounded-[10px] shadow-sm ring-1 ring-black/5 p-4 hover:bg-hover transition-colors text-left motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.97]"
     >
       {/* Left color stripe */}
       <div
@@ -43,16 +43,16 @@ export function JobCard({ job, onEdit }: JobCardProps) {
       />
 
       {/* Time range */}
-      <div className="w-20 flex-shrink-0 text-sm font-body text-secondary">
+      <div className="w-20 flex-shrink-0 text-sm font-body text-muted-foreground">
         {job.startTime} - {job.endTime}
       </div>
 
       {/* Main info */}
       <div className="flex-1 min-w-0 mr-3">
-        <div className="text-sm font-bold font-body text-primary truncate">
+        <div className="text-sm font-bold font-body text-foreground truncate">
           {job.clientName}
         </div>
-        <div className="flex items-center gap-1 text-xs font-body text-secondary">
+        <div className="flex items-center gap-1 text-xs font-body text-muted-foreground">
           <MapPin className="h-3 w-3 flex-shrink-0" />
           <span className="truncate">{job.location}</span>
         </div>
@@ -60,7 +60,7 @@ export function JobCard({ job, onEdit }: JobCardProps) {
 
       {/* Pay + status */}
       <div className="flex flex-col items-end flex-shrink-0">
-        <span className="text-sm font-bold font-body text-primary">
+        <span className="text-sm font-bold font-body text-foreground">
           {formatVND(job.payAmount)}
         </span>
         <span
