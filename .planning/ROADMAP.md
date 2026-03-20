@@ -15,8 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (gap closure pending) (completed 2004-03-20)
 - [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending) (completed 2004-03-20)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
-- [ ] **Phase 4: Polish** - Micro-animations, transitions, and cross-cutting refinements
-- [ ] **Phase 5: Freelance Schedule & Income Tracker** - Calendar schedule, job CRUD, income statistics with charts
+- [ ] **Phase 4: Freelance Schedule & Income Tracker** - Calendar schedule, job CRUD, income statistics with charts
 
 ## Phase Details
 
@@ -74,33 +73,7 @@ Plans:
 - [ ] 03-03-PLAN.md — Routines tab UI (morning/evening cards, drag-and-drop step reorder, search-to-add product picker)
 - [ ] 03-04-PLAN.md — Beauty category management UI (create, rename, delete custom categories dialog)
 
-### Phase 4: Polish
-**Goal**: The entire app feels premium and cohesive with subtle animations and transitions that enhance the experience without slowing it down
-**Depends on**: Phase 2, Phase 3, Phase 4
-**Requirements**: DESG-04
-**Success Criteria** (what must be TRUE):
-  1. Pages have smooth transitions when navigating between sections
-  2. Interactive elements (buttons, cards, images) have subtle hover and tap animations
-  3. Loading states use graceful skeleton or shimmer animations instead of raw spinners
-**Plans**: TBD
-
-Plans:
-- [ ] 04-01: TBD
-
-## Progress
-
-**Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 4/4 | Complete   | 2004-03-20 |
-| 2. Public Portfolio | 5/5 | Complete   | 2004-03-20 |
-| 3. Beauty Tracker | 3/4 | In Progress|  |
-| 4. Polish | 0/1 | Not started | - |
-| 5. Freelance Schedule | 2/3 | In Progress|  |
-
-### Phase 5: Freelance Schedule & Income Tracker
+### Phase 4: Freelance Schedule & Income Tracker
 
 **Goal:** Funnghy can manage her freelance modeling schedule with a month-view calendar, track job income in VND with paid/pending status, and view income statistics with charts -- all in a private section accessible to both users
 **Requirements**: SCHED-01, SCHED-02, SCHED-03, SCHED-04, SCHED-05, SCHED-06, SCHED-07
@@ -116,6 +89,16 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 **Plans:** 2/3 plans executed
 
 Plans:
-- [ ] 05-01-PLAN.md — DB schema (scheduleJobs), Server Actions for job CRUD + income stats, VND formatter, date utilities, tests
-- [ ] 05-02-PLAN.md — Calendar month grid, day cells with job dots + income, day detail panel, job cards, job form sheet
-- [ ] 05-03-PLAN.md — Stats header cards, income bar charts with monthly/yearly toggle, nav links, middleware route protection
+- [ ] 04-01-PLAN.md — DB schema (scheduleJobs), Server Actions for job CRUD + income stats, VND formatter, date utilities, tests
+- [ ] 04-02-PLAN.md — Calendar month grid, day cells with job dots + income, day detail panel, job cards, job form sheet
+- [ ] 04-03-PLAN.md — Stats header cards, income bar charts with monthly/yearly toggle, nav links, middleware route protection
+
+### Phase 5: Polish
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 4
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 5 to break down)
