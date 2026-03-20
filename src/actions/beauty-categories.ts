@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { beautyCategories, beautyProducts } from "@/lib/db/schema";
 import { eq, asc, max } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 const uuidSchema = z.string().uuid();
 
@@ -73,6 +74,7 @@ export async function createBeautyCategory(data: { name: string }) {
     })
     .returning();
 
+  revalidatePath("/beauty");
   return created;
 }
 
@@ -114,6 +116,7 @@ export async function updateBeautyCategory(
     .where(eq(beautyCategories.id, categoryId))
     .returning();
 
+  revalidatePath("/beauty");
   return updated;
 }
 
@@ -157,5 +160,6 @@ export async function deleteBeautyCategory(categoryId: string) {
     .delete(beautyCategories)
     .where(eq(beautyCategories.id, categoryId));
 
+  revalidatePath("/beauty");
   return { success: true };
 }

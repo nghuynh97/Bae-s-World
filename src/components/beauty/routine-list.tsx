@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -23,7 +23,6 @@ import {
   type RoutineWithSteps,
 } from "@/actions/routines";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 interface RoutineListProps {
   initialRoutines: RoutineWithSteps[];
@@ -32,7 +31,11 @@ interface RoutineListProps {
 export function RoutineList({ initialRoutines }: RoutineListProps) {
   const [routinesState, setRoutinesState] =
     useState<RoutineWithSteps[]>(initialRoutines);
-  const router = useRouter();
+
+  // Sync state when server re-renders with fresh data (after revalidatePath)
+  useEffect(() => {
+    setRoutinesState(initialRoutines);
+  }, [initialRoutines]);
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: { distance: 8 },
@@ -114,8 +117,8 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
   );
 
   const handleStepAdded = useCallback(() => {
-    router.refresh();
-  }, [router]);
+    // revalidatePath in server action triggers re-render with fresh initialRoutines
+  }, []);
 
   return (
     <div>

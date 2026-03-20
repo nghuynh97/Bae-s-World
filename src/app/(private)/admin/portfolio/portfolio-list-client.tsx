@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { deletePortfolioItem } from "@/actions/portfolio";
@@ -42,7 +41,6 @@ interface PortfolioListClientProps {
 }
 
 export function PortfolioListClient({ items }: PortfolioListClientProps) {
-  const router = useRouter();
   const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -53,7 +51,6 @@ export function PortfolioListClient({ items }: PortfolioListClientProps) {
       await deletePortfolioItem(deleteItemId);
       toast.success("Photo deleted");
       setDeleteItemId(null);
-      router.refresh();
     } catch {
       toast.error("Failed to delete photo. Please try again.");
     } finally {
@@ -97,10 +94,8 @@ export function PortfolioListClient({ items }: PortfolioListClientProps) {
                   </p>
                 </div>
                 <DropdownMenu>
-                  <DropdownMenuTrigger>
-                    <Button variant="ghost" size="icon-sm">
-                      <MoreHorizontal size={16} />
-                    </Button>
+                  <DropdownMenuTrigger className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-muted transition-colors">
+                    <MoreHorizontal size={16} />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>

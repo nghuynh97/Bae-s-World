@@ -10,6 +10,7 @@ import {
 } from "@/lib/db/schema";
 import { eq, desc, inArray, ilike, and } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import { getSignedImageUrls } from "@/lib/supabase/storage";
 
 const uuidSchema = z.string().uuid();
@@ -222,6 +223,7 @@ export async function createBeautyProduct(data: {
     })
     .returning();
 
+  revalidatePath("/beauty");
   return created;
 }
 
@@ -270,6 +272,7 @@ export async function updateBeautyProduct(
     .where(eq(beautyProducts.id, productId))
     .returning();
 
+  revalidatePath("/beauty");
   return updated;
 }
 
@@ -310,6 +313,7 @@ export async function deleteBeautyProduct(productId: string) {
   // Delete the product record
   await db.delete(beautyProducts).where(eq(beautyProducts.id, productId));
 
+  revalidatePath("/beauty");
   return { success: true };
 }
 
@@ -341,6 +345,7 @@ export async function toggleFavorite(productId: string) {
     .where(eq(beautyProducts.id, productId))
     .returning();
 
+  revalidatePath("/beauty");
   return updated;
 }
 

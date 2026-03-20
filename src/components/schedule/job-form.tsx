@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -63,7 +62,6 @@ interface JobFormProps {
 }
 
 export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
-  const router = useRouter();
   const isEditing = !!job;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -132,7 +130,6 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
         });
         toast.success("Job added");
       }
-      router.refresh();
       onOpenChange(false);
     } catch {
       toast.error("Something went wrong. Please try again.");
@@ -147,7 +144,6 @@ export function JobForm({ date, job, open, onOpenChange }: JobFormProps) {
     try {
       await deleteJob(job.id);
       toast.success("Job deleted");
-      router.refresh();
       onOpenChange(false);
     } catch {
       toast.error("Something went wrong. Please try again.");

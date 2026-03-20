@@ -10,6 +10,7 @@ import {
 } from "@/lib/db/schema";
 import { eq, desc, lt, and, inArray } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import { getPublicImageUrl } from "@/lib/supabase/storage";
 
 const PAGE_SIZE = 12;
@@ -194,6 +195,8 @@ export async function createPortfolioItem(data: {
     })
     .returning();
 
+  revalidatePath("/admin/portfolio");
+  revalidatePath("/");
   return created;
 }
 
@@ -238,6 +241,8 @@ export async function updatePortfolioItem(
     .where(eq(portfolioItems.id, itemId))
     .returning();
 
+  revalidatePath("/admin/portfolio");
+  revalidatePath("/");
   return updated;
 }
 
@@ -278,5 +283,7 @@ export async function deletePortfolioItem(itemId: string) {
   // Delete the portfolio item record
   await db.delete(portfolioItems).where(eq(portfolioItems.id, itemId));
 
+  revalidatePath("/admin/portfolio");
+  revalidatePath("/");
   return { success: true };
 }

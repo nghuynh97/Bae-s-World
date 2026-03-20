@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { Plus, Sparkles, Settings2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -51,9 +50,12 @@ interface ProductGridProps {
 }
 
 export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
-  const router = useRouter();
-  const [, startTransition] = useTransition();
   const [products, setProducts] = useState(initialProducts);
+
+  // Sync state when server re-renders with fresh data (after revalidatePath)
+  useEffect(() => {
+    setProducts(initialProducts);
+  }, [initialProducts]);
   const [activeSlug, setActiveSlug] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<ProductDetailData | null>(null);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
@@ -128,11 +130,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
 
   const handleFormSuccess = () => {
     setEditingProduct(null);
-    startTransition(() => {
-      router.refresh();
-    });
-    // Also refetch by resetting products from server on next render
-    // router.refresh() will cause the server component to re-render with fresh data
+    // revalidatePath in server actions triggers re-render with fresh initialProducts
   };
 
   const handleOpenAddForm = () => {
@@ -229,7 +227,7 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
       <BeautyCategoryManager
         open={showCategoryManager}
         onOpenChange={setShowCategoryManager}
-        onCategoriesChanged={() => router.refresh()}
+        onCategoriesChanged={() => { /* revalidatePath in server action handles refresh */ }}
       />
 
       {/* Product form dialog */}

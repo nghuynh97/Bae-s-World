@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { aboutContent, images, imageVariants } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import { getPublicImageUrl } from "@/lib/supabase/storage";
 
 export async function getAboutContent() {
@@ -107,6 +108,8 @@ export async function updateAboutContent(data: {
       })
       .returning();
 
+    revalidatePath("/about");
+    revalidatePath("/admin/about");
     return created;
   }
 
@@ -117,5 +120,7 @@ export async function updateAboutContent(data: {
     .where(eq(aboutContent.id, existing[0].id))
     .returning();
 
+  revalidatePath("/about");
+  revalidatePath("/admin/about");
   return updated;
 }

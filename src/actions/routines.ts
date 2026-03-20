@@ -11,6 +11,7 @@ import {
 } from "@/lib/db/schema";
 import { eq, asc, inArray, and, max } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 import { getSignedImageUrls } from "@/lib/supabase/storage";
 
 const uuidSchema = z.string().uuid();
@@ -139,6 +140,7 @@ export async function addRoutineStep(routineId: string, productId: string) {
     })
     .returning();
 
+  revalidatePath("/beauty");
   return created;
 }
 
@@ -154,6 +156,7 @@ export async function removeRoutineStep(stepId: string) {
 
   await db.delete(routineSteps).where(eq(routineSteps.id, stepId));
 
+  revalidatePath("/beauty");
   return { success: true };
 }
 
@@ -187,5 +190,6 @@ export async function reorderRoutineSteps(
       );
   }
 
+  revalidatePath("/beauty");
   return { success: true };
 }

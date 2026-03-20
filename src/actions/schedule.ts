@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { scheduleJobs } from "@/lib/db/schema";
 import { eq, and, gte, lte, asc } from "drizzle-orm";
 import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
 const uuidSchema = z.string().uuid();
 
@@ -74,6 +75,7 @@ export async function createJob(data: z.infer<typeof createJobSchema>) {
     .values(parsed.data)
     .returning();
 
+  revalidatePath("/schedule");
   return created;
 }
 
@@ -145,6 +147,7 @@ export async function updateJob(
     .where(eq(scheduleJobs.id, jobId))
     .returning();
 
+  revalidatePath("/schedule");
   return updated;
 }
 
@@ -160,6 +163,7 @@ export async function deleteJob(jobId: string) {
 
   await db.delete(scheduleJobs).where(eq(scheduleJobs.id, jobId));
 
+  revalidatePath("/schedule");
   return { success: true };
 }
 
