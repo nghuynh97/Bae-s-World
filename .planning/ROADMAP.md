@@ -66,7 +66,7 @@ Plans:
   2. Funnghy can browse her products organized by category (skincare, makeup, haircare, etc.) in a visual shelf/collection view, with favorites highlighted
   3. Funnghy can create morning and evening routines with ordered product steps, and reorder steps via drag-and-drop
   4. The beauty tracker is only accessible when logged in; unauthenticated visitors cannot access it or its images
-**Plans:** 2/4 plans executed
+**Plans:** 3/4 plans executed
 
 Plans:
 - [ ] 03-01-PLAN.md — DB schema (beautyCategories, beautyProducts, routines, routineSteps), Server Actions for product + category CRUD, seed script, test stubs
@@ -112,6 +112,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 4/4 | Complete   | 2026-03-20 |
 | 2. Public Portfolio | 5/5 | Complete   | 2026-03-20 |
-| 3. Beauty Tracker | 2/4 | In Progress|  |
+| 3. Beauty Tracker | 3/4 | In Progress|  |
 | 4. Photo Journal | 0/2 | Not started | - |
 | 5. Polish | 0/1 | Not started | - |
