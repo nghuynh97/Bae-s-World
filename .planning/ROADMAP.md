@@ -12,7 +12,7 @@ Funnghy's World delivers a personal gift webapp in five phases: first establishi
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (completed 2026-03-20)
+- [ ] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (gap closure pending)
 - [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending) (completed 2026-03-20)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
 - [ ] **Phase 4: Photo Journal** - Daily entries, chronological and calendar browse, tagging
@@ -30,12 +30,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Public routes (portfolio placeholder) are accessible without login; private routes redirect to login
   4. The app displays with the soft feminine design system (pastel tones, rose gold accents, cream backgrounds, elegant typography) on both mobile and desktop
   5. A user can upload an image via drag-and-drop or file picker, and it is automatically optimized with multiple size variants generated; private images are inaccessible without authentication
-**Plans:** 3/3 plans complete
+**Plans:** 4 plans (3 complete + 1 gap closure)
 
 Plans:
 - [x] 01-01-PLAN.md — Scaffold project, design system tokens, shadcn/ui, fonts, navigation components, route groups, placeholder pages
-- [ ] 01-02-PLAN.md — Supabase auth, invite-code setup flow, login, middleware route protection, dynamic navigation
-- [ ] 01-03-PLAN.md — Image upload pipeline with sharp processing, variant generation, signed URLs, drag-and-drop UI
+- [x] 01-02-PLAN.md — Supabase auth, invite-code setup flow, login, middleware route protection, dynamic navigation
+- [x] 01-03-PLAN.md — Image upload pipeline with sharp processing, variant generation, signed URLs, drag-and-drop UI
+- [ ] 01-04-PLAN.md — Gap closure: Add "Sign out all devices" global session invalidation
 
 ### Phase 2: Public Portfolio
 **Goal**: Anyone on the internet can browse Funnghy's portfolio in a beautiful masonry gallery, view photos full-size, filter by category, and read her about page -- and Funnghy or her boyfriend can manage the content
@@ -107,7 +108,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 3/3 | Complete   | 2026-03-20 |
+| 1. Foundation | 3/4 | Gap closure pending | - |
 | 2. Public Portfolio | 5/5 | Complete   | 2026-03-20 |
 | 3. Beauty Tracker | 0/2 | Not started | - |
 | 4. Photo Journal | 0/2 | Not started | - |
