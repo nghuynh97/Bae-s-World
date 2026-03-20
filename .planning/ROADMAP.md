@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | 2. Public Portfolio | 5/5 | Complete   | 2004-03-20 |
 | 3. Beauty Tracker | 3/4 | In Progress|  |
 | 4. Polish | 0/1 | Not started | - |
-| 5. Freelance Schedule | 0/3 | Not started | - |
+| 5. Freelance Schedule | 2/3 | In Progress|  |
 
 ### Phase 5: Freelance Schedule & Income Tracker
 
@@ -113,7 +113,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
   5. Monthly and yearly income charts visualize earnings trends
   6. The schedule is private -- only accessible when logged in
   7. Both Funnghy and boyfriend can view and manage the schedule
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 05-01-PLAN.md — DB schema (scheduleJobs), Server Actions for job CRUD + income stats, VND formatter, date utilities, tests

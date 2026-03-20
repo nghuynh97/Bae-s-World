@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-01-PLAN.md
-last_updated: "2026-03-20T05:30:55.377Z"
-last_activity: 2026-03-20 -- Completed 05-01 Schedule Data Layer
+stopped_at: Completed 05-02-PLAN.md
+last_updated: "2026-03-20T05:38:00.159Z"
+last_activity: 2026-03-20 -- Completed 05-02 Calendar UI & Job Form
 progress:
   total_phases: 5
   completed_phases: 3
   total_plans: 16
-  completed_plans: 14
-  percent: 88
+  completed_plans: 15
+  percent: 94
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-03-19)
 ## Current Position
 
 Phase: 5 of 5 (Freelance Schedule & Income Tracker)
-Plan: 1 of 3 in current phase (completed)
+Plan: 2 of 3 in current phase (completed)
 Status: Executing
-Last activity: 2026-03-20 -- Completed 05-01 Schedule Data Layer
+Last activity: 2026-03-20 -- Completed 05-02 Calendar UI & Job Form
 
-Progress: [█████████░] 88%
+Progress: [█████████░] 94%
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Progress: [█████████░] 88%
 | Phase 03 P04 | 2min | 1 tasks | 2 files |
 | Phase 03 P03 | 3min | 2 tasks | 8 files |
 | Phase 05 P01 | 5min | 2 tasks | 8 files |
+| Phase 05 P02 | 5min | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,9 @@ Recent decisions affecting current work:
 - [Phase 05]: Used text type for jobDate (YYYY-MM-DD) to avoid timezone issues with date-only values
 - [Phase 05]: Used Intl.NumberFormat vi-VN for VND formatting (zero-dependency, native browser API)
 - [Phase 05]: Monday-start week (weekStartsOn: 1) for calendar grid matching Vietnamese convention
+- [Phase 05]: Used URL search params for month/year navigation (bookmarkable calendar state)
+- [Phase 05]: Job grouping by date as Record<string, Job[]> for O(1) day lookup in calendar grid
+- [Phase 05]: Tapping empty day opens add form, tapping day with jobs shows detail panel
 
 ### Pending Todos
 
@@ -115,6 +119,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T05:30:55.374Z
-Stopped at: Completed 05-01-PLAN.md
+Last session: 2026-03-20T05:38:00.155Z
+Stopped at: Completed 05-02-PLAN.md
 Resume file: None
