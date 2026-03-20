@@ -30,7 +30,7 @@ export function JobCard({ job, onEdit }: JobCardProps) {
     <button
       type="button"
       onClick={() => onEdit(job.id)}
-      className="w-full flex bg-surface rounded-[10px] shadow-sm p-4 hover:bg-hover transition-colors text-left"
+      className="w-full flex bg-surface rounded-[10px] shadow-sm p-4 hover:bg-hover transition-colors text-left motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.97]"
     >
       {/* Left color stripe */}
       <div

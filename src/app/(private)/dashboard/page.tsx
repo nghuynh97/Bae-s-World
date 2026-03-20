@@ -42,7 +42,7 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         {dashboardCards.map((card) => (
           <Link key={card.href} href={card.href}>
-            <Card className="rounded-[16px] shadow-md bg-surface hover:shadow-lg transition-shadow">
+            <Card className="rounded-[16px] shadow-sm bg-surface motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
               <CardContent className="p-6">
                 <div className="border-2 border-dashed border-accent rounded-[16px] h-32 flex items-center justify-center mb-4">
                   <span className="text-text-secondary text-sm">

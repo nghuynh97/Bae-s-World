@@ -25,7 +25,7 @@ function StatCard({
   stats: StatGroup;
 }) {
   return (
-    <div className="bg-surface rounded-lg shadow-sm p-6 min-w-[260px] snap-start flex-shrink-0 sm:min-w-0">
+    <div className="bg-surface rounded-lg shadow-sm p-6 min-w-[260px] snap-start flex-shrink-0 sm:min-w-0 motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5">
       <p className="text-xs font-body text-text-secondary">{title}</p>
       <p className="text-xs font-body text-text-secondary">{subLabel}</p>
       <p className="font-display text-[28px] font-bold text-primary mt-2">

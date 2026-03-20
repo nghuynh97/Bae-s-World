@@ -189,12 +189,16 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-4">
           {filteredProducts.map((product) => (
-            <ProductCard
+            <div
               key={product.id}
-              product={product}
-              onSelect={handleSelectProduct}
-              onToggleFavorite={handleToggleFavorite}
-            />
+              className="motion-safe:transition-all motion-safe:duration-200 motion-safe:hover:shadow-md motion-safe:hover:-translate-y-0.5 active:scale-[0.97] rounded-md"
+            >
+              <ProductCard
+                product={product}
+                onSelect={handleSelectProduct}
+                onToggleFavorite={handleToggleFavorite}
+              />
+            </div>
           ))}
         </div>
       ) : (
