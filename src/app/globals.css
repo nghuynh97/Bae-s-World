@@ -68,8 +68,8 @@
   --color-shadow: rgba(232, 180, 184, 0.12);
 
   /* Typography */
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'DM Sans', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 
   /* Border Radius */
   --radius-sm: 6px;

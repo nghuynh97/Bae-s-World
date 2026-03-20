@@ -29,11 +29,11 @@ describe('Design Tokens', () => {
   });
 
   it('contains display font token', () => {
-    expect(globalsCSS).toContain("--font-display: 'Playfair Display'");
+    expect(globalsCSS).toContain("--font-display: 'DM Sans'");
   });
 
   it('contains body font token', () => {
-    expect(globalsCSS).toContain("--font-body: 'Inter'");
+    expect(globalsCSS).toContain("--font-body: 'DM Sans'");
   });
 
   it('contains radius-sm token', () => {
