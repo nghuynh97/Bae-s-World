@@ -31,15 +31,47 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
     { href: '/login', label: 'Sign In', icon: LogIn },
   ];
 
-  const authTabs: Tab[] = [
-    { href: '/dashboard', label: 'Dashboard', icon: User },
+  const mainTabs: Tab[] = [
     { href: '/', label: 'Portfolio', icon: Image },
     { href: '/beauty', label: 'Beauty', icon: Sparkles },
     { href: '/schedule', label: 'Schedule', icon: CalendarDays },
+  ];
+
+  const adminTabs: Tab[] = [
+    { href: '/dashboard', label: 'Dashboard', icon: User },
     { href: '/admin/portfolio', label: 'Manage', icon: Settings },
   ];
 
-  const tabs = isAuthenticated ? authTabs : publicTabs;
+  const tabs = isAuthenticated ? mainTabs : publicTabs;
+
+  function TabLink({ tab }: { tab: Tab }) {
+    const isActive = pathname === tab.href;
+    const Icon = tab.icon;
+    return (
+      <Link
+        href={tab.href}
+        className="flex flex-col items-center justify-center gap-0.5"
+        aria-label={tab.label}
+      >
+        <div className="relative flex flex-col items-center">
+          <Icon
+            size={22}
+            className={isActive ? 'text-accent' : 'text-text-secondary'}
+          />
+          {isActive && (
+            <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-accent" />
+          )}
+        </div>
+        <span
+          className={`text-[11px] font-normal ${
+            isActive ? 'text-accent' : 'text-text-secondary'
+          }`}
+        >
+          {tab.label}
+        </span>
+      </Link>
+    );
+  }
 
   return (
     <nav
@@ -48,35 +80,18 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
       aria-label="Mobile navigation"
     >
       <div className="flex h-full items-center justify-around">
-        {tabs.map((tab) => {
-          const isActive = pathname === tab.href;
-          const Icon = tab.icon;
-          return (
-            <Link
-              key={tab.href}
-              href={tab.href}
-              className="flex flex-col items-center justify-center gap-0.5"
-              aria-label={tab.label}
-            >
-              <div className="relative flex flex-col items-center">
-                <Icon
-                  size={24}
-                  className={isActive ? 'text-accent' : 'text-text-secondary'}
-                />
-                {isActive && (
-                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-accent" />
-                )}
-              </div>
-              <span
-                className={`text-sm font-normal ${
-                  isActive ? 'text-accent' : 'text-text-secondary'
-                }`}
-              >
-                {tab.label}
-              </span>
-            </Link>
-          );
-        })}
+        {tabs.map((tab) => (
+          <TabLink key={tab.href} tab={tab} />
+        ))}
+
+        {isAuthenticated && (
+          <>
+            <div className="h-7 w-px bg-border" />
+            {adminTabs.map((tab) => (
+              <TabLink key={tab.href} tab={tab} />
+            ))}
+          </>
+        )}
       </div>
     </nav>
   );

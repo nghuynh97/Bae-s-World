@@ -22,16 +22,35 @@ export function TopNav({
     { href: '/about', label: 'About' },
   ];
 
-  const authLinks = [
-    { href: '/dashboard', label: 'Dashboard' },
+  const mainLinks = [
     { href: '/', label: 'Portfolio' },
     { href: '/beauty', label: 'Beauty' },
     { href: '/schedule', label: 'Schedule' },
     { href: '/about', label: 'About' },
+  ];
+
+  const adminLinks = [
+    { href: '/dashboard', label: 'Dashboard' },
     { href: '/admin/portfolio', label: 'Manage' },
   ];
 
-  const links = isAuthenticated ? authLinks : publicLinks;
+  const links = isAuthenticated ? mainLinks : publicLinks;
+
+  function NavLink({ href, label }: { href: string; label: string }) {
+    const isActive = pathname === href;
+    return (
+      <Link
+        href={href}
+        className={`relative pb-1 text-sm font-normal transition-colors ${
+          isActive
+            ? 'border-b-2 border-accent text-text-primary'
+            : 'text-text-secondary hover:text-text-primary'
+        }`}
+      >
+        {label}
+      </Link>
+    );
+  }
 
   return (
     <nav className="hidden h-16 w-full bg-surface shadow-sm md:flex">
@@ -41,22 +60,18 @@ export function TopNav({
         </Link>
 
         <div className="flex items-center gap-6">
-          {links.map((link) => {
-            const isActive = pathname === link.href;
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative pb-1 text-sm font-normal transition-colors ${
-                  isActive
-                    ? 'border-b-2 border-accent text-text-primary'
-                    : 'text-text-secondary hover:text-text-primary'
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          {links.map((link) => (
+            <NavLink key={link.href} {...link} />
+          ))}
+
+          {isAuthenticated && (
+            <>
+              <div className="h-5 w-px bg-border" />
+              {adminLinks.map((link) => (
+                <NavLink key={link.href} {...link} />
+              ))}
+            </>
+          )}
 
           {!isAuthenticated ? (
             <Link
