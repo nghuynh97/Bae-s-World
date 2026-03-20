@@ -39,9 +39,11 @@ Code quality and visual polish pass across the entire app. No new features. Thre
 - Use existing shadcn `Label` (already installed) for all labels
 - Keep hidden `<input>` from react-dropzone (file inputs are special — shadcn doesn't wrap these)
 
-### Fix stale UI after CRUD actions
+### Fix stale UI after CRUD actions (no full page reload)
 - After any create, edit, or delete action, the UI must update immediately — no manual F5 refresh
-- Use `router.refresh()` from `next/navigation` after every successful Server Action to revalidate server data
+- Do NOT use `router.refresh()` on the client — it causes a visible page reload flash
+- Instead, use `revalidatePath()` inside Server Actions to seamlessly revalidate server data without a full reload
+- For optimistic inline actions (toggle favorite, reorder steps), update local state immediately and let `revalidatePath()` sync in background
 - Applies to ALL CRUD flows across the app:
   - Beauty products: create, edit, delete, toggle favorite
   - Beauty categories: create, rename, delete
@@ -49,8 +51,8 @@ Code quality and visual polish pass across the entire app. No new features. Thre
   - Schedule jobs: create, edit, delete, mark paid/pending
   - Routines: add step, remove step, reorder steps
   - About page: update content
-- For forms that navigate away after submit (e.g., create product → back to list), use `router.push()` + `router.refresh()` or `revalidatePath()` in the Server Action
-- For inline actions (toggle favorite, delete from list, reorder), call `router.refresh()` after the action completes
+- Pattern: Server Action does the DB mutation → calls `revalidatePath('/beauty')` (or relevant path) → Next.js re-renders affected server components seamlessly
+- For forms that navigate after submit, use `redirect()` after `revalidatePath()` in the Server Action
 
 ### UX spacing & color fixes
 - Forms feel cramped — increase gap between fields, add more padding in form containers
