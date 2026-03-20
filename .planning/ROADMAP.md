@@ -13,7 +13,7 @@ Funnghy's World delivers a personal gift webapp in five phases: first establishi
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (completed 2026-03-20)
-- [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (completed 2026-03-19)
+- [ ] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
 - [ ] **Phase 4: Photo Journal** - Daily entries, chronological and calendar browse, tagging
 - [ ] **Phase 5: Polish** - Micro-animations, transitions, and cross-cutting refinements
@@ -47,13 +47,14 @@ Plans:
   3. A visitor can filter portfolio photos by category (modeling, travel, beauty)
   4. A visitor can view an About page with Funnghy's bio, photo, and contact info
   5. Funnghy can upload, edit, and delete portfolio photos with title, description, and category; boyfriend can upload photos and content for her portfolio
-**Plans:** 4/4 plans complete
+**Plans:** 5 plans (4 complete, 1 gap closure)
 
 Plans:
 - [ ] 02-00-PLAN.md — Wave 0 test stubs for all portfolio requirements (vitest)
 - [ ] 02-01-PLAN.md — DB schema (categories, portfolioItems, aboutContent), Server Actions for CRUD, seed script
 - [ ] 02-02-PLAN.md — Public gallery (masonry grid, category filter, infinite scroll, lightbox) and about page
 - [ ] 02-03-PLAN.md — Admin content management (portfolio CRUD UI, category management, about editor)
+- [ ] 02-04-PLAN.md — Gap closure: middleware admin route protection + portfolio variant query fix
 
 ### Phase 3: Beauty Tracker
 **Goal**: Funnghy can manage her beauty product collection and build daily routines in a private, visually rich section that feels like a personal shelf
@@ -107,7 +108,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete   | 2026-03-20 |
-| 2. Public Portfolio | 4/4 | Complete   | 2026-03-19 |
+| 2. Public Portfolio | 4/5 | Gap closure | - |
 | 3. Beauty Tracker | 0/2 | Not started | - |
 | 4. Photo Journal | 0/2 | Not started | - |
 | 5. Polish | 0/1 | Not started | - |
