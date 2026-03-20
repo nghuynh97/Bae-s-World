@@ -104,7 +104,7 @@ Plans:
   3. All 4 main pages (portfolio, dashboard, beauty, schedule) have layout-matching loading skeletons
   4. Toasts appear from top-center and auto-dismiss after 3 seconds
   5. Every form submit button shows a spinner icon while saving
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
 - [ ] 05-00-PLAN.md — Wave 0 test stubs for all polish requirements (page-fade, button-spinner, loading-skeletons, toast-config)
