@@ -144,3 +144,23 @@ Plans:
 - [ ] 06-01-PLAN.md — Replace native form elements with shadcn Select/Textarea + migrate router.refresh() to revalidatePath()
 - [ ] 06-02-PLAN.md — UX spacing, calendar visual treatment, and card contrast improvements
 - [ ] 06-03-PLAN.md — Prettier setup with Tailwind plugin and full codebase format
+
+### Phase 7: Navigation Menu Optimization
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 7 to break down)
+
+### Phase 8: Portfolio Redesign & Typography Enhancement
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 7
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd:plan-phase 8 to break down)
