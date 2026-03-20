@@ -12,11 +12,10 @@ Funnghy's World delivers a personal gift webapp in five phases: first establishi
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [x] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (gap closure pending) (completed 2026-03-20)
-- [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending) (completed 2026-03-20)
+- [x] **Phase 1: Foundation** - Design system, authentication, image pipeline, and project scaffolding (gap closure pending) (completed 2004-03-20)
+- [x] **Phase 2: Public Portfolio** - Gallery, lightbox, filtering, about page, and content management (gap closure pending) (completed 2004-03-20)
 - [ ] **Phase 3: Beauty Tracker** - Product CRUD, categories, favorites, routines with drag-and-drop
-- [ ] **Phase 4: Photo Journal** - Daily entries, chronological and calendar browse, tagging
-- [ ] **Phase 5: Polish** - Micro-animations, transitions, and cross-cutting refinements
+- [ ] **Phase 4: Polish** - Micro-animations, transitions, and cross-cutting refinements
 
 ## Phase Details
 
@@ -74,23 +73,7 @@ Plans:
 - [ ] 03-03-PLAN.md — Routines tab UI (morning/evening cards, drag-and-drop step reorder, search-to-add product picker)
 - [ ] 03-04-PLAN.md — Beauty category management UI (create, rename, delete custom categories dialog)
 
-### Phase 4: Photo Journal
-**Goal**: Funnghy can keep a private visual diary with daily photo entries she can browse by date and tag with moods
-**Depends on**: Phase 1
-**Requirements**: JOUR-01, JOUR-02, JOUR-03, JOUR-04, JOUR-05, JOUR-06
-**Success Criteria** (what must be TRUE):
-  1. Funnghy can create a journal entry with a photo and text notes, and later edit or delete it
-  2. Funnghy can browse journal entries chronologically (newest first) in a timeline view
-  3. Funnghy can navigate journal entries via a calendar view by date
-  4. Funnghy can tag journal entries with mood or custom tags
-  5. The photo journal is only accessible when logged in; unauthenticated visitors cannot access it or its images
-**Plans**: TBD
-
-Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-
-### Phase 5: Polish
+### Phase 4: Polish
 **Goal**: The entire app feels premium and cohesive with subtle animations and transitions that enhance the experience without slowing it down
 **Depends on**: Phase 2, Phase 3, Phase 4
 **Requirements**: DESG-04
@@ -101,7 +84,7 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 05-01: TBD
+- [ ] 04-01: TBD
 
 ## Progress
 
@@ -110,8 +93,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 4/4 | Complete   | 2026-03-20 |
-| 2. Public Portfolio | 5/5 | Complete   | 2026-03-20 |
+| 1. Foundation | 4/4 | Complete   | 2004-03-20 |
+| 2. Public Portfolio | 5/5 | Complete   | 2004-03-20 |
 | 3. Beauty Tracker | 3/4 | In Progress|  |
-| 4. Photo Journal | 0/2 | Not started | - |
-| 5. Polish | 0/1 | Not started | - |
+| 4. Polish | 0/1 | Not started | - |
