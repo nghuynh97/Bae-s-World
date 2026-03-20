@@ -73,6 +73,9 @@ export const aboutContent = pgTable('about_content', {
   email: text('email'),
   instagramUrl: text('instagram_url'),
   tiktokUrl: text('tiktok_url'),
+  tagline: text('tagline'),
+  height: text('height'),
+  weight: text('weight'),
   profileImageId: uuid('profile_image_id').references(() => images.id),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
 });

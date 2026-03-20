@@ -51,6 +51,9 @@ export async function getAboutContent() {
     email: content.email,
     instagramUrl: content.instagramUrl,
     tiktokUrl: content.tiktokUrl,
+    tagline: content.tagline,
+    height: content.height,
+    weight: content.weight,
     profileImageId: content.profileImageId,
     profileImage,
     updatedAt: content.updatedAt,
@@ -63,6 +66,9 @@ const updateAboutContentSchema = z.object({
   instagramUrl: z.string().url('Invalid URL').optional().nullable(),
   tiktokUrl: z.string().url('Invalid URL').optional().nullable(),
   profileImageId: z.string().uuid('Invalid image').optional().nullable(),
+  tagline: z.string().max(200, 'Tagline too long').optional().nullable(),
+  height: z.string().max(20, 'Height too long').optional().nullable(),
+  weight: z.string().max(20, 'Weight too long').optional().nullable(),
 });
 
 export async function updateAboutContent(data: {
@@ -71,6 +77,9 @@ export async function updateAboutContent(data: {
   instagramUrl?: string | null;
   tiktokUrl?: string | null;
   profileImageId?: string | null;
+  tagline?: string | null;
+  height?: string | null;
+  weight?: string | null;
 }) {
   const parsed = updateAboutContentSchema.safeParse(data);
   if (!parsed.success) {
@@ -103,12 +112,15 @@ export async function updateAboutContent(data: {
         email: parsed.data.email ?? null,
         instagramUrl: parsed.data.instagramUrl ?? null,
         tiktokUrl: parsed.data.tiktokUrl ?? null,
+        tagline: parsed.data.tagline ?? null,
+        height: parsed.data.height ?? null,
+        weight: parsed.data.weight ?? null,
         profileImageId: parsed.data.profileImageId ?? null,
         updatedAt: new Date(),
       })
       .returning();
 
-    revalidatePath('/about');
+    revalidatePath('/');
     revalidatePath('/admin/about');
     return created;
   }
@@ -120,7 +132,7 @@ export async function updateAboutContent(data: {
     .where(eq(aboutContent.id, existing[0].id))
     .returning();
 
-  revalidatePath('/about');
+  revalidatePath('/');
   revalidatePath('/admin/about');
   return updated;
 }
