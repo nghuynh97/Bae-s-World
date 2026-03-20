@@ -123,6 +123,34 @@ export const routineSteps = pgTable("routine_steps", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// -- CREATE TABLE schedule_jobs (
+// --   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+// --   job_date text NOT NULL,
+// --   client_name text NOT NULL,
+// --   location text NOT NULL,
+// --   start_time text NOT NULL,
+// --   end_time text NOT NULL,
+// --   pay_amount integer NOT NULL,
+// --   status text NOT NULL DEFAULT 'pending',
+// --   notes text,
+// --   created_at timestamptz DEFAULT now() NOT NULL,
+// --   updated_at timestamptz DEFAULT now() NOT NULL
+// -- );
+
+export const scheduleJobs = pgTable("schedule_jobs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  jobDate: text("job_date").notNull(),
+  clientName: text("client_name").notNull(),
+  location: text("location").notNull(),
+  startTime: text("start_time").notNull(),
+  endTime: text("end_time").notNull(),
+  payAmount: integer("pay_amount").notNull(),
+  status: text("status").notNull().default("pending"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Relations
 
 export const categoriesRelations = relations(categories, ({ many }) => ({
