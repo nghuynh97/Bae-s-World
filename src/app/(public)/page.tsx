@@ -1,9 +1,12 @@
 import { getPortfolioItems } from '@/actions/portfolio';
 import { getCategories } from '@/actions/categories';
+import { getAboutContent } from '@/actions/about';
 import { InfiniteScrollGallery } from '@/components/portfolio/infinite-scroll-gallery';
+import { HeroBanner } from '@/components/portfolio/hero-banner';
 
 export default async function PortfolioPage() {
   const categories = await getCategories();
+  const aboutContent = await getAboutContent();
 
   // Find the default category (isDefault === 1) or fall back to first category
   const defaultCategory =
@@ -16,11 +19,34 @@ export default async function PortfolioPage() {
     defaultSlug === 'all' ? undefined : defaultSlug,
   );
 
+  // Derive profile image URL
+  const profileImageUrl =
+    aboutContent?.profileImage?.variants?.find(
+      (v) => v.variantName === 'medium',
+    )?.url ||
+    aboutContent?.profileImage?.variants?.find(
+      (v) => v.variantName === 'large',
+    )?.url ||
+    aboutContent?.profileImage?.variants?.[0]?.url ||
+    null;
+
   return (
     <div>
-      <h1 className="mb-6 pt-8 font-display text-2xl font-bold text-text-primary">
-        Portfolio
-      </h1>
+      {aboutContent && (
+        <div className="pt-8">
+          <HeroBanner
+            profileImageUrl={profileImageUrl}
+            name="Funnghy"
+            tagline={aboutContent.tagline}
+            bio={aboutContent.bio}
+            height={aboutContent.height}
+            weight={aboutContent.weight}
+            email={aboutContent.email}
+            instagramUrl={aboutContent.instagramUrl}
+            tiktokUrl={aboutContent.tiktokUrl}
+          />
+        </div>
+      )}
       <InfiniteScrollGallery
         initialItems={items}
         initialCursor={nextCursor}

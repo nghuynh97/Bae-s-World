@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   Image,
-  Info,
   LogIn,
   Sparkles,
   CalendarDays,
@@ -27,7 +26,6 @@ export function BottomTabBar({ isAuthenticated = false }: BottomTabBarProps) {
 
   const publicTabs: Tab[] = [
     { href: '/', label: 'Portfolio', icon: Image },
-    { href: '/about', label: 'About', icon: Info },
     { href: '/login', label: 'Sign In', icon: LogIn },
   ];
 

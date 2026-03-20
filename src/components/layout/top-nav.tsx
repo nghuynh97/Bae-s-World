@@ -19,14 +19,12 @@ export function TopNav({
 
   const publicLinks = [
     { href: '/', label: 'Portfolio' },
-    { href: '/about', label: 'About' },
   ];
 
   const mainLinks = [
     { href: '/', label: 'Portfolio' },
     { href: '/beauty', label: 'Beauty' },
     { href: '/schedule', label: 'Schedule' },
-    { href: '/about', label: 'About' },
   ];
 
   const adminLinks = [
