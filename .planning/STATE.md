@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 08-01-PLAN.md
-last_updated: "2026-03-20T10:26:31.374Z"
+stopped_at: Completed 08-02-PLAN.md
+last_updated: "2026-03-20T10:32:50.314Z"
 last_activity: 2026-03-20 -- Completed 08-01 Font System & Schema Foundation
 progress:
   total_phases: 8
-  completed_phases: 6
+  completed_phases: 7
   total_plans: 24
-  completed_plans: 23
+  completed_plans: 24
   percent: 96
 ---
 
@@ -72,6 +72,7 @@ _Updated after each plan completion_
 | Phase 06 P02 | 4min | 2 tasks | 6 files |
 | Phase 06 P03 | 6min | 1 tasks | 216 files |
 | Phase 08 P01 | 3min | 2 tasks | 6 files |
+| Phase 08 P02 | 4min | 2 tasks | 19 files |
 
 ## Accumulated Context
 
@@ -131,6 +132,8 @@ Recent decisions affecting current work:
 - [Phase 06]: Used tailwindStylesheet option for Tailwind v4 CSS-based config class sorting
 - [Phase 08]: Both --font-display and --font-body tokens point to DM Sans to avoid breaking 47+ component references
 - [Phase 08]: revalidatePath changed from /about to / since about content now renders on portfolio home
+- [Phase 08]: CSS Grid with nth-child(6n+1) and nth-child(6n+4) for quilted tile pattern
+- [Phase 08]: Hardcoded name Funnghy in portfolio page (personal portfolio, not multi-user)
 
 ### Pending Todos
 
@@ -143,6 +146,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T10:26:31.369Z
-Stopped at: Completed 08-01-PLAN.md
+Last session: 2026-03-20T10:32:50.309Z
+Stopped at: Completed 08-02-PLAN.md
 Resume file: None
