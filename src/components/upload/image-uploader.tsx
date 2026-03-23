@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Upload } from 'lucide-react';
 import { toast } from 'sonner';
@@ -10,7 +10,7 @@ import { UploadProgress, type UploadFile } from './upload-progress';
 interface ImageUploaderProps {
   bucket: 'public-images' | 'private-images';
   folder: string;
-  onUploadComplete?: (imageId: string) => void;
+  onUploadComplete?: (imageId: string, previewUrl?: string) => void;
 }
 
 export function ImageUploader({
@@ -19,6 +19,9 @@ export function ImageUploader({
   onUploadComplete,
 }: ImageUploaderProps) {
   const [uploadFiles, setUploadFiles] = useState<UploadFile[]>([]);
+  const progressTimers = useRef<Map<number, ReturnType<typeof setInterval>>>(
+    new Map(),
+  );
 
   const updateFile = useCallback(
     (index: number, updates: Partial<UploadFile>) => {
@@ -29,18 +32,52 @@ export function ImageUploader({
     [],
   );
 
+  const startProgressSimulation = useCallback(
+    (index: number) => {
+      // Clear any existing timer for this index
+      const existing = progressTimers.current.get(index);
+      if (existing) clearInterval(existing);
+
+      let current = 5;
+      updateFile(index, { status: 'uploading', progress: current });
+
+      const timer = setInterval(() => {
+        current += Math.random() * 8 + 2; // increment 2-10%
+        if (current >= 90) {
+          current = 90; // cap at 90%, real completion sets 100%
+          clearInterval(timer);
+          progressTimers.current.delete(index);
+        }
+        updateFile(index, { progress: Math.round(current) });
+      }, 300);
+
+      progressTimers.current.set(index, timer);
+    },
+    [updateFile],
+  );
+
+  const stopProgressSimulation = useCallback((index: number) => {
+    const timer = progressTimers.current.get(index);
+    if (timer) {
+      clearInterval(timer);
+      progressTimers.current.delete(index);
+    }
+  }, []);
+
   const processFile = useCallback(
     async (file: File, index: number) => {
-      updateFile(index, { status: 'uploading', progress: 50 });
+      startProgressSimulation(index);
 
       try {
         const formData = new FormData();
         formData.append('file', file);
 
         const result = await uploadImage(formData, { bucket, folder });
-        updateFile(index, { status: 'complete', progress: 100 });
-        onUploadComplete?.(result.imageId);
+        stopProgressSimulation(index);
+        updateFile(index, { status: 'complete', progress: 100, previewUrl: result.previewUrl });
+        onUploadComplete?.(result.imageId, result.previewUrl);
       } catch (err) {
+        stopProgressSimulation(index);
         const message = err instanceof Error ? err.message : 'Upload failed';
         updateFile(index, {
           status: 'error',
@@ -49,7 +86,7 @@ export function ImageUploader({
         });
       }
     },
-    [bucket, folder, onUploadComplete, updateFile],
+    [bucket, folder, onUploadComplete, updateFile, startProgressSimulation, stopProgressSimulation],
   );
 
   const onDrop = useCallback(

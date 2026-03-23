@@ -112,5 +112,20 @@ export async function uploadImage(
     });
   }
 
-  return { imageId, variants: variantResults };
+  // Build a preview URL for the thumb variant
+  const thumbVariant =
+    variantResults.find((v) => v.name === 'thumb') ?? variantResults[0];
+  let previewUrl: string | undefined;
+  if (thumbVariant) {
+    if (options.bucket === 'public-images') {
+      previewUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${options.bucket}/${thumbVariant.path}`;
+    } else {
+      const { data } = await supabase.storage
+        .from(options.bucket)
+        .createSignedUrl(thumbVariant.path, 3600);
+      previewUrl = data?.signedUrl;
+    }
+  }
+
+  return { imageId, variants: variantResults, previewUrl };
 }

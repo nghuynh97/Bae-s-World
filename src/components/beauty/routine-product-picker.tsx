@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Search, Plus, Check } from 'lucide-react';
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -110,10 +111,9 @@ export function RoutineProductPicker({
           </Button>
         }
       />
-      <DialogContent className="flex max-h-[80vh] flex-col overflow-hidden sm:max-w-md">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="font-bold">Add step</DialogTitle>
-        </DialogHeader>
 
         {/* Search input */}
         <div className="relative">
@@ -143,9 +143,10 @@ export function RoutineProductPicker({
             </button>
           ))}
         </div>
+        </DialogHeader>
 
         {/* Scrollable product grid */}
-        <div className="flex-1 overflow-y-auto">
+        <DialogBody>
           {filteredProducts.length === 0 ? (
             <p className="py-12 text-center text-sm text-text-secondary">
               No products match your search
@@ -200,7 +201,7 @@ export function RoutineProductPicker({
               })}
             </div>
           )}
-        </div>
+        </DialogBody>
       </DialogContent>
     </Dialog>
   );

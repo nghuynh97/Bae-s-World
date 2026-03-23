@@ -112,7 +112,6 @@ export default async function SchedulePage({
         yearLabel={yearLabel}
       />
 
-      <div className="mb-12" />
 
       <CalendarHeader year={year} month={month} />
       <CalendarGrid jobs={jobs} year={year} month={month} />

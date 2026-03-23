@@ -20,7 +20,7 @@ export function GalleryCard({
   return (
     <button
       onClick={onClick}
-      className="group relative h-full w-full cursor-pointer overflow-hidden rounded-lg"
+      className="group relative h-full w-full cursor-pointer overflow-hidden"
     >
       <img
         src={imageUrl}
@@ -29,7 +29,7 @@ export function GalleryCard({
         className="h-full w-full object-cover transition-transform duration-300 motion-safe:group-hover:scale-[1.02]"
       />
       {/* Hover overlay */}
-      <div className="absolute inset-0 flex items-end bg-black/0 p-4 transition-colors duration-300 group-hover:bg-black/30">
+      <div className="absolute inset-0 flex items-end bg-black/0 p-4 transition-colors duration-300 group-hover:bg-black/80">
         <div className="text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <p className="text-sm font-bold">{title}</p>
           <p className="text-xs opacity-80">{category}</p>

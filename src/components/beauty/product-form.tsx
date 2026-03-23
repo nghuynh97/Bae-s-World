@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import Image from 'next/image';
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -105,6 +106,9 @@ export function ProductForm({
 
   const currentRating = watch('rating');
   const currentImageId = watch('imageId');
+  const [uploadedPreviewUrl, setUploadedPreviewUrl] = useState<string | null>(
+    null,
+  );
 
   // Get existing image preview for edit mode
   const existingImageUrl =
@@ -148,18 +152,22 @@ export function ProductForm({
     <Dialog
       open={open}
       onOpenChange={(nextOpen) => {
-        if (!nextOpen) reset();
+        if (!nextOpen) {
+          reset();
+          setUploadedPreviewUrl(null);
+        }
         onOpenChange(nextOpen);
       }}
     >
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-md">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>
             {isEditing ? 'Edit Product' : 'Add Product'}
           </DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 px-1">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex min-h-0 flex-1 flex-col">
+        <DialogBody className="space-y-5 px-1">
           {/* Photo upload */}
           <div>
             <Label className="mb-2">Photo</Label>
@@ -174,6 +182,12 @@ export function ProductForm({
                     fill
                     className="object-cover"
                   />
+                ) : uploadedPreviewUrl ? (
+                  <img
+                    src={uploadedPreviewUrl}
+                    alt="Product preview"
+                    className="h-full w-full object-cover"
+                  />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-accent/10">
                     <span className="text-xs text-accent">Photo uploaded</span>
@@ -181,7 +195,10 @@ export function ProductForm({
                 )}
                 <button
                   type="button"
-                  onClick={() => setValue('imageId', '')}
+                  onClick={() => {
+                    setValue('imageId', '');
+                    setUploadedPreviewUrl(null);
+                  }}
                   className="absolute top-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-xs text-white"
                 >
                   x
@@ -191,7 +208,10 @@ export function ProductForm({
               <ImageUploader
                 bucket="private-images"
                 folder="beauty"
-                onUploadComplete={(imageId) => setValue('imageId', imageId)}
+                onUploadComplete={(imageId, previewUrl) => {
+                  setValue('imageId', imageId);
+                  if (previewUrl) setUploadedPreviewUrl(previewUrl);
+                }}
               />
             )}
             {errors.imageId && (
@@ -239,7 +259,11 @@ export function ProductForm({
               control={control}
               name="categoryId"
               render={({ field }) => (
-                <Select value={field.value} onValueChange={field.onChange}>
+                <Select
+                  value={field.value ?? null}
+                  onValueChange={field.onChange}
+                  items={categories.map((cat) => ({ value: cat.id, label: cat.name }))}
+                >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
@@ -284,7 +308,7 @@ export function ProductForm({
             />
           </div>
 
-          <div className="pt-2" />
+          </DialogBody>
           <DialogFooter>
             <Button
               type="button"

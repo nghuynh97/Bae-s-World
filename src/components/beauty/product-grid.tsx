@@ -173,21 +173,34 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
 
   return (
     <div>
-      {/* Category filter */}
-      <div className="flex items-center gap-2">
-        <BeautyCategoryFilter
-          categories={categories}
-          activeSlug={activeSlug}
-          onSelect={setActiveSlug}
-        />
-        <button
-          onClick={() => setShowCategoryManager(true)}
-          className="shrink-0 p-2 text-text-secondary hover:text-accent"
-          aria-label="Edit categories"
+      {/* Category filter + actions */}
+      <div className='flex flex-wrap justify-between'>
+        <div className="flex items-center gap-2 flex-wrap">
+          <BeautyCategoryFilter
+            categories={categories}
+            activeSlug={activeSlug}
+            onSelect={setActiveSlug}
+          />
+          <button
+            onClick={() => setShowCategoryManager(true)}
+            className="shrink-0 p-2 text-text-secondary hover:text-accent"
+            aria-label="Edit categories"
+          >
+            <Settings2 className="h-5 w-5" />
+          </button>
+
+        </div>
+        <Button
+          onClick={handleOpenAddForm}
+          className="shrink-0 bg-accent text-white hover:bg-accent/90"
         >
-          <Settings2 className="h-5 w-5" />
-        </button>
+          <Plus className="mr-1 h-4 w-4" />
+          Add
+        </Button>
       </div>
+
+
+
 
       {/* Product grid */}
       {filteredProducts.length > 0 ? (
@@ -210,15 +223,6 @@ export function ProductGrid({ initialProducts, categories }: ProductGridProps) {
           No products in this category
         </p>
       )}
-
-      {/* Floating add button */}
-      <button
-        onClick={handleOpenAddForm}
-        className="fixed right-4 bottom-20 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-colors hover:bg-accent/90 md:bottom-6"
-        aria-label="Add product"
-      >
-        <Plus className="h-6 w-6" />
-      </button>
 
       {/* Bottom sheet */}
       <ProductBottomSheet

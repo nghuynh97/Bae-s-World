@@ -36,10 +36,8 @@ export async function updateSession(request: NextRequest) {
   // Protect private routes -- redirect unauthenticated users to /login
   if (
     !user &&
-    (pathname.startsWith('/dashboard') ||
-      pathname.startsWith('/beauty') ||
+    (pathname.startsWith('/beauty') ||
       pathname.startsWith('/schedule') ||
-      pathname.startsWith('/upload') ||
       pathname.startsWith('/admin'))
   ) {
     const url = request.nextUrl.clone();
@@ -50,7 +48,7 @@ export async function updateSession(request: NextRequest) {
   // Redirect authenticated users away from auth pages
   if (user && (pathname === '/login' || pathname === '/setup')) {
     const url = request.nextUrl.clone();
-    url.pathname = '/dashboard';
+    url.pathname = '/beauty';
     return NextResponse.redirect(url);
   }
 

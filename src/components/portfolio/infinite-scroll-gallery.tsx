@@ -153,19 +153,10 @@ export function InfiniteScrollGallery({
 
         {/* Loading skeletons */}
         {(isPending || isSwitchingCategory) && items.length === 0 && (
-          <div className="mt-4 flex gap-4">
-            <div className="flex flex-1 flex-col gap-4">
-              <Skeleton className="h-64 w-full rounded-lg" />
-              <Skeleton className="h-48 w-full rounded-lg" />
-            </div>
-            <div className="flex flex-1 flex-col gap-4">
-              <Skeleton className="h-48 w-full rounded-lg" />
-              <Skeleton className="h-64 w-full rounded-lg" />
-            </div>
-            <div className="hidden flex-1 flex-col gap-4 md:flex">
-              <Skeleton className="h-56 w-full rounded-lg" />
-              <Skeleton className="h-52 w-full rounded-lg" />
-            </div>
+          <div className="grid grid-cols-3 gap-0.5">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <Skeleton key={i} className="aspect-square w-full" />
+            ))}
           </div>
         )}
 
@@ -174,10 +165,10 @@ export function InfiniteScrollGallery({
 
         {/* Loading indicator for next page */}
         {isPending && items.length > 0 && (
-          <div className="mt-4 flex gap-4">
-            <Skeleton className="h-48 flex-1 rounded-lg" />
-            <Skeleton className="h-48 flex-1 rounded-lg" />
-            <Skeleton className="hidden h-48 flex-1 rounded-lg md:block" />
+          <div className="grid grid-cols-3 gap-0.5">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton key={i} className="aspect-square w-full" />
+            ))}
           </div>
         )}
       </div>

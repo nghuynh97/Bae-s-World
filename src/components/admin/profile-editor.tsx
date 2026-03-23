@@ -108,7 +108,7 @@ export function ProfileEditor() {
   );
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xl space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-xl space-y-5 rounded-xl bg-white p-6 shadow-sm ring-1 ring-black/5">
       <div className="space-y-2">
         <Label htmlFor="tagline">Tagline</Label>
         <Input

@@ -28,7 +28,6 @@ export function TopNav({
   ];
 
   const adminLinks = [
-    { href: '/dashboard', label: 'Dashboard' },
     { href: '/admin', label: 'Manage' },
   ];
 

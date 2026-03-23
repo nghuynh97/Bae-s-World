@@ -9,10 +9,8 @@ export default async function PortfolioPage() {
   const categories = await safeFetch(() => getCategories(), []);
   const aboutContent = await safeFetch(() => getAboutContent(), null);
 
-  // Find the default category (isDefault === 1) or fall back to first category
-  const defaultCategory =
-    categories.find((c) => c.isDefault === 1) || categories[0];
-  const defaultSlug = defaultCategory?.slug ?? 'all';
+  
+  const defaultSlug = 'all';
 
   // Fetch initial data server-side
   const { items, nextCursor } = await safeFetch(

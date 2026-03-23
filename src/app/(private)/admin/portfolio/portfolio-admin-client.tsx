@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/select';
 import {
   Dialog,
+  DialogBody,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -84,7 +85,7 @@ export function PortfolioAdminClient({
   const [showUpload, setShowUpload] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [imageId, setImageId] = useState<string | null>(null);
+  const [imageIds, setImageIds] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -119,18 +120,26 @@ export function PortfolioAdminClient({
   };
 
   const onUploadSubmit = async (data: UploadFormData) => {
-    if (!imageId) return;
+    if (imageIds.length === 0) return;
     setIsSubmitting(true);
     try {
-      await createPortfolioItem({
-        title: data.title,
-        description: data.description || undefined,
-        categoryId: data.categoryId,
-        imageId,
-      });
-      toast.success('Photo uploaded successfully');
+      await Promise.all(
+        imageIds.map((id) =>
+          createPortfolioItem({
+            title: data.title,
+            description: data.description || undefined,
+            categoryId: data.categoryId,
+            imageId: id,
+          }),
+        ),
+      );
+      toast.success(
+        imageIds.length === 1
+          ? 'Photo uploaded successfully'
+          : `${imageIds.length} photos uploaded successfully`,
+      );
       setShowUpload(false);
-      setImageId(null);
+      setImageIds([]);
       reset();
     } catch {
       toast.error('Upload failed. Check your connection and try again.');
@@ -142,7 +151,7 @@ export function PortfolioAdminClient({
   const handleCloseUpload = (open: boolean) => {
     if (!open) {
       setShowUpload(false);
-      setImageId(null);
+      setImageIds([]);
       reset();
     }
   };
@@ -243,7 +252,7 @@ export function PortfolioAdminClient({
 
       {/* Upload Dialog */}
       <Dialog open={showUpload} onOpenChange={handleCloseUpload}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-lg">
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle>Upload Photo</DialogTitle>
             <DialogDescription>
@@ -251,14 +260,14 @@ export function PortfolioAdminClient({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-6 py-2">
+          <DialogBody className="space-y-6 py-2">
             <ImageUploader
               bucket="public-images"
               folder="portfolio"
-              onUploadComplete={setImageId}
+              onUploadComplete={(id) => setImageIds((prev) => [...prev, id])}
             />
 
-            {imageId && (
+            {imageIds.length > 0 && (
               <form
                 onSubmit={handleSubmit(onUploadSubmit)}
                 className="space-y-5"
@@ -297,8 +306,9 @@ export function PortfolioAdminClient({
                     name="categoryId"
                     render={({ field }) => (
                       <Select
-                        value={field.value || undefined}
+                        value={field.value ?? null}
                         onValueChange={field.onChange}
+                        items={categories.map((cat) => ({ value: cat.id, label: cat.name }))}
                       >
                         <SelectTrigger
                           className="w-full"
@@ -344,7 +354,7 @@ export function PortfolioAdminClient({
                 </DialogFooter>
               </form>
             )}
-          </div>
+          </DialogBody>
         </DialogContent>
       </Dialog>
 

@@ -61,7 +61,7 @@
   --color-pending: #d97706;
 
   --color-text-primary: #2d2235;
-  --color-text-secondary: #6b5f76;
+  --color-text-secondary: #4a3d55;
   --color-border: #e8e4ee;
   --color-border-accent: #e8b4b8;
   --color-bg-hover: #f0ecf5;
@@ -91,7 +91,7 @@
   --popover-foreground: #2d2235;
   --primary: #2d2235;
   --primary-foreground: #f8f6ff;
-  --secondary: #f0ecf5;
+  --secondary: #564960;
   --secondary-foreground: #2d2235;
   --muted: #f0ecf5;
   --muted-foreground: #6b5f76;
@@ -146,16 +146,27 @@
   }
 }
 
-/* Quilted grid tile pattern */
-.quilted-grid > *:nth-child(6n+1) {
+/* Instagram Explore grid pattern
+   Repeating groups of 6:
+   Group A (items 1-3): [small][small][large 2x2]
+                        [small][small][    ...   ]
+   Group B (items 4-6): [large 2x2][small][small]
+                        [   ...    ][small][small]
+   The large tile alternates left/right each group. */
+.ig-grid {
+  grid-auto-rows: 1fr;
+  grid-auto-flow: dense;
+}
+.ig-grid > * {
+  aspect-ratio: 1;
+}
+/* Group A: 3rd item is the large tile (top-right) */
+.ig-grid > *:nth-child(6n+3) {
   grid-column: span 2;
   grid-row: span 2;
 }
-.quilted-grid > *:nth-child(6n+4) {
+/* Group B: 4th item is the large tile (bottom-left) */
+.ig-grid > *:nth-child(6n+4) {
   grid-column: span 2;
-}
-@media (max-width: 768px) {
-  .quilted-grid {
-    grid-auto-rows: 160px;
-  }
+  grid-row: span 2;
 }

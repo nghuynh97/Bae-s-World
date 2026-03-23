@@ -6,10 +6,7 @@ interface QuiltedGridProps {
 
 export function QuiltedGrid({ children }: QuiltedGridProps) {
   return (
-    <div
-      className="quilted-grid grid grid-cols-3 gap-1 max-md:grid-cols-2"
-      style={{ gridAutoRows: '200px', gridAutoFlow: 'dense' }}
-    >
+    <div className="ig-grid grid grid-cols-3 gap-0.5">
       {children}
     </div>
   );

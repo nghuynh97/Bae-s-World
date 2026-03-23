@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
 import { searchBeautyProducts } from '@/actions/beauty-products';
 import { addRoutineStep } from '@/actions/routines';
 
@@ -64,7 +65,7 @@ export function RoutineStepSearch({
         setIsOpen(false);
         onStepAdded();
       } catch {
-        // silently fail
+        toast.error('Failed to add step. Please try again.');
       } finally {
         setIsAdding(false);
       }

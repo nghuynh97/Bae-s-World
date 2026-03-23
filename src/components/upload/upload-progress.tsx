@@ -12,6 +12,7 @@ export type UploadFile = {
   progress: number;
   status: 'pending' | 'uploading' | 'complete' | 'error';
   error?: string;
+  previewUrl?: string;
   onRetry?: () => void;
 };
 
@@ -22,10 +23,25 @@ export function UploadProgress({ files }: { files: UploadFile[] }) {
     <div className="mt-4 flex flex-col gap-3">
       {files.map((uploadFile, index) => (
         <div key={index} className="flex flex-col gap-1">
-          <div className="flex items-center justify-between">
-            <span className="max-w-[200px] truncate font-body text-sm font-bold">
-              {uploadFile.file.name}
-            </span>
+          <div className="flex items-center justify-between gap-2">
+            {uploadFile.status === 'complete' && uploadFile.previewUrl ? (
+              <div className="flex items-center gap-2 flex-1">
+                <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted">
+                  <img
+                    src={uploadFile.previewUrl}
+                    alt={uploadFile.file.name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <span className="flex-1 truncate font-body text-sm font-bold">
+                  {uploadFile.file.name}
+                </span>
+              </div>
+            ) : (
+              <span className="max-w-[200px] truncate font-body text-sm font-bold">
+                {uploadFile.file.name}
+              </span>
+            )}
             {uploadFile.status === 'complete' && (
               <CheckCircle2 className="h-5 w-5 shrink-0 text-success" />
             )}

@@ -16,7 +16,6 @@ describe('Middleware route protection', () => {
 
   it('middleware.ts contains correct protected path prefixes', () => {
     const content = readSrc('lib/supabase/middleware.ts');
-    expect(content).toContain('/dashboard');
     expect(content).toContain('/beauty');
     expect(content).toContain('/schedule');
     expect(content).toContain('/journal');

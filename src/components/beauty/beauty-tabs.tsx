@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface BeautyTabsProps {
   productsContent: ReactNode;
@@ -11,15 +12,21 @@ export function BeautyTabs({
   productsContent,
   routinesContent,
 }: BeautyTabsProps) {
-  const [activeTab, setActiveTab] = useState<'products' | 'routines'>(
-    'products',
-  );
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const activeTab = pathname === '/beauty/routines' ? 'routines' : 'products';
+
+  const switchTab = (tab: 'products' | 'routines') => {
+    const href = tab === 'routines' ? '/beauty/routines' : '/beauty/products';
+    router.push(href, { scroll: false });
+  };
 
   return (
     <div>
       <div className="flex border-b border-border">
         <button
-          onClick={() => setActiveTab('products')}
+          onClick={() => switchTab('products')}
           className={`flex-1 py-3 text-center font-body text-base transition-colors ${
             activeTab === 'products'
               ? 'border-b-2 border-accent font-bold text-primary'
@@ -31,7 +38,7 @@ export function BeautyTabs({
           Products
         </button>
         <button
-          onClick={() => setActiveTab('routines')}
+          onClick={() => switchTab('routines')}
           className={`flex-1 py-3 text-center font-body text-base transition-colors ${
             activeTab === 'routines'
               ? 'border-b-2 border-accent font-bold text-primary'

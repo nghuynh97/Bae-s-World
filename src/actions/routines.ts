@@ -64,27 +64,37 @@ export async function getRoutinesWithSteps(): Promise<RoutineWithSteps[]> {
     .where(inArray(routineSteps.routineId, routineIds))
     .orderBy(asc(routineSteps.stepOrder));
 
-  // Fetch thumb variants for all product images
+  // Fetch thumb variants for all product images (fallback: medium → large → full)
   const imageIds = [...new Set(allSteps.map((s) => s.imageId))];
   let thumbUrlByImageId: Record<string, string> = {};
 
   if (imageIds.length > 0) {
-    const thumbVariants = await db
+    const allVariants = await db
       .select()
       .from(imageVariants)
-      .where(
-        and(
-          inArray(imageVariants.imageId, imageIds),
-          eq(imageVariants.variantName, 'thumb'),
-        ),
-      );
+      .where(inArray(imageVariants.imageId, imageIds));
 
-    if (thumbVariants.length > 0) {
-      const paths = thumbVariants.map((v) => v.storagePath);
+    // Pick best variant per image: thumb > medium > large > full
+    const preferenceOrder = ['thumb', 'medium', 'large', 'full'];
+    const bestVariantByImageId: Record<string, (typeof allVariants)[0]> = {};
+    for (const v of allVariants) {
+      const current = bestVariantByImageId[v.imageId];
+      if (
+        !current ||
+        preferenceOrder.indexOf(v.variantName) <
+          preferenceOrder.indexOf(current.variantName)
+      ) {
+        bestVariantByImageId[v.imageId] = v;
+      }
+    }
+
+    const bestVariants = Object.values(bestVariantByImageId);
+    if (bestVariants.length > 0) {
+      const paths = bestVariants.map((v) => v.storagePath);
       const signedUrls = await getSignedImageUrls(paths);
 
-      for (let i = 0; i < thumbVariants.length; i++) {
-        thumbUrlByImageId[thumbVariants[i].imageId] =
+      for (let i = 0; i < bestVariants.length; i++) {
+        thumbUrlByImageId[bestVariants[i].imageId] =
           signedUrls[i]?.signedUrl ?? '';
       }
     }

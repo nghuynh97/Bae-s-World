@@ -121,7 +121,7 @@ export async function updateAboutContent(data: {
       .returning();
 
     revalidatePath('/');
-    revalidatePath('/admin/about');
+    revalidatePath('/admin');
     return created;
   }
 
@@ -133,6 +133,6 @@ export async function updateAboutContent(data: {
     .returning();
 
   revalidatePath('/');
-  revalidatePath('/admin/about');
+  revalidatePath('/admin');
   return updated;
 }

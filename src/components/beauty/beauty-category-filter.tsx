@@ -27,7 +27,7 @@ export function BeautyCategoryFilter({
 
   return (
     <div
-      className="scrollbar-hide flex gap-2 overflow-x-auto pb-2"
+      className="scrollbar-hide flex gap-2 overflow-x-auto pb-2 flex-wrap"
       role="tablist"
     >
       {allCategories.map((cat) => (

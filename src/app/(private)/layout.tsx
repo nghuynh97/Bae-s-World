@@ -25,7 +25,7 @@ export default async function PrivateLayout({
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-14 md:px-8 md:pb-0">
         {children}
       </main>
-      <BottomTabBar isAuthenticated={true} />
+      <BottomTabBar isAuthenticated={true} userName={userName} />
     </>
   );
 }

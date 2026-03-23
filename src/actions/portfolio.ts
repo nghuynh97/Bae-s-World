@@ -195,7 +195,7 @@ export async function createPortfolioItem(data: {
     })
     .returning();
 
-  revalidatePath('/admin/portfolio');
+  revalidatePath('/admin');
   revalidatePath('/');
   return created;
 }
@@ -241,7 +241,7 @@ export async function updatePortfolioItem(
     .where(eq(portfolioItems.id, itemId))
     .returning();
 
-  revalidatePath('/admin/portfolio');
+  revalidatePath('/admin');
   revalidatePath('/');
   return updated;
 }
@@ -283,7 +283,7 @@ export async function deletePortfolioItem(itemId: string) {
   // Delete the portfolio item record
   await db.delete(portfolioItems).where(eq(portfolioItems.id, itemId));
 
-  revalidatePath('/admin/portfolio');
+  revalidatePath('/admin');
   revalidatePath('/');
   return { success: true };
 }

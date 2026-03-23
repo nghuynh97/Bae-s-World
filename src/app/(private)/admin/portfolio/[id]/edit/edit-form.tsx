@@ -66,7 +66,7 @@ export function EditPortfolioForm({
         categoryId: data.categoryId,
       });
       toast.success('Changes saved');
-      router.push('/admin/portfolio');
+      router.push('/admin');
     } catch {
       toast.error('Changes could not be saved. Please try again.');
     } finally {
@@ -112,7 +112,11 @@ export function EditPortfolioForm({
           control={control}
           name="categoryId"
           render={({ field }) => (
-            <Select value={field.value} onValueChange={field.onChange}>
+            <Select
+              value={field.value ?? null}
+              onValueChange={field.onChange}
+              items={categories.map((cat) => ({ value: cat.id, label: cat.name }))}
+            >
               <SelectTrigger
                 className="w-full"
                 aria-invalid={!!errors.categoryId}
@@ -147,7 +151,7 @@ export function EditPortfolioForm({
             {isSubmitting ? 'Saving...' : 'Save Changes'}
           </span>
         </Button>
-        <Link href="/admin/portfolio">
+        <Link href="/admin">
           <Button
             type="button"
             variant="outline"
