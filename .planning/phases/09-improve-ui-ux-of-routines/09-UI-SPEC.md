@@ -49,11 +49,13 @@ Exceptions: Touch targets for product grid items use the full aspect-square cell
 |------|------|--------|-------------|
 | Body | 14px | 400 (regular) | 1.5 |
 | Label | 12px | 400 (regular) | 1.5 |
-| Heading | 16px | 500 (medium) | 1.2 |
+| Heading | 16px | 700 (bold) | 1.2 |
 | Display | 20px | 700 (bold) | 1.2 |
 
+Two-weight system: 400 (regular) for body and label text, 700 (bold) for headings and display text. No intermediate weights.
+
 Phase-specific usage:
-- **Dialog title** ("Add step"): 16px / 500 weight — uses DialogTitle base style (`text-base leading-none font-medium`)
+- **Dialog title** ("Add step"): 16px / 700 weight — uses DialogTitle with `font-bold` override
 - **Product name overlay**: 12px / 400 weight — truncated single line below thumbnail
 - **Search input placeholder**: 14px / 400 weight — inherited from Input component
 - **Category filter pills**: 14px / 400 weight — matches existing BeautyCategoryFilter (`text-sm`)
@@ -115,6 +117,15 @@ Additional color treatments specific to this phase:
 
 ---
 
+## Focal Points
+
+| View | Focal Element | Notes |
+|------|--------------|-------|
+| Pre-dialog routine list | Routine card heading + step list | The routine name and its ordered steps are the primary scan target. The "Add step" button is intentionally secondary — outline variant, placed below steps, no accent fill at rest. |
+| Picker dialog open | Product photo grid | The 3-column image grid draws the eye. Search bar and category pills are utility controls above the focal area. |
+
+---
+
 ## Interaction Contract
 
 ### Picker Dialog Flow
@@ -131,7 +142,7 @@ Additional color treatments specific to this phase:
 6. **Already-added products**: Cards show `opacity-40` + centered white Check icon overlay + `pointer-events-none`
 7. **Adding a product**: Tap an available (not dimmed) product card -> optimistic add to local `addedIds` Set -> call `addRoutineStep` server action -> call `onStepAdded` callback -> product immediately gets dimmed+checkmark treatment
 8. **Multi-add**: Dialog stays open after adding. User can add multiple products in one session.
-9. **Error handling**: If `addRoutineStep` fails, revert optimistic state, show `toast.error("Failed to add step")`
+9. **Error handling**: If `addRoutineStep` fails, revert optimistic state, show `toast.error("Failed to add step — please try again")`
 10. **Close**: User taps X button or clicks backdrop. Dialog closes with fade-out + zoom-out animation. Routine card shows new steps.
 
 ### Dialog Sizing
@@ -165,7 +176,7 @@ The search bar and category pills are sticky at the top. The grid area below scr
 | Search placeholder | "Search products..." |
 | Empty state heading | (none — single line) |
 | Empty state body | "No products match your search" |
-| Error state | toast.error: "Failed to add step" |
+| Error state | toast.error: "Failed to add step — please try again" |
 | Routine empty steps | "No steps yet. Add products to build your routine." |
 | Step added feedback | (no toast — visual feedback via dimming is sufficient) |
 | Step removed feedback | "{product name} removed from {routine name}" (existing pattern) |
@@ -186,7 +197,7 @@ Note: No destructive actions exist in this phase. The picker only adds; removal 
 | Product available | Normal opacity, cursor-pointer, hover:scale-105 transition |
 | Product already added | opacity-40, pointer-events-none, centered Check icon overlay |
 | Product being added | (optimistic) immediately transitions to already-added state |
-| Add failed | Reverts to available state, toast.error shown |
+| Add failed | Reverts to available state, toast.error shown with recovery hint |
 | No search results | "No products match your search" centered text |
 | No products at all | Grid area empty (edge case — unlikely for active user) |
 
