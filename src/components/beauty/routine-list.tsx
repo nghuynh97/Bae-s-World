@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   DndContext,
   closestCenter,
@@ -16,7 +17,7 @@ import {
   arrayMove,
 } from '@dnd-kit/sortable';
 import { RoutineStep } from './routine-step';
-import { RoutineStepSearch } from './routine-step-search';
+import { RoutineProductPicker } from './routine-product-picker';
 import {
   reorderRoutineSteps,
   removeRoutineStep,
@@ -24,13 +25,40 @@ import {
 } from '@/actions/routines';
 import { toast } from 'sonner';
 
-interface RoutineListProps {
-  initialRoutines: RoutineWithSteps[];
+interface ProductData {
+  id: string;
+  name: string;
+  brand: string | null;
+  categoryId: string;
+  categoryName: string;
+  categorySlug: string;
+  rating: number;
+  notes: string | null;
+  isFavorite: number;
+  imageId: string;
+  imageWidth: number | null;
+  imageHeight: number | null;
+  createdAt: Date | null;
+  updatedAt: Date | null;
+  variants: {
+    variantName: string;
+    storagePath: string;
+    width: number;
+    height: number;
+    url: string;
+  }[];
 }
 
-export function RoutineList({ initialRoutines }: RoutineListProps) {
+interface RoutineListProps {
+  initialRoutines: RoutineWithSteps[];
+  allProducts: ProductData[];
+  categories: { id: string; name: string; slug: string }[];
+}
+
+export function RoutineList({ initialRoutines, allProducts, categories }: RoutineListProps) {
   const [routinesState, setRoutinesState] =
     useState<RoutineWithSteps[]>(initialRoutines);
+  const router = useRouter();
 
   // Sync state when server re-renders with fresh data (after revalidatePath)
   useEffect(() => {
@@ -117,8 +145,16 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
   );
 
   const handleStepAdded = useCallback(() => {
-    // revalidatePath in server action triggers re-render with fresh initialRoutines
-  }, []);
+    router.refresh();
+  }, [router]);
+
+  if (routinesState.length === 0) {
+    return (
+      <p className="py-16 text-center text-sm text-text-secondary">
+        No routines found. Run the seed script to create default routines.
+      </p>
+    );
+  }
 
   return (
     <div>
@@ -139,7 +175,7 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
 
           {routine.steps.length === 0 ? (
             <p className="py-4 text-center text-sm text-text-secondary">
-              No steps yet. Search for products to add.
+              No steps yet. Add products to build your routine.
             </p>
           ) : (
             <DndContext
@@ -163,12 +199,13 @@ export function RoutineList({ initialRoutines }: RoutineListProps) {
             </DndContext>
           )}
 
-          <div className="mt-4">
-            <RoutineStepSearch
-              routineId={routine.id}
-              onStepAdded={handleStepAdded}
-            />
-          </div>
+          <RoutineProductPicker
+            routineId={routine.id}
+            currentStepProductIds={routine.steps.map(s => s.product.id)}
+            allProducts={allProducts}
+            categories={categories}
+            onStepAdded={handleStepAdded}
+          />
         </div>
       ))}
     </div>
