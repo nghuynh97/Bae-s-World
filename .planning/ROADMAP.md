@@ -165,3 +165,13 @@ Plans:
 Plans:
 - [ ] 08-01-PLAN.md — DM Sans font swap (layout + globals.css + tokens test) and aboutContent schema extension (tagline, height, weight)
 - [ ] 08-02-PLAN.md — Quilted grid component, hero banner, portfolio page wiring, About page removal, nav cleanup, admin editor upgrade
+
+### Phase 9: Improve UI, UX of Routines
+
+**Goal:** The routine step builder uses a visual photo grid picker dialog instead of a search-only input, making it easy to browse and add products even when you cannot remember names
+**Requirements**: P09-01, P09-02, P09-03, P09-04, P09-05, P09-06, P09-07
+**Depends on:** Phase 8
+**Plans:** 1 plan
+
+Plans:
+- [ ] 09-01-PLAN.md — RoutineProductPicker dialog component with photo grid, search/category filter, dimmed overlay for added products, wired into RoutineList and beauty page
