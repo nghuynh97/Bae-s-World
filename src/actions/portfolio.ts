@@ -158,7 +158,7 @@ export async function getPortfolioItemById(itemId: string) {
 }
 
 const createPortfolioItemSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title too long'),
+  title: z.string().max(100, 'Title too long').optional().default(''),
   description: z
     .string()
     .max(500, 'Description too long')
