@@ -12,6 +12,7 @@
     "db:seed:portfolio": "node --env-file=.env.local node_modules/tsx/dist/cli.mjs scripts/seed-portfolio.ts",
     "db:seed:beauty": "node --env-file=.env.local node_modules/tsx/dist/cli.mjs scripts/seed-beauty.ts",
     "db:seed:all": "npm run db:setup && npm run db:seed && npm run db:seed:portfolio && npm run db:seed:beauty",
+    "seed": "node --env-file=.env.local node_modules/tsx/dist/cli.mjs scripts/seed-all.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
