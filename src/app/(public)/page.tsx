@@ -47,6 +47,7 @@ export default async function PortfolioPage() {
             email={aboutContent.email}
             instagramUrl={aboutContent.instagramUrl}
             tiktokUrl={aboutContent.tiktokUrl}
+            facebookUrl={aboutContent.facebookUrl}
           />
         </div>
       )}

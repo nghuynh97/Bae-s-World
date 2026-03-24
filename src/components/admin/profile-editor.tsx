@@ -18,6 +18,7 @@ const aboutSchema = z.object({
   email: z.string().email('Invalid email').optional().or(z.literal('')),
   instagramUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
   tiktokUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
+  facebookUrl: z.string().url('Invalid URL').optional().or(z.literal('')),
   tagline: z
     .string()
     .max(200, 'Tagline too long')
@@ -63,6 +64,7 @@ export function ProfileEditor() {
           email: content.email ?? '',
           instagramUrl: content.instagramUrl ?? '',
           tiktokUrl: content.tiktokUrl ?? '',
+          facebookUrl: content.facebookUrl ?? '',
           tagline: content.tagline ?? '',
           height: content.height ?? '',
           weight: content.weight ?? '',
@@ -86,6 +88,7 @@ export function ProfileEditor() {
         email: data.email || null,
         instagramUrl: data.instagramUrl || null,
         tiktokUrl: data.tiktokUrl || null,
+        facebookUrl: data.facebookUrl || null,
         tagline: data.tagline || null,
         height: data.height || null,
         weight: data.weight || null,
@@ -185,6 +188,22 @@ export function ProfileEditor() {
         />
         {errors.tiktokUrl && (
           <p className="text-sm text-destructive">{errors.tiktokUrl.message}</p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="facebookUrl">Facebook URL</Label>
+        <Input
+          id="facebookUrl"
+          type="url"
+          placeholder="https://facebook.com/..."
+          {...register('facebookUrl')}
+          aria-invalid={!!errors.facebookUrl}
+        />
+        {errors.facebookUrl && (
+          <p className="text-sm text-destructive">
+            {errors.facebookUrl.message}
+          </p>
         )}
       </div>
 

@@ -25,7 +25,7 @@ export function UploadProgress({ files }: { files: UploadFile[] }) {
         <div key={index} className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-2">
             {uploadFile.status === 'complete' && uploadFile.previewUrl ? (
-              <div className="flex items-center gap-2 flex-1">
+              <div className="flex items-center gap-2">
                 <div className="h-10 w-10 shrink-0 overflow-hidden rounded-md bg-muted">
                   <img
                     src={uploadFile.previewUrl}
@@ -33,7 +33,7 @@ export function UploadProgress({ files }: { files: UploadFile[] }) {
                     className="h-full w-full object-cover"
                   />
                 </div>
-                <span className="flex-1 truncate font-body text-sm font-bold">
+                <span className="line-clamp-1 font-body text-sm font-bold">
                   {uploadFile.file.name}
                 </span>
               </div>

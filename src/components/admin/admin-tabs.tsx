@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 interface AdminTabsProps {
   portfolioContent: ReactNode;
@@ -11,15 +13,16 @@ export function AdminTabs({
   portfolioContent,
   profileContent,
 }: AdminTabsProps) {
-  const [activeTab, setActiveTab] = useState<'portfolio' | 'profile'>(
-    'portfolio',
-  );
+  const pathname = usePathname();
+  const activeTab = pathname.startsWith('/admin/profile')
+    ? 'profile'
+    : 'portfolio';
 
   return (
     <div>
       <div className="flex border-b border-border">
-        <button
-          onClick={() => setActiveTab('portfolio')}
+        <Link
+          href="/admin"
           className={`flex-1 py-3 text-center font-body text-base transition-colors ${
             activeTab === 'portfolio'
               ? 'border-b-2 border-accent font-bold text-primary'
@@ -29,9 +32,9 @@ export function AdminTabs({
           aria-selected={activeTab === 'portfolio'}
         >
           Portfolio
-        </button>
-        <button
-          onClick={() => setActiveTab('profile')}
+        </Link>
+        <Link
+          href="/admin/profile"
           className={`flex-1 py-3 text-center font-body text-base transition-colors ${
             activeTab === 'profile'
               ? 'border-b-2 border-accent font-bold text-primary'
@@ -41,7 +44,7 @@ export function AdminTabs({
           aria-selected={activeTab === 'profile'}
         >
           Profile
-        </button>
+        </Link>
       </div>
       <div className="pt-6">
         {activeTab === 'portfolio' ? portfolioContent : profileContent}

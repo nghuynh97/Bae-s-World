@@ -51,6 +51,7 @@ export async function getAboutContent() {
     email: content.email,
     instagramUrl: content.instagramUrl,
     tiktokUrl: content.tiktokUrl,
+    facebookUrl: content.facebookUrl,
     tagline: content.tagline,
     height: content.height,
     weight: content.weight,
@@ -65,6 +66,7 @@ const updateAboutContentSchema = z.object({
   email: z.string().email('Invalid email').optional().nullable(),
   instagramUrl: z.string().url('Invalid URL').optional().nullable(),
   tiktokUrl: z.string().url('Invalid URL').optional().nullable(),
+  facebookUrl: z.string().url('Invalid URL').optional().nullable(),
   profileImageId: z.string().uuid('Invalid image').optional().nullable(),
   tagline: z.string().max(200, 'Tagline too long').optional().nullable(),
   height: z.string().max(20, 'Height too long').optional().nullable(),
@@ -76,6 +78,7 @@ export async function updateAboutContent(data: {
   email?: string | null;
   instagramUrl?: string | null;
   tiktokUrl?: string | null;
+  facebookUrl?: string | null;
   profileImageId?: string | null;
   tagline?: string | null;
   height?: string | null;
@@ -112,6 +115,7 @@ export async function updateAboutContent(data: {
         email: parsed.data.email ?? null,
         instagramUrl: parsed.data.instagramUrl ?? null,
         tiktokUrl: parsed.data.tiktokUrl ?? null,
+        facebookUrl: parsed.data.facebookUrl ?? null,
         tagline: parsed.data.tagline ?? null,
         height: parsed.data.height ?? null,
         weight: parsed.data.weight ?? null,

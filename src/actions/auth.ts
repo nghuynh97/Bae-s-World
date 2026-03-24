@@ -111,7 +111,7 @@ export async function setupAccount(
     return { error: signInError.message };
   }
 
-  redirect('/beauty');
+  redirect('/');
 }
 
 export async function login(email: string, password: string) {
@@ -127,7 +127,7 @@ export async function login(email: string, password: string) {
     return { error: 'Email or password is incorrect. Please try again.' };
   }
 
-  redirect('/beauty');
+  redirect('/');
 }
 
 export async function logout() {

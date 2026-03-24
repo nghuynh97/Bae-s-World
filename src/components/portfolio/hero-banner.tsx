@@ -1,4 +1,4 @@
-import { Instagram, Mail, Music2, User } from 'lucide-react';
+import { Facebook, Instagram, Mail, Music2, User } from 'lucide-react';
 
 interface HeroBannerProps {
   profileImageUrl: string | null;
@@ -10,6 +10,7 @@ interface HeroBannerProps {
   email: string | null;
   instagramUrl: string | null;
   tiktokUrl: string | null;
+  facebookUrl: string | null;
 }
 
 export function HeroBanner({
@@ -22,6 +23,7 @@ export function HeroBanner({
   email,
   instagramUrl,
   tiktokUrl,
+  facebookUrl,
 }: HeroBannerProps) {
   const stats = [height, weight].filter(Boolean);
 
@@ -80,6 +82,17 @@ export function HeroBanner({
               className="text-text-secondary transition-colors hover:text-accent"
             >
               <Music2 size={18} />
+            </a>
+          )}
+          {facebookUrl && (
+            <a
+              href={facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="text-text-secondary transition-colors hover:text-accent"
+            >
+              <Facebook size={18} />
             </a>
           )}
           {email && (

@@ -76,15 +76,15 @@ async function cleanStorage() {
 async function resetAllData() {
   console.log('Resetting all content tables...');
   await db.delete(routineSteps);
+  await db.delete(routines);
   await db.delete(portfolioItems);
   await db.delete(beautyProducts);
+  await db.delete(aboutContent);
   await db.delete(imageVariants);
   await db.delete(images);
-  await db.delete(routines);
   await db.delete(categories);
   await db.delete(beautyCategories);
   await db.delete(scheduleJobs);
-  await db.delete(aboutContent);
   console.log('All content tables cleared.');
 }
 
@@ -164,6 +164,7 @@ async function seedPortfolio(uploadedBy: string) {
     email: null,
     instagramUrl: null,
     tiktokUrl: null,
+    facebookUrl: null,
     profileImageId: null,
   });
 
@@ -385,13 +386,15 @@ async function seedSchedule() {
 async function main() {
   console.log('=== Seed All: Reset & Populate ===\n');
 
-  // Get first profile for uploadedBy
+  // Get first profile for uploadedBy, or use a dummy value
   const profileRows = await db.select().from(profiles).limit(1);
+  const uploadedBy =
+    profileRows.length > 0
+      ? profileRows[0].authId
+      : 'seed-dummy-user-00000000';
   if (profileRows.length === 0) {
-    console.error('No profiles found. Please create a user account first.');
-    process.exit(1);
+    console.log('No profiles found — using dummy uploadedBy value.');
   }
-  const uploadedBy = profileRows[0].authId;
 
   await cleanStorage();
   await resetAllData();

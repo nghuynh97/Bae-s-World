@@ -79,18 +79,6 @@ export function Lightbox({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [open, goToPrev, goToNext, handleClose]);
 
-  // Body scroll lock
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
-
   // Swipe support
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     const touch = e.touches[0];

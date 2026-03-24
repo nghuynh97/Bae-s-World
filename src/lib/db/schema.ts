@@ -73,6 +73,7 @@ export const aboutContent = pgTable('about_content', {
   email: text('email'),
   instagramUrl: text('instagram_url'),
   tiktokUrl: text('tiktok_url'),
+  facebookUrl: text('facebook_url'),
   tagline: text('tagline'),
   height: text('height'),
   weight: text('weight'),
