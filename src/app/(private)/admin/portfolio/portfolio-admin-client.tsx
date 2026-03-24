@@ -69,12 +69,12 @@ interface PortfolioAdminClientProps {
 // --- Upload Form Schema ---
 
 const uploadSchema = z.object({
-  title: z.string().max(100, 'Title too long').default(''),
+  title: z.string().max(100, 'Title too long').optional().default(''),
   description: z.string().max(500, 'Description too long').optional(),
   categoryId: z.string().min(1, 'Category is required'),
 });
 
-type UploadFormData = z.infer<typeof uploadSchema>;
+type UploadFormData = z.input<typeof uploadSchema>;
 
 // --- Component ---
 
@@ -126,7 +126,7 @@ export function PortfolioAdminClient({
       await Promise.all(
         imageIds.map((id) =>
           createPortfolioItem({
-            title: data.title,
+            title: data.title ?? '',
             description: data.description || undefined,
             categoryId: data.categoryId,
             imageId: id,
