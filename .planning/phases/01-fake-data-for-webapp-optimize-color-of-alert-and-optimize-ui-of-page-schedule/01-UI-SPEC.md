@@ -54,9 +54,9 @@ Source: Existing project tokens in `globals.css`. No modifications needed.
 | Body | 14px | 400 (regular) | 1.5 |
 | Label | 12px | 400 (regular) | 1.5 |
 | Heading | 20px | 600 (semibold) | 1.2 |
-| Display | 28px | 700 (bold) | 1.2 |
+| Display | 28px | 600 (semibold) | 1.2 |
 
-Source: Existing project usage. `stats-header.tsx` uses `text-xs` (12px) for labels, `text-[28px] font-bold` for stat values. This phase reuses those exact values.
+Source: Existing project usage. `stats-header.tsx` uses `text-xs` (12px) for labels, `text-[28px]` for stat values. Display weight normalized to 600 (semibold) to stay within the 2-weight budget.
 
 ### Phase-Specific Typography
 
@@ -64,9 +64,9 @@ Source: Existing project usage. `stats-header.tsx` uses `text-xs` (12px) for lab
 |---------|------|--------|-------|
 | Toast message text | 14px | 400 | Inherited from Sonner defaults, no change |
 | Stat card title ("This Week") | 12px (`text-xs`) | 400 | Matches existing StatCard label |
-| Stat card value (job count) | 28px (`text-[28px]`) | 700 (`font-bold`) | Matches existing StatCard display value |
+| Stat card value (job count) | 28px (`text-[28px]`) | 600 (`font-semibold`) | Display role, uses semibold to match 2-weight budget |
 | Stat card sublabel | 12px (`text-xs`) | 400 | Matches existing StatCard sublabel |
-| Admin seed button label | 14px (`text-sm`) | 500 (`font-medium`) | Matches existing admin button styles |
+| Admin seed button label | 14px (`text-sm`) | 400 (`font-normal`) | Body role weight, normalized from medium to stay within 2-weight budget |
 
 ---
 
@@ -116,7 +116,7 @@ Implementation note: Use Tailwind `!important` modifiers (`!bg-emerald-50`) to o
 | Empty state body | Not applicable |
 | Error state (toast) | "Something went wrong. Please try again." |
 | Success state (toast, seed) | "Data reset and seeded successfully" |
-| Warning state (toast) | Context-dependent, no new warning patterns added |
+| Warning state (toast) | "Some items were skipped due to missing images." |
 | Destructive confirmation | Reset & Seed: "This will delete ALL existing data and replace it with sample data. This cannot be undone. Continue?" |
 
 ### Schedule Stat Card Copy
@@ -125,7 +125,7 @@ Implementation note: Use Tailwind `!important` modifiers (`!bg-emerald-50`) to o
 |---------|------|--------|
 | Card title | "This Week" | Static text |
 | Card sublabel | "{Mon DD} - {Sun DD}" | Date range of current ISO week, e.g. "Mar 23 - Mar 29" |
-| Card value | "{N}" | Integer job count, displayed at 28px bold |
+| Card value | "{N}" | Integer job count, displayed at 28px semibold |
 | Card detail line | "{N} upcoming jobs" | Below the count value |
 
 ### Admin Seed Button Copy
@@ -136,7 +136,7 @@ Implementation note: Use Tailwind `!important` modifiers (`!bg-emerald-50`) to o
 | Confirmation dialog title | "Reset All Data?" |
 | Confirmation dialog body | "This will delete all portfolio items, beauty products, routines, and schedule jobs, then insert sample data. This cannot be undone." |
 | Confirmation button | "Yes, Reset Everything" |
-| Cancel button | "Cancel" |
+| Cancel button | "Keep My Data" |
 | Loading state | "Seeding..." (with spinner) |
 
 ---
