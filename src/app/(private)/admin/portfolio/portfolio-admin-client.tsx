@@ -69,7 +69,7 @@ interface PortfolioAdminClientProps {
 // --- Upload Form Schema ---
 
 const uploadSchema = z.object({
-  title: z.string().max(100, 'Title too long').optional().default(''),
+  title: z.string().max(100, 'Title too long').default(''),
   description: z.string().max(500, 'Description too long').optional(),
   categoryId: z.string().min(1, 'Category is required'),
 });
