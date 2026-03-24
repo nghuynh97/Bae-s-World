@@ -2,6 +2,7 @@ import {
   getJobsForMonth,
   getIncomeStats,
   getYearlyStats,
+  getWeekJobCount,
 } from '@/actions/schedule';
 import { CalendarHeader } from '@/components/schedule/calendar-header';
 import { CalendarGrid } from '@/components/schedule/calendar-grid';
@@ -56,10 +57,11 @@ export default async function SchedulePage({
   const year = params.year ? parseInt(params.year, 10) : now.getFullYear();
   const month = params.month ? parseInt(params.month, 10) : now.getMonth() + 1;
 
-  const [jobs, monthStats, yearlyStats] = await Promise.all([
+  const [jobs, monthStats, yearlyStats, weekData] = await Promise.all([
     getJobsForMonth(year, month),
     getIncomeStats(year, month),
     getYearlyStats(year),
+    getWeekJobCount(),
   ]);
 
   // Compute year totals from yearlyStats
@@ -110,6 +112,8 @@ export default async function SchedulePage({
         }}
         monthLabel={monthLabel}
         yearLabel={yearLabel}
+        weekJobCount={weekData.count}
+        weekRange={`${weekData.weekStart} - ${weekData.weekEnd}`}
       />
 
 

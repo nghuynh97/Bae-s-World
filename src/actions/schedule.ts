@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { db } from '@/lib/db';
 import { scheduleJobs } from '@/lib/db/schema';
 import { eq, and, gte, lte, asc } from 'drizzle-orm';
+import { startOfWeek, endOfWeek, format } from 'date-fns';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 
@@ -251,4 +252,28 @@ export async function getYearlyStats(year: number) {
   }
 
   return monthlyStats;
+}
+
+export async function getWeekJobCount(): Promise<{ count: number; weekStart: string; weekEnd: string }> {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('Unauthorized');
+
+  const now = new Date();
+  const weekStart = startOfWeek(now, { weekStartsOn: 1 });
+  const weekEnd = endOfWeek(now, { weekStartsOn: 1 });
+  const weekStartStr = format(weekStart, 'yyyy-MM-dd');
+  const weekEndStr = format(weekEnd, 'yyyy-MM-dd');
+
+  const jobs = await db.select().from(scheduleJobs)
+    .where(and(
+      gte(scheduleJobs.jobDate, weekStartStr),
+      lte(scheduleJobs.jobDate, weekEndStr),
+    ));
+
+  return {
+    count: jobs.length,
+    weekStart: format(weekStart, 'MMM d'),
+    weekEnd: format(weekEnd, 'MMM d'),
+  };
 }
