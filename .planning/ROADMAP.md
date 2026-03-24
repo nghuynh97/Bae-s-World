@@ -22,3 +22,14 @@
 Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 </details>
+
+### Phase 1: Fake data for webapp, optimize color of alert and optimize UI of page /schedule
+
+**Goal:** Add a unified seed script with admin button for demo data, colored toast backgrounds, weekly job count stat card, and optional portfolio title
+**Requirements**: Post-v1.0 enhancement (no formal requirement IDs)
+**Depends on:** v1.0 (completed)
+**Plans:** 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Seed script (CLI + admin button) with cat images, beauty products, schedule jobs
+- [ ] 01-02-PLAN.md — Toast colors, weekly job count stat card, portfolio form fix
